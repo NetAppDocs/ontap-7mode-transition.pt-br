@@ -1,0 +1,68 @@
+---
+permalink: copy-free/concept_copy_free_transition_using_7mtt.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, 7, mode, tool 
+summary: A ferramenta de transição de 7 modos permite coletar inventário e avaliar controladores, hosts, switches e aplicativos de 7 modos para transição. Após a avaliação, você pode usar uma transição sem cópia para migrar seus dados e configurações para o ONTAP. Na transição sem cópia, você desconete todos os compartimentos de disco de um par de HA de 7 modos e os conecta a um par de HA no cluster de destino. 
+---
+= Transição livre de cópias usando a ferramenta de transição 7-Mode
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A ferramenta de transição de 7 modos permite coletar inventário e avaliar controladores, hosts, switches e aplicativos de 7 modos para transição. Após a avaliação, você pode usar uma transição sem cópia para migrar seus dados e configurações para o ONTAP. Na transição sem cópia, você desconete todos os compartimentos de disco de um par de HA de 7 modos e os conecta a um par de HA no cluster de destino.
+
+A transição livre de cópias reduz significativamente os custos de migração ao permitir a reutilização de compartimentos de disco de 7 modos. A duração geral para a realização da transição é mais rápida porque a cópia de dados não é necessária.
+
+A unidade de uma transição livre de cópias é um par de HA. É necessário mover todas as gavetas de disco do par de HA de 7 modos para os nós de cluster de destino.
+
+Os metadados dos agregados e volumes do modo 7 são convertidos para o formato ONTAP pela ferramenta de transição de modo 7D. O tempo necessário para essa conversão não depende do tamanho dos agregados e volumes. Por exemplo, o tempo necessário para converter um agregado de 10 GB para o formato ONTAP é o mesmo que o tempo necessário para converter um agregado de 100 TB.
+
+A transição livre de cópias envolve uma interrupção do acesso aos dados. No entanto, o tempo total necessário para executar a migração de dados é mais rápido, pois não é necessária cópia de dados.
+
+A ilustração a seguir mostra os cenários antes e depois para a transição livre de cópias de um par de HA de 7 modos para um cluster de dois nós:
+
+image::../media/cft_overview.gif[visão geral do cft]
+
+A ferramenta de transição de 7 modos é executada em um sistema Windows e fornece interface web para gerenciar operações de transição.
+
+
+
+== Coleta e avaliação de sistemas, hosts, switches e aplicativos ONTAP
+
+Você pode executar as seguintes tarefas de coleta e avaliação usando a ferramenta de transição de 7 modos:
+
+* Coleta de informações de inventário de sistemas ONTAP (controladores e nós de 7 modos no cluster), hosts, switches e aplicativos de host.
+* Gerando o plano FC Zone para configurar as zonas para a transição SAN FC.
+* Avaliar os recursos e funcionalidades dos sistemas 7-Mode e identificar como esses recursos e funcionalidades funcionam na versão ONTAP selecionada para a transição.
+
+
+
+
+== Movimentação de dados e configurações do modo 7 para o ONTAP
+
+A transição sem cópias reusa as gavetas de disco de 7 modos para copiar dados de 7 modos do modo 7 para o ONTAP. Você pode executar as seguintes tarefas usando a ferramenta de transição de 7 modos para migração sem cópia:
+
+* Planejando sua transição para mapear os controladores de 7 modos ou unidades do vFiler para os SVMs de destino e projetar o namespace.
+* Execução de pré-verificações para verificar a compatibilidade dos sistemas 7-Mode e dos nós de cluster de destino para transição.
+* Importando compartimentos de disco de 7 modos das seguintes maneiras:
++
+** De um par de HA de 7 modos a um novo par de HA em um novo cluster
+** De um par de HA de 7 modos a um novo par de HA em um cluster existente que tem nós de fornecimento de dados adicionais
+** De um par de HA de 7 modos a um par de HA que tem agregados de dados em um cluster existente que está fornecendo dados
+** De um par de HA que contém volumes em uma relação de volume SnapMirror para um par de HA em um cluster novo ou existente
++
+Você deve criar manualmente o relacionamento de pares de cluster após a transição. No entanto, uma transferência de linha de base não é necessária e você pode manter o relacionamento de SnapMirror após a transição.
+
+
+
+* Transição de configurações de 7 modos para SVMs.
++
+A transição livre de cópias é compatível com a transição de configurações nas e SAN.
+
+* Reverter o armazenamento e as configurações para o modo 7 se a transição para o ONTAP falhar.
++
+A ferramenta gera a lista de etapas necessárias para reverter para o modo 7D. Você deve executar manualmente essas etapas de reversão nos sistemas de 7 modos e no cluster.
+
+

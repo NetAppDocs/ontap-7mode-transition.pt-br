@@ -1,0 +1,14 @@
+---
+permalink: command-map/index.html 
+sidebar: sidebar 
+keywords: ontap, command, map, transition, index 
+summary: Mapeia comandos do modo 7D para seus equivalentes no ONTAP 
+---
+= Mapa de comandos para administradores de 7 modos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este guia mapeia os comandos do modo 7D para seus equivalentes no ONTAP.

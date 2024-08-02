@@ -1,0 +1,18 @@
+---
+permalink: snapmirror/task_recovering_from_a_disaster_at_7_mode_site_during_transition.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, transition, snapmirror, recover, disaster, site 
+summary: 'Se você tiver estabelecido uma relação de recuperação de desastres (DR) do SnapMirror entre o volume primário de 7 modos e o volume secundário do Data ONTAP em cluster e se ocorrer um desastre no site primário de 7 modos, você poderá direcionar o acesso do cliente ao volume secundário do Data ONTAP em cluster. Depois que o volume primário de 7 modos for colocado novamente on-line, você terá que executar etapas adicionais para redirecionar os clientes para o volume primário Data ONTAP em cluster.' 
+---
+= Recuperação de um desastre no local do 7-Mode durante a transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Se você estabeleceu uma relação de recuperação de desastres (DR) do SnapMirror entre o volume primário de 7 modos e o volume secundário do Data ONTAP em cluster e se um desastre ocorrer no local primário de 7 modos, você poderá direcionar o acesso do cliente ao volume secundário do Data ONTAP em cluster. Depois que o volume primário de 7 modos for colocado novamente on-line, você terá que executar etapas adicionais para redirecionar os clientes para o volume primário Data ONTAP em cluster.
+
+Para reter todos os dados gravados no volume secundário do Data ONTAP em cluster após o desastre, você deve fazer a transição do volume primário de 7 modos após o volume primário de 7 modos ficar novamente on-line e estabelecer uma relação de SnapMirror entre os volumes primário e secundário do Data ONTAP em cluster. Em seguida, você pode redirecionar os clientes para os volumes primários do Data ONTAP em cluster.
+
+A ressincronização do SnapMirror de volumes Data ONTAP em cluster para volumes de 7 modos não é suportada. Portanto, se você restabelecer a relação de DR entre o volume primário de 7 modos e o volume secundário de Data ONTAP em cluster após o desastre, todos os dados gravados no Data ONTAP em cluster secundário serão perdidos.

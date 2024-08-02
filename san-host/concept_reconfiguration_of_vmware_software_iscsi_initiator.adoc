@@ -1,0 +1,24 @@
+---
+permalink: san-host/concept_reconfiguration_of_vmware_software_iscsi_initiator.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, reconfiguration, vmware, software, iscsi, initiator 
+summary: Se o host ESXi acessou o Data ONTAP operando no sistema de 7 modos com o iniciador iSCSI do software VMware, depois da transição do modo 7 para o Data ONTAP em cluster, você deverá reconfigurar o iniciador iSCSI do software VMware no host ESXi e habilitá-lo a descobrir o novo destino Data ONTAP em cluster. 
+---
+= Reconfiguração do iniciador iSCSI do software VMware após a transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Se o host ESXi acessou o Data ONTAP operando no sistema de 7 modos com o iniciador iSCSI do software VMware, depois da transição do modo 7 para o Data ONTAP em cluster, você deverá reconfigurar o iniciador iSCSI do software VMware no host ESXi e habilitá-lo a descobrir o novo destino Data ONTAP em cluster.
+
+Para transições baseadas em cópia, você deve reconfigurar seu iniciador iSCSI de software VMware antes de iniciar a operação de transferência de armazenamento na ferramenta de transição de 7 modos (7MTT). Para transições sem cópia, você deve reconfigurar o iniciador iSCSI do software VMware antes de iniciar a operação Export & Halt 7-Mode Systems no 7MTT.
+
+Durante a reconfiguração, você deve recuperar o IP iSCSI e o IQN usados pelo novo destino Data ONTAP em cluster. Se a sub-rede IP de destino tiver sido alterada, as respetivas alterações de sub-rede IP também são necessárias nas portas do iniciador iSCSI do host.
+
+Para fazer as alterações necessárias ao iniciador iSCSI de software no host VMware ESXi, consulte o _VMware vSphere ESXi5.x Storage Guide_.
+
+*Informações relacionadas*
+
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sag/home.html["Administração do sistema"]

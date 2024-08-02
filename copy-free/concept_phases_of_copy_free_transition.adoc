@@ -1,0 +1,137 @@
+---
+permalink: copy-free/concept_phases_of_copy_free_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, phases 
+summary: 'A transição livre de cópias usando a ferramenta de transição de 7 modos consiste nas seguintes fases: Planejamento, provisionamento de SVM, exportação e parada, cabeamento, importação, teste de pré-produção, início da produção e confirmação. Você deve entender as fases para gerenciar a transição de forma eficaz.' 
+---
+= Fases de transição livre de cópias
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A transição livre de cópias usando a ferramenta de transição de 7 modos consiste nas seguintes fases: Planejamento, provisionamento de SVM, exportação e parada, cabeamento, importação, teste de pré-produção, início da produção e confirmação. Você deve entender as fases para gerenciar a transição de forma eficaz.
+
+A transição livre de cópias é uma operação disruptiva. Portanto, você deve Planejar o tempo de inatividade das aplicações e da carga de trabalho em execução nos sistemas de storage 7-Mode.
+
+Na maioria dos casos, o tempo de transferência de storage pode ser de 3 a 8 horas. O tempo de transição inclui o tempo gasto pela ferramenta para executar duas operações automatizadas - a operação de exportação e parada e a operação de importação -, bem como o tempo gasto para fazer o cabeamento manual dos compartimentos de disco para as novas controladoras. A operação de exportação e parada e a operação de importação juntos podem até 2 horas.
+
+
+NOTE: Para configurações dimensionadas, a operação de exportação e parada e a operação de importação em conjunto podem levar mais de 2 horas. A ferramenta de transição de 7 modos deteta tais condições e fornece um aviso.
+
+O cabeamento das gavetas de disco pode levar de 1 hora a 6 horas. Essa orientação de tempo de transição não inclui o tempo para o teste de pré-produção necessário e assume uma transição livre de erros sem falhas inesperadas, como falha de disco.
+
+image::../media/cft_phases.gif[Fases de transição livre de cópias]
+
+
+
+== Planejando o projeto
+
+Você pode Planejar os seguintes detalhes sobre a origem e o destino de um projeto de transição livre de cópias:
+
+* Par de HA de 7 modos e detalhes da unidade do vFiler
+* Direcione os nós de cluster e mapeie os controladores de origem para os nós de destino
+* Mapeamento de controladora de 7 modos ou unidade do vFiler para SVM
+* Endereços IP para a transição (novos LIFs ou endereços IP 7-Mode existentes) e os domínios IPspaces e broadcast no SVM
++
+
+NOTE: A ferramenta de transição de 7 modos não suporta a transição de FC e iSCSI LIFs. Esses LIFs devem ser configurados manualmente nas SVMs antes da transição.
+
+
+
+Nessa fase, as pré-verificações são executadas para verificar se o par de HA de 7 modos está pronto para ser migrado para o Clustered Data ONTAP. A ferramenta de transição de 7 modos também verifica se o cluster está configurado corretamente e pode suportar a transição.
+
+Você deve resolver quaisquer erros antes de continuar com a transição. Embora a ferramenta permita que você continue sem resolver avisos, é uma prática recomendada abordar quaisquer avisos antes de continuar com a transição. Você pode executar as pré-verificações várias vezes para verificar se todos os erros foram resolvidos.
+
+
+
+== Provisionamento DE SVM
+
+Depois de Planejar seu projeto de transição, você deve executar algumas tarefas manuais, como adicionar licenças, criar o servidor CIFS e criar SAN LIFs, para preparar o cluster e SVMs para a transição.
+
+Em seguida, você pode aplicar as configurações nos SVMs usando a ferramenta. Todas as configurações de nível de unidade do controlador 7-Mode ou do vFiler são transferidas para o SVM mapeado. As configurações de volume e LUN não são transferidas durante esta fase; elas são transferidas na fase de importação.
+
+No final dessa fase, você deve verificar manualmente as configurações aplicadas aos SVMs e fazer as alterações necessárias.
+
+
+
+== Exportação de configurações de armazenamento e parada de sistemas 7-Mode
+
+Esta fase inicia a janela de transição para a transição livre de cópias. O acesso do cliente deve ser desconetado manualmente. No entanto, todos os serviços nas e SAN precisam estar ativos e em execução no par de HA de 7 modos. Isso ocorre porque a ferramenta de transição de 7 modos requer que todos os serviços estejam ativos e em execução para coletar as configurações de nível de volume dos sistemas de 7 modos.
+
+A ferramenta realiza as seguintes operações na fase de exportação:
+
+* Coleta todas as configurações de volume e armazenamento
+* Cria uma cópia Snapshot de cada agregado em transição
++
+Essa cópia Snapshot é usada para reverter para o modo 7, se necessário.
+
+* Inicializa os controladores de 7 modos no modo de manutenção
+* Remove a propriedade do disco dos discos conetados aos controladores do modo 7
+* Desativa a atribuição automática de disco nos nós do cluster de destino
+
+
+
+
+== Cabeamento das gavetas de disco 7-Mode
+
+Você deve executar as tarefas nesta fase manualmente. Você deve garantir que as IDs do compartimento de disco sejam exclusivas nos controladores de 7 modos e nos nós de cluster de destino.
+
+
+NOTE: Se houver IDs de gaveta duplicadas, você deverá alterar as IDs do compartimento de disco e desligar as gavetas de disco.
+
+Você deve desconetar todas as gavetas de disco de 7 modos e adicioná-las a quente aos nós do cluster de destino. Depois que os compartimentos de disco forem conectados aos nós de cluster de destino, você precisará ligar e desligar as gavetas de disco.
+
+É uma prática recomendada verificar manualmente o cabeamento usando o Config Advisor. O Config Advisor é uma ferramenta de validação de configuração e verificação de integridade para sistemas NetApp. Ele pode ser implantado em locais seguros e sites não seguros para coleta de dados e análise do sistema.
+
+Em seguida, você pode verificar o cabeamento usando a ferramenta de transição de 7 modos para prosseguir com a transição. A ferramenta de transição de 7 modos executa apenas um subconjunto das verificações de cabeamento executadas pelo Config Advisor.
+
+
+
+== Importar dados e configurações do modo 7
+
+Todos os objetos de storage (agregados, volumes e LUNs) e as configurações associadas são transferidos durante essa fase.
+
+A ferramenta executa as seguintes operações na fase de importação:
+
+* Os discos de 7 modos são atribuídos aos nós de cluster de destino mapeados.
+* Todos os agregados, volumes e LUNs do modo 7D são convertidos para o formato Data ONTAP em cluster.
+* Os LIFs são configurados nos SVMs no estado administrativo up.
+* Todas as configurações em nível de volume e no nível de LUN são aplicadas.
+
+
+
+
+== Teste de pré-produção
+
+Você precisa testar manualmente todos os agregados, volumes e configurações transferidos aplicados aos SVMs de destino durante essa fase. Também é necessário executar todas as tarefas manuais para concluir a configuração, por exemplo, configurar hosts e executar a correção de host para hosts SAN.
+
+Não é possível executar determinadas operações nos agregados ou volumes transferidos durante esta fase. Há também certas operações que não são recomendadas durante a fase de teste. Isto serve para garantir uma operação de reversão bem-sucedida caso você decida voltar para o modo 7D.
+
+Também é necessário testar cuidadosamente todas as aplicações e workloads manualmente antes de iniciar o acesso aos dados em um ambiente de produção.
+
+
+IMPORTANT: Os agregados podem ficar sem espaço devido às cópias Snapshot agregadas e às operações de gravação executadas durante o teste. Se o espaço físico livre for inferior a 5% do espaço total, os agregados serão desconetados. Você deve monitorar regularmente o espaço físico livre disponível nos agregados transicionados para evitar problemas de espaço.
+
+
+
+== A iniciar a produção
+
+Depois de testar todas as cargas de trabalho e aplicações, você pode iniciar o acesso do cliente aos dados transferidos no ambiente de produção. Esta fase de transição - onde a produção é iniciada, mas o projeto ainda não está comprometido - é a fase final da transição quando você pode decidir reverter para o modo 7D. Você não deve prolongar esta fase por causa das seguintes razões:
+
+* A probabilidade de ficar sem espaço nos agregados transicionados aumenta à medida que novos dados são gravados nos volumes.
+* Quaisquer novos dados gravados nos volumes durante esta fase não estarão disponíveis após a reversão.
+
+
+
+
+== Comprometendo o projeto
+
+Nessa etapa final da transição, as cópias Snapshot de nível agregado que foram criadas durante a fase de exportação são excluídas.
+
+Você não pode reverter para o modo 7 depois de confirmar os agregados do modo 7 e concluir a transição.
+
+*Informações relacionadas*
+
+https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["NetApp Downloads: Config Advisor"]

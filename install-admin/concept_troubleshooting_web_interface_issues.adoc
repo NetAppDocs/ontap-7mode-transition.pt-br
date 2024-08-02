@@ -1,0 +1,14 @@
+---
+permalink: install-admin/concept_troubleshooting_web_interface_issues.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, install, troubleshoot, issues, errors 
+summary: Você precisa estar ciente de alguns dos problemas comuns com a ferramenta de transição de 7 modos e as etapas para resolvê-los. 
+---
+= Solução de problemas
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você precisa estar ciente de alguns dos problemas comuns com a ferramenta de transição de 7 modos e as etapas para resolvê-los.

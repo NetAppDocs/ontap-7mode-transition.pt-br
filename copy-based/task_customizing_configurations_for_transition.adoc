@@ -1,0 +1,49 @@
+---
+permalink: copy-based/task_customizing_configurations_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, customize, 7, mode, configurations 
+summary: Ao Planejar a transição de configurações do modo 7 para o ONTAP, você pode personalizar a transição de configuração de duas maneiras. Você pode ignorar ou ignorar a transição de uma ou mais configurações. Você pode consolidar as regras de exportação de NFS de 7 modos e reutilizar uma política de exportação de NFS e uma política de Snapshot existentes no SVM de destino. 
+---
+= Personalizar a transição das configurações do modo 7D.
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Ao Planejar a transição de configurações do modo 7 para o ONTAP, você pode personalizar a transição de configuração de duas maneiras. Você pode ignorar ou ignorar a transição de uma ou mais configurações. Você pode consolidar as regras de exportação de NFS de 7 modos e reutilizar uma política de exportação de NFS e uma política de Snapshot existentes no SVM de destino.
+
+Você deve executar esta tarefa antes de aplicar a fase de configuração (precutover). Isso ocorre porque, após essa fase, o painel Configuração do plano é desativado para qualquer modificação. Você usa a interface de linha de comando (CLI) da ferramenta de transição de 7 modos para excluir as configurações que são aplicadas durante a fase de transição.
+
+A ferramenta de transição de 7 modos não executa pré-verificações para a configuração excluída.
+
+Por padrão, todas as configurações de 7 modos são selecionadas para transição.
+
+É uma prática recomendada executar as pré-verificações com todas as configurações primeiro e, em seguida, excluir uma ou mais configurações na execução subsequente das pré-verificações. Isso ajuda você a entender quais configurações são excluídas da transição e quais pré-verificações são ignoradas posteriormente.
+
+.Passos
+. Na página Configuração do plano, selecione as seguintes opções no painel *Configuração da SVM*:
++
+** Para excluir a transição de configurações, desmarque a caixa de seleção dessas configurações.
+** Para consolidar regras de exportação de NFS de modo 7D semelhantes a uma única política de exportação no ONTAP, que pode ser aplicada ao volume ou qtree transicionado, marque a caixa de seleção *consolidar políticas de exportação de NFS no modo 7D*.
+** Para reutilizar uma política de exportação NFS existente no SVM que corresponda à política de exportação que será criada pela ferramenta, que pode ser aplicada aos volumes ou qtrees transicionados, marque a caixa de seleção *Reusar políticas de exportação do SVM*.
+** Para consolidar agendas de instantâneos de 7 modos semelhantes a uma única política de instantâneos no ONTAP, que pode ser aplicada ao volume transicionado, selecione a caixa de verificação *consolidar políticas de instantâneos de 7 modos*.
+** Para reutilizar uma política de Snapshot existente no SVM que corresponda à política de snapshot que será criada pela ferramenta, que pode ser aplicada aos volumes transferidos, marque a caixa de seleção *Reusar políticas de Snapshot do SVM*.
+
+
+. Clique em *Salvar e vá para Painel*.
+
+
+*Informações relacionadas*
+
+xref:concept_cifs_configurations_supported_unsupported_or_requiring_manual_steps_for_transition.adoc[Configurações CIFS suportadas e não suportadas para transição para o ONTAP]
+
+xref:concept_nfs_configurations_supported_unsupported_or_requiring_manual_steps_for_transition.adoc[Transição NFS: Configurações com suporte e sem suporte, além de etapas manuais necessárias]
+
+xref:concept_supported_and_unsupported_name_services_configurations.adoc[Transição de serviços de nome: Configurações suportadas e não suportadas e etapas manuais necessárias]
+
+xref:concept_san_transition_supported_and_unsupported_configurations_and_required_manual_steps.adoc[Transição SAN: Configurações suportadas e não suportadas e etapas manuais necessárias]
+
+xref:reference_example_consolidating_nfs_export_rules_for_transition.adoc[Exemplos de consolidação de regras de exportação de NFS e programações de Snapshot para transição]
+
+xref:reference_configurations_that_can_be_excluded.adoc[Configurações que podem ser excluídas da transição]

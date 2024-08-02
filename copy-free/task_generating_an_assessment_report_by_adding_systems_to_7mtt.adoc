@@ -1,0 +1,106 @@
+---
+permalink: copy-free/task_generating_an_assessment_report_by_adding_systems_to_7mtt.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, assessment, report, add, transition, tool 
+summary: Você pode coletar informações de inventário para controladores, hosts e switches FC adicionando os sistemas à ferramenta de transição de 7 modos. Em seguida, você pode criar um relatório de avaliação para avaliar os recursos e funcionalidades desses sistemas e identificar como eles funcionam na versão do ONTAP selecionada para transição. 
+---
+= Gerando um relatório de avaliação adicionando sistemas à ferramenta de transição de 7 modos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode coletar informações de inventário para controladores, hosts e switches FC adicionando os sistemas à ferramenta de transição de 7 modos. Em seguida, você pode criar um relatório de avaliação para avaliar os recursos e funcionalidades desses sistemas e identificar como eles funcionam na versão do ONTAP selecionada para transição.
+
+* O nome de usuário do sistema de storage e dos hosts deve ter Privileges suficiente para executar os comandos listados no arquivo readme.
++
+O arquivo readme está localizado em `_7-Mode_Transition_Tool_installed_location\bin\ict`.
+
+* Você precisa ter preparado os sistemas 7-Mode, hosts e switches FC para avaliação da transição.
+* Para avaliar sistemas Windows, você deve ter uma conta de usuário de domínio.
+* Se você estiver adicionando vários sistemas para avaliação, você deve criar um arquivo de texto codificado no formato ASCII ou UTF-8 e deve conter os detalhes do sistema na forma de um sistema por linha.
++
+Os detalhes de cada sistema devem estar no seguinte formato:
+
++
+`(ontap|windows|vmware|linux|cisco|brocade)://[(_user|domain_user_)[_:password_]@](_host_name|ip_)`
+
+* O controlador ou host deve estar acessível pelo sistema no qual a ferramenta de transição de 7 modos está instalada e executada.
+* Todos os recursos devem ser configurados ou sua licença habilitada para que a pasta de trabalho possa conter informações de inventário sobre esses recursos.
+* O nome de usuário do sistema de storage deve ter Privileges administrativos suficientes para coletar informações de inventário.
+* Todos os nomes de host e configurações do sistema de armazenamento, como nomes de compartilhamento CIFS, nomes de usuário e nomes de grupo, devem estar no formato UTF-8.
+
+
+Se o serviço 7-Mode Transition Tool ou o sistema no qual esta ferramenta é instalada for reiniciado, os detalhes do sistema adicionados à ferramenta serão perdidos e o sistema deve ser adicionado à ferramenta novamente.
+
+.Passos
+. Se você quiser usar os dados mais recentes da Matriz de interoperabilidade (IMT) para avaliação de transição:
++
+.. Faça o download dos dados do IMT da Matriz de interoperabilidade e salve-os:
++
+... No menu relatórios, clique em *Complete Daily Exports*.
+... Na caixa de diálogo concluir exportações diárias, digite FAS no campo de pesquisa.
+... Baixe o arquivo ONTAP SAN Host excel e salve-o. https://mysupport.netapp.com/matrix["Ferramenta de Matriz de interoperabilidade do NetApp"]
+
+
+.. Na CLI, importe os dados do IMT usando o `transition imt import` comando.
+.. Verifique se a importação foi bem-sucedida usando o `transition imt show` comando.
++
+*Solução de problemas:* se a operação de importação de dados do IMT falhar, você pode reverter para os dados anteriores usando o `transition imt restore` comando.
+
+
+
+. Inicie sessão na ferramenta de transição de 7 modos e, em seguida, clique em *Collect & Evaluate* (recolher e avaliar) na página inicial.
+. Clique em *Adicionar sistemas*.
+. Na janela Adicionar sistema, execute uma das seguintes ações:
++
+** Adicionar um único sistema:
++
+... Introduza o nome de domínio totalmente qualificado (FQDN) ou o endereço IP do sistema.
+... Introduza o nome de utilizador e a palavra-passe do sistema especificado.
+... Selecione o tipo de sistema:
++
+**** Sistemas de storage da Data ONTAP
+**** Hosts: Microsoft Windows, Red Hat Linux Enterprise e VMware ESXi
+**** Switches FC: Cisco e Brocade
+
+
+
+
+** Adicione vários sistemas clicando em *Procurar* e, em seguida, selecionando o arquivo de texto que contém as credenciais para vários sistemas.
+
+
+. Clique em *Add*.
++
+Se o status de avaliação de um sistema estiver pronto, você poderá executar a avaliação de transição para esse sistema.
+
+. Gerar o relatório de avaliação da transição:
++
+.. Selecione os sistemas para avaliação de transição.
+.. Clique em *criar Relatório de avaliação de transição*.
+.. Na caixa de diálogo criar relatório de avaliação de transição, selecione a versão Data ONTAP do cluster de destino.
+.. Especifique um prefixo para o nome do arquivo dos relatórios.
+.. Clique em *Generate Report* (gerar relatório).
+
+
++
+A pasta de trabalho de avaliação (nome do relatório anexado com ""AssessmentWorkbook"") e o resumo executivo de avaliação (nome do relatório anexado com ""AssessmentExecutiveSummary"") são gerados em formato XML.
+
++
+Você pode acessar a pasta de trabalho de avaliação, o resumo da avaliação e os arquivos XML de inventário que são usados para gerar o relatório de avaliação a partir `...etc/webapp/transition-gui/tmc` da pasta.
+
+. Veja a pasta de trabalho de avaliação no Microsoft Excel e o resumo executivo de avaliação no Microsoft Word usando o Microsoft Office 2007 ou versões posteriores.
++
+Na pasta de trabalho de avaliação, consulte as guias viabilidade de transição (CFT), Resumo de Pré-verificação de configuração, Detalhes de Pré-verificação de configuração e Resumo de Pré-verificação de CFT para obter detalhes da avaliação de transição sem cópia.
+
++
+No resumo executivo de avaliação, consulte a seção de viabilidade de transição livre de cópias para obter detalhes de avaliação no nível do controlador.
+
++
+Talvez seja necessário habilitar macros no Excel para exibir a pasta de trabalho de avaliação.
+
++
+No resumo de coleta de dados da pasta de trabalho de avaliação, se o status de acesso de um sistema for `FAILED`, as informações de inventário desse sistema são inválidas. No resumo executivo de avaliação, o valor de alguns dos campos deste sistema é exibido como `Not Assessed`.
+
+

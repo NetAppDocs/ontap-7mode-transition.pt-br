@@ -1,0 +1,69 @@
+---
+permalink: copy-based/concept_how_you_can_use_assessment_executive_summary_for_transition_assessment.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, assessment, executive, summary 
+summary: O resumo executivo da transição fornece um resumo dos controladores, hosts e switches FC de 7 modos no seu ambiente. Ele fornece um relatório de avaliação dos recursos e funcionalidades atuais usados e recomenda a metodologia de transição para cada volume em seu ambiente de storage. Você pode usar o resumo para Planejar sua transição. 
+---
+= Como você pode usar o resumo executivo de avaliação para avaliação de transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O resumo executivo da transição fornece um resumo dos controladores, hosts e switches FC de 7 modos no seu ambiente. Ele fornece um relatório de avaliação dos recursos e funcionalidades atuais usados e recomenda a metodologia de transição para cada volume em seu ambiente de storage. Você pode usar o resumo para Planejar sua transição.
+
+O resumo executivo tem as seguintes seções principais:
+
+
+
+== Cluster de destino
+
+Esta seção lista a versão do ONTAP do cluster de destino que você selecionou durante a avaliação.
+
+
+
+== Resumo da coleta de dados
+
+Você pode exibir a lista de controladores, hosts e switches do modo 7 para os quais você coletou informações. Pode visualizar a versão ONTAP e os detalhes do modelo do controlador de 7 modos. Você também pode visualizar o tipo de sistema operacional, versão e modelo dos hosts.
+
+
+
+== Viabilidade de transição e metodologia de transição recomendada
+
+Esta seção fornece um resumo das pré-verificações que são executadas em cada controlador e a viabilidade da transição no nível do controlador e do volume. Os volumes que pertencem a unidades do vFiler que estão no `stopped` estado ou ou `inconsistent` os volumes que estão offline ou restritos não são incluídos para avaliação. O relatório exibe a contagem de erros e avisos relatados na pré-verificação em relação a cada controlador. Você deve revisar esses erros e avisos e resolver quaisquer problemas antes da transição. Os detalhes dessas pré-verificações estão disponíveis na guia Resumo de pré-verificação de configuração da pasta de trabalho de avaliação.
+
+Com base nas configurações de volume e controlador e no resumo de pré-verificação, o resumo executivo fornece uma recomendação sobre a melhor metodologia de transição para cada volume avaliado. Por exemplo, você não pode fazer a transição de volumes tradicionais de 7 modos ou volumes FlexCache porque esses recursos não são compatíveis com o ONTAP.
+
+Para a maioria das configurações, a ferramenta de transição de 7 modos é a ferramenta recomendada para a transição. No entanto, há algumas cargas de trabalho que não podem ser transferidas usando a ferramenta de transição de 7 modos e, para essas, você deve usar um método de migração baseado em aplicativo ou host.
+
+https://www.netapp.com/pdf.html?item=/media/19510-tr-4052.pdf["Relatório técnico da NetApp 4052: Transição com êxito para o Clustered Data ONTAP (Data ONTAP 8.2.x e 8,3)"^]
+
+
+
+== Inventário de armazenamento
+
+Esta seção fornece as seguintes informações:
+
+* Objetos de storage: Fornece informações sobre o número de objetos de storage, como volumes, qtrees, LUNs, unidades do vFiler, relacionamentos SnapMirror, compartilhamentos e exportações, em cada controlador.
+* Utilização do armazenamento: Fornece informações sobre o espaço usado, o espaço disponível e o espaço utilizado pelos controladores do modo 7.
+* Licenças: Fornece a lista de licenças de recurso ativadas em cada controlador.
+* Configuração do protocolo: Fornece detalhes sobre os protocolos configurados nos controladores, como os protocolos CIFS, NFS e SAN, e as versões.
+* Interconectividade SnapMirror: Fornece informações sobre os controladores ou volumes que são origem ou destino de uma relação SnapMirror.
++
+Você pode usar essas informações para identificar controladores que estão em relacionamentos do SnapMirror com os controladores listados no relatório, mas não estão incluídos para avaliação.
+
+* Interconetividade SnapVault: Fornece informações sobre os controladores, volumes ou qtrees que são a origem ou destino de uma relação SnapVault com o controlador, volumes ou qtrees especificados no controlador.
+
+
+
+
+== Considerações sobre a consolidação da SVM
+
+Se você estiver pensando em consolidar volumes de diferentes unidades do vFiler ou controladores de 7 modos para um único SVM, poderá usar as informações fornecidas nesta seção para identificar se os sistemas de 7 modos estão vinculados a diferentes domínios do ative Directory, têm configurações NIS diferentes, têm os mesmos nomes de volume ou nomes de compartilhamento CIFS e quantos usuários e grupos locais existem em cada controladora. Essas considerações são importantes na identificação de problemas ao consolidar diferentes unidades do vFiler ou controladores de 7 modos e Planejar a transição para um único SVM.
+
+
+
+== Erros de coleta de dados
+
+Esta seção fornece detalhes sobre as informações do controlador e do host que não puderam ser coletadas pela ferramenta de transição de 7 modos e o motivo da falha. Os detalhes dos erros de coleta de dados estão disponíveis na guia erros de coleta de dados da pasta de trabalho de avaliação. Você pode resolver esses erros e avaliar os sistemas novamente.

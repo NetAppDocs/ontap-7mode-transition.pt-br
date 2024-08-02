@@ -1,0 +1,12 @@
+---
+permalink: install-admin/reference_copyright_and_trademark.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, install, copyright, trademark, machine, translation 
+summary: Informações sobre direitos autorais e marcas comerciais para o Guia de instalação e configuração da ferramenta de transição de 7 modos. 
+---
+= Direitos autorais, marca registrada e tradução automática
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+

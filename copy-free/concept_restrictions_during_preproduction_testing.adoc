@@ -1,0 +1,151 @@
+---
+permalink: copy-free/concept_restrictions_during_preproduction_testing.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, preproduction, testing, restrictions 
+summary: Algumas operações são bloqueadas e algumas operações não são recomendadas durante os testes de pré-produção. Essas restrições são impostas para permitir uma reversão para o modo 7 se você não quiser confirmar a transição. 
+---
+= Restrições durante testes de pré-produção
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Algumas operações são bloqueadas e algumas operações não são recomendadas durante os testes de pré-produção. Essas restrições são impostas para permitir uma reversão para o modo 7 se você não quiser confirmar a transição.
+
+
+
+== Operações bloqueadas
+
+|===
+| Operação | Descrição 
+
+
+ a| 
+Exclusão automática de cópias Snapshot agregadas (autodelete)
+ a| 
+Como as cópias Snapshot de nível agregado de 7 modos criadas durante a operação de exportação são necessárias em caso de reversão, as cópias Snapshot não são excluídas automaticamente quando o espaço usado no agregado aumenta.
+
+
+IMPORTANT: Você deve monitorar o espaço físico livre no agregado e garantir que os agregados não fiquem sem espaço durante o teste.
+
+
+
+ a| 
+Movendo volumes para outro agregado
+ a| 
+* Não é possível mover volumes para os agregados transicionados.
+* É possível mover volumes dos agregados transferidos para agregados no cluster.
+
+
+
+
+ a| 
+Copiar ou mover LUNs entre volumes
+ a| 
+* Não é possível copiar ou mover LUNs para os volumes transferidos.
+* É possível copiar ou mover LUNs dos volumes transferidos para outros volumes no cluster.
+
+
+
+
+ a| 
+Criando um agregado
+ a| 
+Essa operação é restrita no par de HA do cluster de destino. Você pode criar agregados em outros nós no cluster.
+
+
+
+ a| 
+Destruindo um agregado
+ a| 
+Como as cópias Snapshot no nível de agregado do modo 7D criadas durante a operação de exportação são necessárias em caso de reversão, os agregados transferidos não podem ser destruídos.
+
+
+
+ a| 
+Configurando um agregado transicionado como o agregado raiz
+ a| 
+Os agregados transicionados não podem ser selecionados como agregados raiz. Além disso, não é possível modificar a política de HA dos agregados transferidos para o CFO.
+
+
+
+ a| 
+Executando operações de cópia de arquivo
+ a| 
+* Você não pode mover ou copiar arquivos (cópia sob demanda de um único arquivo) para os volumes transferidos.
+* Você pode mover ou copiar arquivos dos volumes transferidos para outros volumes no cluster.
+
+
+
+
+ a| 
+Espelhamento de um agregado existente
+ a| 
+A operação é bloqueada em todos os agregados no cluster.
+
+
+
+ a| 
+Atualizando ou revertendo a versão do Data ONTAP nos nós de cluster de destino
+ a| 
+Você deve confirmar o projeto antes de atualizar ou reverter os nós de cluster de destino.
+
+
+
+ a| 
+Adicionando discos
+ a| 
+Não é possível executar o `storage aggregate add-disks` comando no nível de privilégio admin. No entanto, você pode executar este comando no nível de privilégio avançado.
+
+
+IMPORTANT: Você deve garantir que apenas os discos sobressalentes das gavetas de disco de 7 modos sejam adicionados para aumentar o espaço nos agregados transferidos. Você deve adicionar discos sobressalentes usando o `-disklist` parâmetro (o `-diskcount` parâmetro não deve ser usado).
+
+
+
+ a| 
+Designando um volume transicionado como o volume raiz da SVM
+ a| 
+Não é possível executar o `volume make-vsroot` comando nos volumes transferidos.
+
+|===
+
+
+== Operações que não são recomendadas
+
+|===
+| Operação | Ação corretiva antes de reverter 
+
+
+ a| 
+Realocação de agregados
+
+A propriedade do agregado transicionado é alterada para seu parceiro de HA.
+ a| 
+Troque a propriedade agregada antes da reversão porque a ferramenta de transição de 7 modos mapeia os agregados para os controladores de 7 modos com base nas informações de mapeamento do nó de destino salvas no projeto.
+
+
+
+ a| 
+Criando volumes nos agregados transicionados
+ a| 
+Você deve excluir esses volumes ou movê-los para diferentes agregados.
+
+
+
+ a| 
+Renomeando agregados ou volumes
+ a| 
+Renomeie os agregados ou volumes para seus nomes originais.
+
+
+
+ a| 
+Alterar o tipo de RAID
+ a| 
+O tipo RAID tem de corresponder ao tipo RAID de 7 modos se decidir voltar para o modo 7D.
+
+|===
+*Informações relacionadas*
+
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-cmpr/GUID-5CB10C70-AC11-41C0-8C16-B4D0DF916E9B.html["Comandos ONTAP 9"]

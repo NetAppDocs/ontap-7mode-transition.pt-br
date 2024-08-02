@@ -1,0 +1,24 @@
+---
+permalink: copy-based/concept_guidelines_for_deciding_when_to_cutover.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, decide, perform, cutover 
+summary: Como a transição é disruptiva para os clientes, você deve Planejar a atividade para minimizar o tempo de inatividade. É necessário agendar a transferência durante um período de baixa atividade. Você deve atualizar os volumes ONTAP e esperar que as transferências sejam concluídas antes de desconetar clientes e iniciar a transição de armazenamento para reduzir o tempo de inatividade. 
+---
+= Diretrizes para decidir quando realizar a transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Como a transição é disruptiva para os clientes, você deve Planejar a atividade para minimizar o tempo de inatividade. É necessário agendar a transferência durante um período de baixa atividade. Você deve atualizar os volumes ONTAP e esperar que as transferências sejam concluídas antes de desconetar clientes e iniciar a transição de armazenamento para reduzir o tempo de inatividade.
+
+Você deve continuar monitorando o status do SnapMirror para cada volume. Se a última duração de transferência das poucas atualizações anteriores para o volume estiver dentro de um limite aceitável, a maioria das alterações de dados no volume deve ter sido copiada e o tempo para a atualização final dos dados durante a transição deve estar dentro do limite aceitável.
+
+Você pode derivar o tempo de inatividade aproximado dependendo do número de volumes transferidos.
+
+Para minimizar o tempo de transição, a latência da rede entre a ferramenta de transição de 7 modos e os sistemas de armazenamento deve ser mínima. Para fazer a transição de uma relação de volume SnapMirror, a latência da rede entre a ferramenta e os sistemas primários deve ser mínima.
+
+*Informações relacionadas*
+
+xref:task_performing_on_demand_snapmirror_update_operation.adoc[Realização de atualizações do SnapMirror sob demanda]

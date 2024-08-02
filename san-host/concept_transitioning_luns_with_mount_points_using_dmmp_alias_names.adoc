@@ -1,0 +1,20 @@
+---
+permalink: san-host/concept_transitioning_luns_with_mount_points_using_dmmp_alias_names.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, lun, mount, points, dmmp, alias, names 
+summary: Ao fazer a transição de um LUN com um ponto de montagem usando um nome de alias, você deve executar etapas específicas para se preparar para a fase de transição e remontar os LUNs após a transição. 
+---
+= Transição de LUNs com pontos de montagem usando nomes de alias DMMP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Ao fazer a transição de um LUN com um ponto de montagem usando um nome de alias, você deve executar etapas específicas para se preparar para a fase de transição e remontar os LUNs após a transição.
+
+*Informações relacionadas*
+
+xref:task_preparing_for_cutover_when_transitioning_luns_with_mounts_using_dmmp_aliases_on_linux_hosts.adoc[Preparando-se para a fase de transição ao fazer a transição de LUNs com pontos de montagem usando nomes de dispositivos DMMP em hosts Linux]
+
+xref:task_remounting_luns_with_mount_point_using_dmmp_alias_name_on_linux_hosts_after_transition.adoc[Remontar LUNs com pontos de montagem usando nomes de alias DMMP em hosts Linux após a transição]

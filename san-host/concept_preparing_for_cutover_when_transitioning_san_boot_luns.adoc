@@ -1,0 +1,20 @@
+---
+permalink: san-host/concept_preparing_for_cutover_when_transitioning_san_boot_luns.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, cutover, phase, san, boot, lun 
+summary: Se você estiver migrando LUNs de inicialização SAN do Data ONTAP operando no modo 7 para o Data ONTAP em cluster, há certos pré-requisitos que você deve estar ciente antes de entrar na fase de transição. 
+---
+= Preparando-se para a fase de transição ao fazer a transição de LUNs de inicialização SAN
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Se você estiver migrando LUNs de inicialização SAN do Data ONTAP operando no modo 7 para o Data ONTAP em cluster, há certos pré-requisitos que você deve estar ciente antes de entrar na fase de transição.
+
+Você precisa ter conectividade e zoneamento de malha para seus controladores Data ONTAP em cluster para configurações FC. Para configurações iSCSI, suas sessões iSCSI devem ser descobertas e conetadas aos controladores Data ONTAP em cluster. Você também deve desligar o seu anfitrião.
+
+* Para transições baseadas em cópia, você deve encerrar o host antes de iniciar a operação de transferência de armazenamento na ferramenta de transição de 7 modos (7MTT). Transições sem cópia não são suportadas em hosts HP-UX.
+* Para transições sem cópia, você deve encerrar o host antes de iniciar a operação Export & Halt 7-Mode no 7MTT.
+

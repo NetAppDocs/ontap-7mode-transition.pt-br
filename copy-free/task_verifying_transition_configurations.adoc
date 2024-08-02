@@ -1,0 +1,19 @@
+---
+permalink: copy-free/task_verifying_transition_configurations.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, verify, configurations 
+summary: Depois de importar com êxito os volumes e configurações do modo 7, você deve verificar manualmente os agregados, volumes, LUNs e configurações transferidos. 
+---
+= Verificando as configurações transicionadas
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Depois de importar com êxito os volumes e configurações do modo 7, você deve verificar manualmente os agregados, volumes, LUNs e configurações transferidos.
+
+.Passos
+. Verifique se os agregados, volumes e LUNs do modo 7, bem como os compartilhamentos CIFS, as exportações NFS e os mapeamentos de LUN são transferidos.
+. Verifique se todas as configurações do modo 7 estão retidas.
+

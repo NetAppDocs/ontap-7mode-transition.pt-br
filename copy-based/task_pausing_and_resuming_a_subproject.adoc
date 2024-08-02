@@ -1,0 +1,38 @@
+---
+permalink: copy-based/task_pausing_and_resuming_a_subproject.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, pause, resume, project 
+summary: Você pode pausar e retomar um projeto para o qual a cópia de dados foi iniciada. 
+---
+= Pausar e retomar um projeto
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode pausar e retomar um projeto para o qual a cópia de dados foi iniciada.
+
+Quando você pausa um projeto primário, apenas a operação de cópia do volume primário do modo 7D para o volume primário do Data ONTAP em cluster correspondente é pausada. A cópia de dados do volume primário do modo 7 para o volume secundário do ONTAP continua a ser executada de acordo com a programação. Isso garante proteção contínua de dados para os volumes primários.
+
+. No Dashboard, selecione o projeto que você deseja pausar.
+. Clique em *Pausa*.
++
+A operação de cópia de dados para todos os volumes no projeto é interrompida.
+
++
+Se a transferência de linha de base para um volume estiver em andamento e não houver nenhum ponto de verificação de cópia Snapshot criado para as relações SnapMirror, a operação de pausa será ignorada para o volume. Aguarde até que o ponto de verificação cópia Snapshot seja criado e execute a operação de pausa novamente.
+
+. Clique em *Resume*.
++
+A operação de cópia é retomada a partir do ponto em que foi pausada.
+
++
+
+NOTE: A operação de cópia de dados é retomada com base na programação ativa disponível nesse momento.
+
+
+
+*Informações relacionadas*
+
+xref:task_starting_baseline_data_copy.adoc[Iniciar cópia de dados da linha de base]

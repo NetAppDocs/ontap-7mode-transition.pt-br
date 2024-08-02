@@ -1,0 +1,59 @@
+---
+permalink: copy-based/concept_considerations_for_using_snapmirror_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, snapmirror 
+summary: Você pode criar agendas de cópia de dados e personalizar as transferências de dados do SnapMirror para operações de transição sem afetar as operações existentes do 7-Mode para o 7-Mode SnapMirror ou SnapVault. 
+---
+= Considerações para usar o SnapMirror para transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode criar agendas de cópia de dados e personalizar as transferências de dados do SnapMirror para operações de transição sem afetar as operações existentes do 7-Mode para o 7-Mode SnapMirror ou SnapVault.
+
+
+
+== Número máximo de transferências simultâneas de SnapMirror
+
+Durante a transição, o número máximo de transferências SnapMirror simultâneas suportadas nos sistemas 7-Mode e ONTAP depende do número de operações de replicação de volume SnapMirror permitidas para um modelo de sistema de storage específico.
+
+Para obter informações sobre o número máximo de transferências simultâneas de SnapMirror de volume para o modelo do sistema, consulte link:https://library.netapp.com/ecm/ecm_get_file/ECMP1635994["Guia de backup e recuperação on-line de proteção de dados do Data ONTAP para o modo 7"].
+
+
+
+== Agendas de cópia de dados
+
+* O número de transferências simultâneas do SnapMirror que a ferramenta usa para executar as operações do SnapMirror (linha de base, atualização ou ressincronização) é baseado nas programações que você configura ao criar o projeto.
+* Se projetos diferentes estiverem fazendo a transição de volumes do mesmo controlador de 7 modos, você deve garantir que as programações de cópia de dados não se sobreponham a diferentes projetos.
+* Você pode garantir que suas operações de backup e recuperação de desastres (DR) existentes não sejam afetadas pelas operações de transição da ferramenta de transição de 7 modos das seguintes maneiras:
++
+** Você deve criar programações de cópia de dados do SnapMirror para um projeto de modo que ele não se sobreponha às programações existentes do SnapMirror ou do SnapVault de 7 modos.
+** Você deve configurar o número de transferências simultâneas do SnapMirror para serem executadas de forma que as programações existentes do SnapMirror ou do SnapVault de 7 modos não falhem.
++
+Você também pode liberar algumas transferências editando a programação ativa e modificando o número máximo de transferências simultâneas de SnapMirror de volume para zero.
+
+
+
+* Você deve garantir que o número de transferências simultâneas de SnapMirror e o acelerador configurado para as operações (pré-backup, transição e atualização sob demanda) estejam disponíveis no sistema de armazenamento de 7 modos durante toda a duração da operação.
++
+A operação de transição falha se a operação de atualização incremental final falhar mesmo para um dos volumes no projeto.
+
+* Para projetos secundários, após a transição, as atualizações incrementais de SnapMirror para a relação SnapMirror entre os volumes primários de 7 modos e o volume secundário de ONTAP são baseadas no cronograma de relacionamento do SnapMirror de 7 modos para 7 modos.
++
+Você deve garantir que haja transferências simultâneas de SnapMirror suficientes disponíveis no controlador principal do 7-Mode para que essas atualizações ocorram.
+
+
+
+
+
+== Usando vários caminhos para a transição
+
+Você pode especificar dois caminhos para a transição usando um endereço IP de cópia de dados e um endereço IP multipath. No entanto, ambos os caminhos podem ser usados apenas para balanceamento de carga, não para failover.
+
+*Informações relacionadas*
+
+xref:concept_guidelines_for_creating_a_data_copy_schedule.adoc[Considerações para criar uma agenda de cópia de dados]
+
+xref:task_creating_schedule_for_snapmirror_transfers.adoc[Criação de um agendamento de cópia de dados para transferências SnapMirror]

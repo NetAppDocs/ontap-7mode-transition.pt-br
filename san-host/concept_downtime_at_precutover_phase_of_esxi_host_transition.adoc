@@ -1,0 +1,18 @@
+---
+permalink: san-host/concept_downtime_at_precutover_phase_of_esxi_host_transition.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, downtime, apply, configurations, precutover, phase, esxi, host 
+summary: 'Você deve Planejar o tempo de inatividade na fase aplicar configuração (precutover) durante a transição dos hosts ESXi.' 
+---
+= Tempo de inatividade na fase de configuração de aplicação (precutover) da transição do host ESXi
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você deve Planejar o tempo de inatividade na fase aplicar configuração (precutover) durante a transição dos hosts ESXi.
+
+Depois de concluir os pré-requisitos para transições de host ESXi, você pode usar a ferramenta de transição de 7 modos (7MTT) para fazer a transição de seus LUNs do Data ONTAP operando no modo 7 para o ONTAP. Os hosts, VMs e aplicativos ESXi podem estar on-line até a fase aplicar configuração (precutover) da transição 7MTT. No entanto, na fase aplicar configuração (precutover), todos os aplicativos e sistemas operacionais convidados devem ser desativados. Se os hosts ESXi forem inicializados por SAN, ou se os LUNs inicializados por SAN fizerem parte da transição, os hosts ESXi também devem ser desativados na fase aplicar configuração (precutover).
+
+Se o host não for inicializado pela SAN e você precisar manter seu serviço em execução para LUNs não transientes ou LUNs de storage que não são feitos pelo NetApp, você poderá optar por não desligá-lo. No entanto, se você não desligá-lo, você pode experimentar a condição All-paths-down (APD). Para evitar a condição APD, você pode mascarar o Data ONTAP operando em LUNs de 7 modos. Consulte link:https://kb.vmware.com/s/article/1009449["ID da base de conhecimento da VMware 1009449"] para obter mais informações.

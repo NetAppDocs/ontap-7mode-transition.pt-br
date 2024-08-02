@@ -1,0 +1,137 @@
+---
+permalink: install-admin/concept_system_requirements_for_7mtt_on_windows.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, install, system, requirements, windows, transition, tool 
+summary: Você deve garantir que o host do Windows atenda à configuração necessária para instalar e executar a ferramenta de transição de 7 modos. 
+---
+= Requisitos de sistema para instalar a ferramenta de transição de 7 modos em sistemas Windows
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você deve garantir que o host do Windows atenda à configuração necessária para instalar e executar a ferramenta de transição de 7 modos.
+
+Certifique-se de consultar a ferramenta de transição de 7 modos atual link:http://docs.netapp.com/us-en/ontap-7mode-transition/releasenotes.html["Notas de versão"]para obter as informações mais recentes sobre hosts suportados e problemas conhecidos.
+
+
+
+== Requisitos de hardware
+
+* Processador dual-core x64, 1,0 GHz ou mais
+* 8 GB DE RAM
+* 40 GB de espaço livre em disco
+
+
+
+
+== Requisitos de software
+
+* Seu sistema Windows de 64 bits deve estar executando uma das seguintes versões do sistema operacional:
++
+** Windows 7 Enterprise
+** Windows 7 Enterprise SP1
+** Padrão do Windows Server 2008
+** Padrão do Windows Server 2008 R2
+** Windows Server 2008 R2 Enterprise com SP1
+** Padrão do Windows Server 2012
+** Padrão do Windows Server 2012 R2
+** Windows 8,1 Enterprise
+** Windows Server 2012 R2 Datacenter Edition
+** Para a ferramenta de transição de 7 modos versão 3,3.2P1, você também pode usar uma das seguintes versões de sistema operacional:
++
+*** Windows 10 Enterprise
+*** Padrão do Windows Server 2016
+*** Windows Server 2016 Datacenter
+*** Padrão do Windows Server 2019
+*** Windows Server 2019 Datacenter
+
+
+** Para a ferramenta de transição de 7 modos versão 3,3.3, você também pode usar uma das seguintes versões de sistema operacional:
++
+*** Windows 10 Professional
++
+
+NOTE: Você pode usar uma máquina virtual do Windows que atenda aos requisitos de software e hardware necessários para instalar a ferramenta de transição de 7 modos.
+
+
+
+
+
+* Atualização 331 do Oracle Java Runtime Environment (JRE) 1,8 de 64 bits
++
+
+NOTE: Se o host do Windows não tiver JRE ou tiver JRE de 32 bits instalado, o instalador da ferramenta de transição de 7 modos instala automaticamente a atualização 331 do JRE 1,8 de 64 bits. Se uma versão anterior do JRE de 64 bits for instalada, o instalador atualizará automaticamente o JRE para a atualização 331 do JRE 1,8.
+
++
+Quando o JRE é atualizado automaticamente, os outros aplicativos que exigem versões anteriores do JRE podem ser afetados.
+
++
+
+NOTE: Com as versões JRE 1,8 atualização 46 ou posterior (incluindo JRE 1,8 atualização 331), para que a ferramenta de transição de 7 modos se comunique com o Data ONTAP operando em sistemas de 7 modos e sistemas ONTAP, o comprimento da chave SSL no Data ONTAP operando em sistemas de 7 modos e sistemas ONTAP deve ser de pelo menos 1024.
+
++
+https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/7MTT%3A_How_to_resolve_TLS_or_SSL_communication_issue["7MTT: Como resolver problemas de comunicação TLS ou SSL"]
+
+
+
+
+
+== Requisitos de configuração do servidor
+
+Para acessar a interface da Web, o sistema Windows no qual a ferramenta está instalada deve ser configurado da seguinte forma:
+
+* A porta 8443 do servidor da ferramenta de transição de 7 modos deve estar disponível.
++
+Se a porta 8443 não estiver disponível ou se você quiser usar uma porta diferente, você deve alterar a porta especificada pelo `tool.https.port` parâmetro no `$INSTALL_DIR\etc\conf\transition-tool.conf` arquivo.
+
++
+A prática recomendada é usar HTTPS para acessar a interface da Web. No entanto, se você quiser usar HTTP para acessar a interface da Web, a porta 8088 deve estar disponível. Para uma alternativa à porta 8088, você deve alterar a porta especificada pelo `tool.http.port` parâmetro no `transition-tool.conf` arquivo.
+
++
+
+NOTE: Você deve reiniciar o serviço 7-Mode Transition Tool depois de alterar a porta no arquivo de configuração.
+
+* O firewall deve ser desligado ou configurado para permitir tráfego na porta usada para acessar a ferramenta.
+
+
+Para fazer a transição de grupos netgroups e usuários e grupos locais CIFS, os seguintes requisitos devem ser atendidos:
+
+* A porta 8088 da ferramenta de transição de 7 modos deve estar disponível.
++
+Para uma alternativa à porta 8088, você deve alterar a porta especificada pelo `tool.http.port` parâmetro no `transition-tool.conf` arquivo e reiniciar o serviço ferramenta de transição de 7 modos.
+
+* Cada nó no cluster precisa ter pelo menos um data LIF configurado para o SVM de destino.
+* Todos os LIFs de dados do SVM devem ser capazes de se comunicar com a porta 8088 da ferramenta de transição de 7 modos ou com a porta especificada pelo `tool.http.port` parâmetro no `transition-tool.conf` arquivo.
++
+
+NOTE: Você deve garantir que os firewalls não bloqueiem esse tráfego.
+
+
+
+
+
+== Requisitos de cliente (interface web)
+
+O sistema que acessa a interface da Web deve ter o seguinte:
+
+* Um dos seguintes navegadores:
++
+** Microsoft Internet Explorer 9, 10 ou 11
+** Google Chrome 27 ou posterior
+** Mozilla Firefox 20 ou posterior todos os navegadores devem estar habilitados para TLS.
+
+
++
+
+NOTE: Se estiver a utilizar o Microsoft Internet Explorer como browser da Web, tem de desativar o SSLv2.
+
+* Uma resolução de tela de 1280 x 1024 ou superior
+
+
+Toda vez que você instalar uma nova versão da ferramenta, você deve limpar o cache do navegador pressionando Ctrl F5 no sistema.
+
+*Informações relacionadas*
+
+https://mysupport.netapp.com/NOW/products/interoperability["Interoperabilidade do NetApp"]

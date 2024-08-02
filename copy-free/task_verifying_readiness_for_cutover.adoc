@@ -1,0 +1,36 @@
+---
+permalink: copy-free/task_verifying_readiness_for_cutover.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, verify, cutover, ready, systems 
+summary: Antes de desconetar o acesso do cliente, você pode verificar a prontidão do sistema de 7 modos para a transferência de storage, como verificar se o SP ou RLM está configurado no sistema de 7 modos e se as gavetas de disco, agregados e volumes estão prontos para a transição. Você pode corrigir manualmente quaisquer problemas antes da operação de exportação, reduzindo assim o tempo de inatividade. 
+---
+= Verificar se os sistemas 7-Mode estão prontos para a transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de desconetar o acesso do cliente, você pode verificar a prontidão do sistema de 7 modos para a transferência de storage, como verificar se o SP ou RLM está configurado no sistema de 7 modos e se as gavetas de disco, agregados e volumes estão prontos para a transição. Você pode corrigir manualmente quaisquer problemas antes da operação de exportação, reduzindo assim o tempo de inatividade.
+
+Você pode executar essa operação várias vezes antes que a operação de exportação e parada seja iniciada.
+
+.Passos
+. Clique em *Check Readiness* para verificar se os sistemas 7-Mode estão prontos para a transição.
++
+Embora essa operação seja opcional, é uma prática recomendada verificar a prontidão dos sistemas e corrigir problemas antes da operação de exportação, a fim de minimizar a janela de transferência de armazenamento.
+
+. Aguarde até que a operação seja concluída e faça o seguinte:
++
+.. Clique em *Salvar como CSV* para salvar os resultados da operação em um arquivo.
+.. Clique em *Collect Tool Logs* para fazer um backup de todos os arquivos de log de transição.
++
+É uma prática recomendada salvar os arquivos de log após cada operação de transição.
+
+.. Clique em *Fechar* para fechar a janela resultados da operação.
+
+
++
+Se a operação demorar muito tempo a ser concluída, você pode clicar em *Executar em segundo plano* para sair da janela de resultados da operação. Você não deve editar o projeto ou executar qualquer outra tarefa quando a operação estiver em execução em segundo plano. Em seguida, pode visualizar os resultados das operações a partir do separador Operation History (Histórico de operações).
+
+

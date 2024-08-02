@@ -1,0 +1,51 @@
+---
+permalink: san-host/task_mounting_aix_host_luns_with_file_systems_after_transition.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, mount, aix, host, lun, file, system 
+summary: Depois de fazer a transição de LUNs de dados de host AIX com sistemas de arquivos do Data ONTAP operando no modo 7 para Data ONTAP em cluster, você deve montar os LUNs. 
+---
+= Montagem de LUNs de dados de host AIX com sistemas de arquivos após a transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Depois de fazer a transição de LUNs de dados de host AIX com sistemas de arquivos do Data ONTAP operando no modo 7 para Data ONTAP em cluster, você deve montar os LUNs.
+
+Após a transição LUN, os atributos Logical volume Manager (LVM), como o nome lógico do volume e o nome do grupo de volumes, não são alterados. Você continua a usar o nome do volume lógico de pré-transição e o nome do grupo de volumes para a configuração pós-transição.
+
+Para transições baseadas em cópia, execute estas etapas após concluir a operação de transferência de armazenamento na ferramenta de transição de 7 modos. Transições sem cópia não são suportadas em hosts AIX.
+
+.Passos
+. Descubra seus novos LUNs de Data ONTAP em cluster:
++
+`*cfgmgr*`
+
+. Verifique se os LUNs do Data ONTAP em cluster foram descobertos:
++
+`*sanlun lun show*`
+
++
+Os LUNs do Data ONTAP em cluster devem ser listados e a saída na coluna de modo deve ser alterada de 7 para C..
+
+. Importe o seu grupo de volumes:
++
+`*importvg -y _vg_name pv_name_*`
+
++
+Você pode usar qualquer nome de volume físico em seu grupo de volumes.
+
+. Verifique se o seu grupo de volumes foi importado:
++
+`*lsvg _vg_name_*`
+
+. Monte cada dispositivo:
++
+`*mount -o log=/dev/loglv00 _file_system mount_point_*`
+
+. Verifique os pontos de montagem:
++
+`*df*`
+
+

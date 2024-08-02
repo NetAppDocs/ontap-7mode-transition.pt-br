@@ -1,0 +1,221 @@
+---
+section: copy-free
+title: Transição livre de cópias
+url: "/copy-free/index.html"
+entries:
+- title: Visão geral da transição
+  url: "/copy-free/concept_transition_overview.html"
+  entries:
+  - title: Transição livre de cópias usando a ferramenta de transição 7-Mode
+    url: "/copy-free/concept_copy_free_transition_using_7mtt.html"
+  - title: Terminologia de transição
+    url: "/copy-free/concept_transition_terminology.html"
+- title: Recolha e avaliação das informações de inventário
+  url: "/copy-free/concept_collecting_and_assessing_inventory_information.html"
+  entries:
+  - title: Requisitos de versão de storage, host e switches FC para avaliação de transição
+    url: "/copy-free/concept_storage_and_host_version_requirements.html"
+  - title: Preparar os sistemas e hosts do modo 7 para avaliação da transição
+    url: "/copy-free/task_preparing_7_mode_systems_for_inventory_collection.html"
+  - title: Avaliando controladores e hosts
+    url: "/copy-free/task_assessing_controllers_and_hosts.html"
+    entries:
+    - title: Gerando um relatório de avaliação adicionando sistemas à ferramenta de
+        transição de 7 modos
+      url: "/copy-free/task_generating_an_assessment_report_by_adding_systems_to_7mtt.html"
+    - title: Gerando um relatório de avaliação importando o XML do relatório de inventário
+      url: "/copy-free/task_generating_an_assessment_report_by_importing_inventory_report_xml.html"
+  - title: Gerando um plano de zona FC
+    url: "/copy-free/task_generating_fc_zone_plan.html"
+    entries:
+    - title: Configurações compatíveis para gerar um plano de zona FC
+      url: "/copy-free/concept_supported_configurations_for_generating_an_fc_zone_plan.html"
+  - title: Como você pode usar o resumo executivo de avaliação para avaliação de transição
+    url: "/copy-free/concept_how_you_can_use_assessment_executive_summary_for_transition_assessment.html"
+- title: Fluxo de trabalho de transição livre de cópias
+  url: "/copy-free/task_copy_free_transition_workflow.html"
+  entries:
+  - title: Fases de transição livre de cópias
+    url: "/copy-free/concept_phases_of_copy_free_transition.html"
+- title: Preparando-se para a transição livre de cópias
+  url: "/copy-free/concept_preparing_for_migration.html"
+  entries:
+  - title: Requisitos para a transição livre de cópias
+    url: "/copy-free/concept_requirements_for_copy_free_transition.html"
+  - title: Ferramentas e documentação necessárias para a transição livre de cópias
+    url: "/copy-free/reference_required_tools_and_documentation.html"
+  - title: Requisitos de porta para comunicação com a ferramenta de transição de 7
+      modos
+    url: "/copy-free/concept_port_requirements_for_communicating_with_7mtt.html"
+  - title: Preparando o par de HA de 7 modos para a transição
+    url: "/copy-free/task_preparing_7_mode_system_for_transition.html"
+  - title: Configuração do SP ou RLM nos sistemas de 7 modos para transição livre
+      de cópias
+    url: "/copy-free/task_setting_up_sp_or_rlm_for_transition.html"
+  - title: Preparando a rede para a transição
+    url: "/copy-free/task_preparing_your_network_for_transition.html"
+    entries:
+    - title: Considerações para a transição de endereços IP de 7 modos
+      url: "/copy-free/concept_considerations_for_transitioning_7_mode_ip_addresses.html"
+  - title: Preparando o cluster para a transição
+    url: "/copy-free/task_preparing_cluster_for_transition.html"
+  - title: Coleta de informações de cabeamento para transição
+    url: "/copy-free/task_gathering_cabling_information_for_transition.html"
+    entries:
+    - title: Folha de cálculo de cabeamento de transição sem cópia
+      url: "/copy-free/reference_copy_free_transition_cabling_worksheet.html"
+  - title: Preparação de agregados e volumes 7-Mode para a transição
+    url: "/copy-free/task_preparing_7_mode_volumes_and_aggregates_for_transition.html"
+    entries:
+    - title: Restrições para a transição de agregados e volumes do modo 7
+      url: "/copy-free/concept_restrictions_for_copy_free_transition.html"
+    - title: Preparação para a transição de sistemas 7-Mode com agregados de 32 bits
+      url: "/copy-free/task_transitioning_to_clustered_ontap_8_3_from_a_7_mode_version_with_32_bit_data.html"
+      entries:
+      - title: Expandindo um agregado para o formato de 64 bits
+        url: "/copy-free/task_expanding_an_aggregate_to_64_bit_format_without_adding_storage.html"
+      - title: Localizar e remover volumes de 32 bits e cópias Snapshot
+        url: "/copy-free/task_finding_and_removing_32_bit_data_from_source_volumes_and_snapshot_copies.html"
+    - title: Agregar requisitos de espaço para a transição
+      url: "/copy-free/concept_aggregate_space_considerations_during_transition.html"
+  - title: Preparando-se para a transição de serviços de nomes
+    url: "/copy-free/concept_preparing_for_name_services_transition.html"
+    entries:
+    - title: 'Transição de serviços de nome: Configurações suportadas e não suportadas
+        e etapas manuais necessárias'
+      url: "/copy-free/concept_supported_and_unsupported_name_services_configurations.html"
+    - title: Considerações para a transição de configurações DNS, NIS e LDAP
+      url: "/copy-free/concept_considerations_for_transitioning_dns_and_ldap_configurations.html"
+    - title: Considerações para a transição de netgroups e usuários e grupos UNIX
+      url: "/copy-free/concept_considerations_for_transitioning_unix_users_and_groups.html"
+  - title: Preparando-se para a transição NFS
+    url: "/copy-free/concept_preparing_for_nfs_transition.html"
+    entries:
+    - title: Pré-requisitos para a transição de configurações NFS
+      url: "/copy-free/concept_prerequisites_to_transition_nfs_configurations.html"
+    - title: 'Transição NFS: Configurações com suporte e sem suporte, além de etapas
+        manuais necessárias'
+      url: "/copy-free/concept_nfs_configurations_supported_unsupported_or_requiring_manual_steps_for_transition.html"
+    - title: Como as exportações de NFS são transferidas
+      url: "/copy-free/concept_how_nfs_exports_are_transitioned.html"
+  - title: Preparando-se para a transição SMB/CIFS
+    url: "/copy-free/concept_preparing_for_cifs_transition.html"
+    entries:
+    - title: Pré-requisitos para a transição de configurações CIFS
+      url: "/copy-free/concept_prerequisites_for_transitioning_cifs_configurations.html"
+    - title: Configurações CIFS suportadas e não suportadas para transição para o
+        ONTAP
+      url: "/copy-free/concept_cifs_configurations_supported_unsupported_or_requiring_manual_steps_for_transition.html"
+    - title: Considerações para a transição de usuários e grupos locais CIFS
+      url: "/copy-free/concept_considerations_for_local_users_and_groups_transition.html"
+  - title: Preparação para a transição SAN
+    url: "/copy-free/task_preparing_for_san_transition.html"
+    entries:
+    - title: Criando SAN LIFs antes da transição
+      url: "/copy-free/task_creating_san_lifs_before_transition.html"
+    - title: Configurando zonas usando o plano de zona FC
+      url: "/copy-free/task_configuring_zones_by_using_fc_zone_plan.html"
+    - title: Preparando hosts SAN para a transição
+      url: "/copy-free/task_preparing_san_hosts_for_transition.html"
+    - title: 'Transição SAN: Configurações suportadas e não suportadas e etapas manuais
+        necessárias'
+      url: "/copy-free/concept_san_transition_supported_and_unsupported_configurations_and_required_manual_steps.html"
+    - title: Considerações de espaço ao fazer a transição de volumes SAN
+      url: "/copy-free/concept_considerations_for_space_when_transitioning_san_volumes.html"
+  - title: Preparação de recursos de proteção de dados para a transição
+    url: "/copy-free/concept_preparing_data_protection_features_for_transition.html"
+    entries:
+    - title: Preparando o cluster para fazer a transição das relações do volume SnapMirror
+      url: "/copy-free/task_preparing_cluster_for_transitioning_volume_snapmirror_relationships.html"
+    - title: 'Transição de proteção de dados: Configurações com suporte e sem suporte'
+      url: "/copy-free/concept_supported_and_unsupported_data_protection_relationships.html"
+- title: Transição de agregados 7-Mode usando transição livre de cópia
+  url: "/copy-free/task_performing_copy_free_transition_of_7_mode_aggregates.html"
+  entries:
+  - title: Planejando um projeto de transição livre de cópias
+    url: "/copy-free/task_planning_a_copy_free_transition_project.html"
+    entries:
+    - title: Folhas de trabalho de planeamento de projetos de transição sem cópia
+      url: "/copy-free/reference_copy_free_transition_project_planning_worksheet.html"
+    - title: Adição de controladores e clusters
+      url: "/copy-free/task_adding_controllers_and_clusters.html"
+    - title: Criando um projeto de transição livre de cópias
+      url: "/copy-free/task_selecting_source_7_mode_systems_for_transition.html"
+    - title: Seleção dos nós de cluster de destino para transição
+      url: "/copy-free/task_selecting_target_cluster_for_transition.html"
+    - title: Mapeamento de SVMs e volumes
+      url: "/copy-free/task_svm_and_volume_mapping.html"
+    - title: Selecionar LIFs para transição
+      url: "/copy-free/task_selecting_lifs_to_transition.html"
+    - title: Personalizar a transição das configurações do modo 7D.
+      url: "/copy-free/task_customizing_configurations_for_transition.html"
+      entries:
+      - title: Exemplos de consolidação de regras de exportação de NFS e programações
+          de Snapshot para transição
+        url: "/copy-free/reference_example_consolidating_nfs_export_rules_for_transition.html"
+    - title: Execução de pré-verificações
+      url: "/copy-free/task_running_prechecks.html"
+      entries:
+      - title: Níveis de gravidade para mensagens de pré-verificação
+        url: "/copy-free/concept_severity_levels_for_precheck_messages.html"
+  - title: Aplicando configurações da SVM
+    url: "/copy-free/task_applying_svm_configurations.html"
+  - title: Verificar se os sistemas 7-Mode estão prontos para a transição
+    url: "/copy-free/task_verifying_readiness_for_cutover.html"
+  - title: Exportação de configurações de armazenamento e parada de sistemas 7-Mode
+    url: "/copy-free/task_exporting_7_mode_system_and_hardware_information.html"
+  - title: Desconexão das gavetas de disco do sistema 7-Mode e conexão aos nós do
+      cluster
+    url: "/copy-free/task_removing_disk_shelves_from_7_mode_and_connecting_to_cluster_nodes.html"
+  - title: Importar dados do modo 7D para o ONTAP
+    url: "/copy-free/task_importing_7_mode_data_to_clustered_ontap.html"
+- title: Concluir a transição
+  url: "/copy-free/task_completing_post_transition_tasks_for_a_copy_free_transition.html"
+  entries:
+  - title: Restrições durante testes de pré-produção
+    url: "/copy-free/concept_restrictions_during_preproduction_testing.html"
+  - title: A rehospedagem fez a transição de volumes para uma SVM diferente
+    url: "/copy-free/task_rehosting_volumes_from_different_svms_to_a_single_svm.html"
+  - title: Verificando as configurações transicionadas
+    url: "/copy-free/task_verifying_transition_configurations.html"
+  - title: Executar tarefas de configuração manual após a transição
+    url: "/copy-free/task_performing_manual_configuration_tasks.html"
+  - title: Teste de workloads e aplicações
+    url: "/copy-free/task_testing_workloads_and_applications.html"
+  - title: Comprometendo o projeto de transição livre de cópias
+    url: "/copy-free/task_committing_7_mode_aggregates_to_clustered_ontap_format.html"
+- title: Fazendo a transição de uma relação SnapMirror
+  url: "/copy-free/task_transitioning_a_snapmirror_relationship.html"
+  entries:
+  - title: Transição de pares de HA em uma relação do SnapMirror em uma configuração
+      escalonada
+    url: "/copy-free/task_transitioning_primary_and_secondary_systems_of_a_snapmirror_relationship_in_staggered_way.html"
+  - title: Transição de sistemas primários e secundários em uma relação SnapMirror
+      em paralelo
+    url: "/copy-free/task_transitioning_primary_and_secondary_systems_of_a_snapmirror_relationship_in_parallel.html"
+- title: Solução de problemas de transição
+  url: "/copy-free/concept_troubleshooting_transition_issues.html"
+  entries:
+  - title: Continuando com a transição se ocorrerem erros ignoráveis
+    url: "/copy-free/task_acknowledging_errors_to_continue_with_transition.html"
+    entries:
+    - title: Erros Ignoráveis durante a transição
+      url: "/copy-free/reference_ignorable_errors_during_transition.html"
+  - title: A transferir ficheiros de registo de transição
+    url: "/copy-free/task_collecting_tool_logs.html"
+  - title: Arquivos de log para a ferramenta de transição de 7 modos
+    url: "/copy-free/concept_log_files_for_7mtt.html"
+  - title: A recuperar de uma transição LUN com falha
+    url: "/copy-free/task_recovering_from_a_failed_lun_transition.html"
+  - title: Falha ao inicializar o controlador 7-Mode no modo de manutenção
+    url: "/copy-free/reference_failed_to_boot_7_mode_controller_in_maintenance_mode.html"
+- title: Executar uma reversão de transição para o modo 7D.
+  url: "/copy-free/concept_reverting_a_copy_free_transition_project.html"
+  entries:
+  - title: Quando reverter uma transição e quando chamar o suporte técnico
+    url: "/copy-free/concept_when_to_revert_and_when_to_call_technical_support_transition.html"
+  - title: Reverter um projeto de transição livre de cópias
+    url: "/copy-free/task_performing_a_transition_rollback.html"
+    entries:
+    - title: Reverter manualmente a transição
+      url: "/copy-free/task_running_manual_steps_for_rolling_back_transition.html"

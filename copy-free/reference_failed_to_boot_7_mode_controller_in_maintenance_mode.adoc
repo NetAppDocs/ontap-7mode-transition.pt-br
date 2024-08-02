@@ -1,0 +1,62 @@
+---
+permalink: copy-free/reference_failed_to_boot_7_mode_controller_in_maintenance_mode.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, failed, boot, controller, maintenance, mode 
+summary: 'A operação de exportação e parada falha com a mensagem de erro: Falha ao inicializar o controlador 7-Mode no modo de manutenção. Você deve parar e inicializar manualmente o controlador no modo de manutenção e executar novamente a operação.' 
+---
+= Falha ao inicializar o controlador 7-Mode no modo de manutenção
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A operação de exportação e parada falha com a mensagem de erro: `Failed to boot the 7-Mode controller in maintenance mode`. Você deve parar e inicializar manualmente o controlador no modo de manutenção e executar novamente a operação.
+
+
+
+== Solução alternativa
+
+. Parar o sistema de storage 7-Mode:
++
+`*halt -f -t 0*`
+
+. No prompt Loader, Registre os valores definidos para os `*bootarg.init.console_muted*` parâmetros de inicialização e `*bootarg.init.console_level boot*`:
++
+`*printenv bootarg.init.console_muted*`
+
++
+`*printenv bootarg.init.console_level*`
+
+. Desative as mensagens do console definindo os seguintes parâmetros de inicialização:
++
+`*setenv bootarg.init.console_muted "true"*`
+
++
+`*setenv bootarg.init.console_level "-1"*`
+
+. A partir da ferramenta de transição de 7 modos, execute novamente a operação de exportação e parada.
+. A partir do sistema de armazenamento de 7 modos, defina os parâmetros de arranque para os seus valores originais, conforme registado no passo 2:
++
+|===
+| Se os parâmetros de inicialização forem... | Digite os seguintes comandos... 
+
+
+ a| 
+Não definido anteriormente com qualquer valor (indefinido)
+ a| 
+`*unsetenv bootarg.init.console_muted*`
+
+`*unsetenv bootarg.init.console_level*`
+
+
+
+ a| 
+Defina com um valor anteriormente
+ a| 
+`*unsetenv bootarg.init.console_muted "_original_value_"*`
+
+`*unsetenv bootarg.init.console_level "_original_value_"*`
+
+|===
+

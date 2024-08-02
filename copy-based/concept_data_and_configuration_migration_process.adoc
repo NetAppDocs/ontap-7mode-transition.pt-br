@@ -1,0 +1,86 @@
+---
+permalink: copy-based/concept_data_and_configuration_migration_process.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, data, configuration, migration, process 
+summary: 'O processo de migração de dados e configuração usando a ferramenta de transição de 7 modos consiste nas seguintes fases: Preparação, cópia de dados de linha de base, aplicar configuração (precutover) e transferência de armazenamento. Se você tiver o SnapLock volumes para verificação da Cadeia de Custódia, a verificação da Cadeia de Custódia será uma fase adicional após a transição.' 
+---
+= Processo de migração de dados e configuração
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O processo de migração de dados e configuração usando a ferramenta de transição de 7 modos consiste nas seguintes fases: Preparação, cópia de dados de linha de base, configuração de aplicação (precutover) e transferência de armazenamento. Se você tiver o SnapLock volumes para verificação da Cadeia de Custódia, a verificação da Cadeia de Custódia será uma fase adicional após a transição.
+
+A imagem a seguir mostra as diferentes fases do processo de migração:
+
+image::../media/transition_operational_flow.gif[fluxo operacional de transição]
+
+
+
+== Preparação
+
+Nesta fase, as pré-verificações são executadas para verificar a funcionalidade do recurso. O processo verifica os sistemas de armazenamento de 7 modos para verificar se os volumes e a configuração estão prontos para serem migrados para o ONTAP. Ele verifica se o cluster está configurado corretamente e pode suportar a transição. Quaisquer erros devem ser resolvidos antes de continuar com a transição. Embora a ferramenta permita que você continue sem resolver avisos, você deve entender o impactos dos avisos antes de prosseguir com a transição. Você pode executar as pré-verificações várias vezes para verificar se todos os erros foram resolvidos.
+
+Embora a etapa de pré-verificação e as etapas de avaliação realizadas durante a avaliação pareçam ser semelhantes, existem diferenças. A etapa de pré-verificação é um teste mais detalhado que se concentra nos sistemas de armazenamento específicos que foram identificados como sistemas de origem de migração (modo 7D) e destino (ONTAP). A etapa de avaliação avalia apenas os sistemas de origem de migração, verificando as diferenças de funcionalidade e funcionalidade com o ONTAP.
+
+
+
+== Cópia de dados de linha de base
+
+Novos volumes são criados no SVM. Uma relação de SnapMirror é estabelecida entre os volumes do modo 7 e do ONTAP e é realizada uma transferência de linha de base. Após a conclusão da linha de base, as transferências incrementais são executadas automaticamente de acordo com um agendamento de cópia de dados definido pelo usuário. Os clientes e servidores que acessam o armazenamento de origem permanecem on-line enquanto essa etapa for concluída.
+
+A cópia de dados requer acesso à CPU, memória e armazenamento, o que resulta em recursos adicionais sendo usados no sistema de armazenamento de origem. É uma prática recomendada programar a atividade de cópia de dados para ocorrer durante períodos fora de pico (de preferência, o uso da CPU deve ser de cerca de 50%).
+
+
+
+== Aplicar configuração (precutover)
+
+Essa fase inclui transferências incrementais do SnapMirror. As informações de configuração são aplicadas ao sistema ONTAP, SVM e volumes. Opcionalmente, você também pode testar os volumes ONTAP que estão sendo transferidos antes da redução do storage.
+
+Embora a maioria da configuração seja aplicada, algumas ações são adiadas para a redução de armazenamento: Por exemplo, a aplicação de cotas.
+
+Os endereços IP de 7 modos selecionados para a transição são criados no estado administrativo inativo. Os novos endereços IP selecionados para a transição são criados no estado administrativo up. Esses novos endereços IP podem ser usados para verificar o acesso aos dados durante o teste do precutover.
+
+É uma prática recomendada executar a fase de configuração de aplicação (precutover) alguns dias ou semanas antes da janela de transição planejada. Esta atividade ajuda a verificar se todas as configurações são aplicadas corretamente e se são necessárias alterações.
+
+
+TIP: Embora não sejam necessárias atualizações incrementais, é uma prática recomendada realizar uma transferência incremental o mais próximo possível da transferência de storage para minimizar o tempo em que os clientes são desconetados.
+
+
+
+== Redução de storage
+
+Em um alto nível durante a transferência de armazenamento, os clientes são desconetados, uma transferência de dados final é realizada, a relação SnapMirror é interrompida e os clientes são reconetados manualmente.
+
+Desconetar clientes ou servidores do volume de armazenamento de origem impede que gravações adicionais sejam executadas enquanto a cópia final está sendo executada. Antes de desconetar clientes, é uma prática recomendada realizar uma atualização incremental para minimizar o tempo de inatividade.
+
+O acesso ao storage deve ser desconetado apenas para os volumes que estão sendo migrados. O acesso ao armazenamento pode ser descontinuado do lado do armazenamento ou do lado do cliente. A prática recomendada é interromper a conectividade do lado do storage. Por exemplo, se um cliente CIFS estiver acessando um volume chamado "'user01'" em um sistema de armazenamento de 7 modos, você poderá usar o `cifs terminate -v user01` comando para desativar o acesso a todos os compartilhamentos CIFS no volume (descontinuando o acesso do cliente do lado do armazenamento). Os endereços IP, pontos de montagem ou até mesmo nomes de compartilhamento podem mudar como resultado da migração e, portanto, o acesso ao cliente também pode ser descontinuado do lado do cliente. Contanto que os clientes não possam gravar novos dados no contentor de storage que está sendo migrado, você pode usar um desses métodos ou ambos para interromper o acesso.
+
+Depois que os clientes são desconetados, a 7-Mode Transition Tool executa uma cópia final para que os conjuntos de dados de origem e destino estejam em paridade. A ferramenta de transição de 7 modos configura as LIFs de dados no SVM. Algumas alterações de configuração que não foram transferidas durante o precutover, como a aplicação de configurações e cotas de SAN, também são aplicadas ao SVM neste momento.
+
+Após a conclusão da transferência de storage, você poderá reconectar manualmente os clientes e validar o acesso aos dados. Validar o acesso aos dados envolve verificar se os clientes estão acessando o sistema ONTAP corretamente e se todas as permissões estão funcionando conforme esperado.
+
+
+
+== Verificação da cadeia de custódia para volumes SnapLock
+
+Você pode acionar a operação Cadeia de Custódia para os volumes SnapLock no projeto após a conclusão da transição. Esta operação não é obrigatória e só é necessária se a verificação da Cadeia de Custódia for essencial para a transição de volumes SnapLock. Você pode executar essa operação para todos os volumes SnapLock no projeto ou para um subconjunto de volumes SnapLock no projeto. A verificação da cadeia de custódia é compatível com volumes de SnapLock empresariais e de conformidade. A verificação da cadeia de custódia é compatível apenas para volumes SnapLock de leitura e gravação e não é compatível com volumes SnapLock somente leitura.
+
+
+IMPORTANT: A verificação da Cadeia de Custódia não é suportada para o volume SnapLock que tenha nomes de arquivos com carateres não-ASCII.
+
+O fluxo de trabalho de verificação é suportado apenas na GUI da ferramenta de transição de 7 modos e não é suportado no fluxo de trabalho da CLI.
+
+A operação de verificação da Cadeia de Custódia realiza o seguinte:
+
+* Enumera todos os arquivos WORM de volumes 7-Mode
+* Calcula a impressão digital para cada arquivo WORM enumerado anteriormente em volumes de modo 7D e volumes ONTAP transicionados
+* Gera um relatório com detalhes sobre o número de arquivos com impressões digitais correspondidas e não correspondidas e o motivo da incompatibilidade
+
+
+Os dados de impressões digitais para todos os arquivos WORM são armazenados em um volume ONTAP fornecido durante a fase de Planejamento.
+
+
+NOTE: Com base no número de arquivos nos volumes do modo 7, o processo de verificação da Cadeia de Custódia pode levar um tempo significativo (dias ou semanas).

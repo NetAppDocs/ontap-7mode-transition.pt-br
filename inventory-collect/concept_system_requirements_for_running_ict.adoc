@@ -1,0 +1,31 @@
+---
+permalink: inventory-collect/concept_system_requirements_for_running_ict.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, transition, system, requirements, inventory, collect, tool 
+summary: Você pode baixar e executar a ferramenta Inventory Collect em um sistema Windows. O sistema Windows deve ter a configuração necessária para executar a ferramenta de coleta de inventário. 
+---
+= Requisitos do sistema para executar a ferramenta de coleta de inventário
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode baixar e executar a ferramenta Inventory Collect em um sistema Windows. O sistema Windows deve ter a configuração necessária para executar a ferramenta de coleta de inventário.
+
+* O sistema Windows deve ser um dos seguintes:
++
+** Windows 7 Enterprise de 64 bits
+** Windows Server 2008 R2 Enterprise com SP1 ou posterior
+** Padrão do Windows Server 2012 R2
+
+
+
+
+
+NOTE: Você pode usar uma máquina virtual do Windows que atenda aos requisitos de software e hardware necessários para instalar a ferramenta de coleta de inventário.
+
+* Processador dual-core x64 (1,0 GHz ou mais)
+* 4-GB RAM
+* 40-GB HDD
+

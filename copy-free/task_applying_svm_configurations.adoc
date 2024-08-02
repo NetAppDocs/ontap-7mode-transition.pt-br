@@ -1,0 +1,93 @@
+---
+permalink: copy-free/task_applying_svm_configurations.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, apply, svm, configurations 
+summary: 'Você precisa aplicar manualmente algumas configurações antes da fase de provisionamento da SVM. Em seguida, você pode aplicar todas as configurações definidas no controlador 7-Mode (arquivos no diretório /etc) ou no nível da unidade do vFiler aos SVMs mapeadas usando a ferramenta.' 
+---
+= Aplicando configurações da SVM
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você precisa aplicar manualmente algumas configurações antes da fase de provisionamento da SVM. Em seguida, você pode aplicar todas as configurações definidas no controlador 7-Mode (arquivos no `/etc` diretório) ou no nível da unidade do vFiler às SVMs mapeadas usando a ferramenta.
+
+Se você não quiser fazer a transição de todas as configurações para os SVMs de destino, defina as propriedades das configurações a serem excluídas nos SVMs.
+
+xref:task_customizing_configurations_for_transition.adoc[Personalizar a transição das configurações do modo 7D.]
+
+* Configurações como exportações de NFS, compartilhamentos CIFS e mapeamento de LUN não são aplicadas ao SVM na fase de provisionamento da SVM.
+* As configurações a seguir são aplicadas pela ferramenta nos SVMs na fase de provisionamento da SVM:
++
+** *Serviços de nome*
++
+*** Configuração DNS
+*** Configuração LDAP
+*** Configuração NIS
+*** Configuração do switch do serviço de nomes
+*** Configuração de hosts
+*** Usuários e grupos UNIX
+*** Configuração de Netgroups
+
+
+** *Rede*
++
+*** Os endereços IP 7-Mode existentes que são selecionados para transição são criados no estado administrativo inativo.
++
+Durante a fase de importação, esses endereços IP são configurados no estado administrativo up.
+
+*** Novos endereços IP são criados no estado administrativo up.
+
+
+** *NFS*
++
+Opções DE NFS
+
+** *CIFS*
++
+*** Configuração CC preferencial CIFS
+*** Configuração de mapeamento do usuário
+*** Configuração de Widelinks
+*** Opções DE CIFS
+*** Configuração de auditoria
+
+
+** *SAN*
++
+Serviços FC e iSCSI
+
++
+[IMPORTANT]
+====
+Não é possível executar novamente esta operação depois de concluída com êxito.
+
+Portanto, se você fizer alterações nas configurações de nível de controlador de 7 modos após essa operação, será necessário fazer a transição manual das configurações para os SVMs de destino antes da fase de exportação. Por exemplo, se você adicionar uma nova unidade do vFiler ao controlador do 7-Mode e mapeá-la para um SVM após essa operação, precisará fazer a transição manual das configurações dessa unidade do vFiler para o SVM mapeado. Outro exemplo é se você adicionar alguns usuários UNIX no controlador 7-Mode após a fase de provisionamento SVM, você deve criar esses usuários UNIX manualmente nos SVMs mapeados.
+
+====
+
+
+
+
+.Passos
+. Clique em *Apply SVM Config* para aplicar as configurações de 7 modos aos SVMs de destino.
++
+É apresentada uma mensagem de confirmação que lista considerações importantes para esta operação.
+
+. Clique em *Yes* para continuar.
+. Após a conclusão da operação, execute as seguintes etapas:
++
+.. Clique em *Salvar como CSV* para salvar os resultados da operação em um arquivo.
+.. Clique em *Collect Project Logs* para criar um backup de todos os arquivos de log de transição.
++
+É uma prática recomendada salvar os arquivos de log após cada operação de transição.
+
+.. Clique em *Fechar* para fechar a janela resultados da operação.
+
+
++
+Se a operação demorar muito tempo a ser concluída, você pode clicar em *Executar em segundo plano* para sair da janela de resultados da operação. Você não deve editar o projeto ou executar qualquer outra tarefa quando a operação estiver em execução em segundo plano. Em seguida, pode visualizar os resultados das operações a partir do separador Operation History (Histórico de operações).
+
+. Verifique e teste as configurações que são aplicadas aos SVMs de destino manualmente e faça as alterações necessárias.
+. Verifique manualmente a conetividade com servidores de nomes externos.
+

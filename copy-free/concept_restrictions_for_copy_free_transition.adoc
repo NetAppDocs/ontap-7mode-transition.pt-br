@@ -1,0 +1,75 @@
+---
+permalink: copy-free/concept_restrictions_for_copy_free_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, aggregates, volumes, restrictions 
+summary: Você deve estar ciente de certas restrições para a transição de agregados e volumes do modo 7D. Algumas das restrições são devidas a recursos que não são suportados no ONTAP. Para algumas restrições, você pode executar uma ação corretiva que permite continuar com a transição. 
+---
+= Restrições para a transição de agregados e volumes do modo 7
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você deve estar ciente de certas restrições para a transição de agregados e volumes do modo 7D. Algumas das restrições são devidas a recursos que não são suportados no ONTAP. Para algumas restrições, você pode executar uma ação corretiva que permite continuar com a transição.
+
+
+
+== Tipos de volume
+
+Os seguintes tipos de volumes não são suportados para transição:
+
+* Volumes tradicionais
++
+Você pode usar métodos de transição baseados em host para fazer a transição de volumes tradicionais.
+
++
+https://www.netapp.com/pdf.html?item=/media/19510-tr-4052.pdf["Relatório técnico da NetApp 4052: Transição com êxito para o Clustered Data ONTAP (Data ONTAP 8.2.x e 8,3)"^]
+
+* Volumes SnapLock
++
+A transição do SnapLock volumes é compatível com todas as versões mais recentes do ONTAP.
+
+* Volumes FlexCache
+
+
+
+
+== estados de agregado e volume
+
+A transição é bloqueada se qualquer um dos agregados e volumes do modo 7D selecionados para a transição estiver em um dos seguintes estados:
+
+* Offline
+* Restrito
+* Incoerente (`wafl inconsistent`)
+
+
+
+
+== Volumes FlexClone
+
+A hierarquia de clones e a eficiência de storage são preservadas durante a transição sem cópia. No entanto, você deve garantir que o FlexVol volume pai e todos os seus volumes FlexClone pertencem à mesma unidade do vFiler. Se os volumes do FlexClone estiverem em diferentes unidades do vFiler do volume pai, escolha uma das seguintes ações:
+
+* Mova os volumes FlexClone para a unidade do vFiler que possui o FlexVol volume pai.
+* Divida os clones do volume FlexClone pai e faça a transição desses volumes como volumes FlexVol.
+
+
+
+
+== Volume com qtrees que pertencem a uma unidade diferente do vFiler
+
+Você não pode fazer a transição de volumes com qtrees, onde os qtrees são propriedade de uma unidade diferente do do volume do vFiler. Antes da transição, você deve garantir que cada volume e todos os seus qtrees pertencem à mesma unidade do vFiler executando uma das seguintes ações:
+
+* Mova o qtrees para a unidade do vFiler que possui o volume.
+* Exclua o qtrees.
+
+
+
+
+== Inode para a definição de tradução de nome de caminho principal
+
+As traduções do inode para o nome de caminho principal devem estar ativadas em cada volume. Você pode habilitar o pai para traduções de pathname desativando a opção no_i2p:
+
+`*vol options _vol_name_ no_i2p off*`
+
+Não é necessário esperar que a digitalização i2p termine e pode continuar com a preparação da transição.

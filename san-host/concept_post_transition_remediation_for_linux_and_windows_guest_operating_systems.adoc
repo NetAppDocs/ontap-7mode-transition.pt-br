@@ -1,0 +1,26 @@
+---
+permalink: san-host/concept_post_transition_remediation_for_linux_and_windows_guest_operating_systems.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, remediation, linux, windows, guest, operating, systems 
+summary: Os sistemas operacionais Linux e Windows Guest podem exigir correção adicional após a transição de LUNs do Data ONTAP que operam no modo 7 para o Data ONTAP em cluster. 
+---
+= Remediação pós-transição para sistemas operacionais convidados Linux e Windows
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Os sistemas operacionais Linux e Windows Guest podem exigir correção adicional após a transição de LUNs do Data ONTAP que operam no modo 7 para o Data ONTAP em cluster.
+
+Para transições baseadas em cópia, faça o seguinte após concluir a operação de transferência de armazenamento no 7MTT. Para transições sem cópia, faça o seguinte após a conclusão da operação Importar dados e Configuração no 7MTT.
+
+* Linux
++
+Se os pontos de montagem estiverem definidos na `/etc/fstab `file, you must mount the LUN (`mount --a` ).
+
+* Windows
++
+Se o Cluster de failover estiver configurado na VM, você deverá colocar os discos on-line do Gerenciador de clusters de failover.
+
+

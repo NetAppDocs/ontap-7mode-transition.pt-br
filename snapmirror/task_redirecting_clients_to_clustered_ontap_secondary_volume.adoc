@@ -1,0 +1,33 @@
+---
+permalink: snapmirror/task_redirecting_clients_to_clustered_ontap_secondary_volume.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, transition, snapmirror, redirect, clients, disaster, clustered, secondary, volume 
+summary: 'Se você tiver estabelecido uma relação de recuperação de desastres (DR) do SnapMirror entre o volume primário de 7 modos e o volume secundário do Data ONTAP em cluster e se ocorrer um desastre no site primário de 7 modos, você deverá redirecionar o acesso do cliente para o volume secundário do Data ONTAP em cluster.' 
+---
+= Redirecionando clientes para o volume secundário do Data ONTAP em cluster após um desastre
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Se você estabeleceu uma relação de recuperação de desastres (DR) do SnapMirror entre o volume primário de 7 modos e o volume secundário do Data ONTAP em cluster e se ocorrer um desastre no local primário de 7 modos, redirecione o acesso do cliente para o volume secundário do Data ONTAP em cluster.
+
+.Passos
+. A partir do cluster secundário, use o `snapmirror break` comando para quebrar a relação SnapMirror entre o volume primário de 7 modos e o volume secundário Data ONTAP em cluster.
++
+[listing]
+----
+sec_cluster::> snapmirror break -destination-path dst_vserver:dst_c_vol
+----
+. A partir do cluster secundário, use o `snapmirror delete` comando para excluir a relação SnapMirror entre o volume primário de 7 modos e o volume secundário Data ONTAP em cluster.
++
+[listing]
+----
+sec_cluster::> snapmirror delete -destination-path dst_vserver:dst_c_vol
+----
+. Redirecione o acesso do cliente para o volume secundário do Data ONTAP em cluster.
++
+Para obter mais informações sobre como configurar o acesso de cliente no Clustered Data ONTAP, consulte link:https://library.netapp.com/ecm/ecm_get_file/ECMP1401220["Guia de gerenciamento de protocolos e acesso a arquivos do Clustered Data ONTAP"].
+
+

@@ -1,0 +1,27 @@
+---
+permalink: san-host/concept_esxi_versions_and_features_supported_for_san_transitions_using_7mtt.html 
+sidebar: sidebar 
+keywords: esxi, ontap, san, host, transition, versions, san, 7mtt, features 
+summary: 'Apenas determinadas versões e recursos do ESXi são suportados para transições SAN usando a ferramenta de transição de 7 modos (7MTT).' 
+---
+= Versões e recursos ESXi compatíveis com transições SAN usando 7MTT
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Apenas determinadas versões e recursos do ESXi são suportados para transições SAN usando a ferramenta de transição de 7 modos (7MTT).
+
+As seguintes versões e recursos são suportados conforme listado no link:https://mysupport.netapp.com/matrix["Ferramenta de Matriz de interoperabilidade do NetApp"]
+
+* ESXi 5,0, 5,1, 5,5 e posterior
++
+É necessário atualizar os hosts que executam o ESX/ESXi 4.x ou anterior para o ESX/ESXi 5,0 ou posterior para fazer a transição.
+
+* Armazenamentos de dados VMFS3 e VMFS5
+* Configurações de inicialização SAN
+* Dispositivos RDM (mapa de dispositivos RAW)
+* Todos os SO Guest suportados na Matriz de interoperabilidade
+* Todos os protocolos SAN (FC/FCoE/iSCSI)
+

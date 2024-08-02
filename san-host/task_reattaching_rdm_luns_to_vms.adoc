@@ -1,0 +1,38 @@
+---
+permalink: san-host/task_reattaching_rdm_luns_to_vms.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, rdm, lun, vm 
+summary: 'Para as VMs conetadas às LUNs Raw Device mapeadas (RDM) para funcionar após a transição, você deve remover os discos RDM que hospedam o LUN da VM. Em seguida, você deve reanexar os discos RDM à VM com base no número de série LUN fornecido pela ferramenta de transição de 7 modos (7MTT).' 
+---
+= Reanexando LUNs RDM a VMs
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Para que as VMs conetadas a LUNs RDM (Raw Device Mapped) funcionem após a transição, você deve remover os discos RDM que hospedam o LUN da VM. Em seguida, você deve reanexar os discos RDM à VM com base no número de série LUN fornecido pela 7-Mode Transition Tool (7MTT).
+
+* Para transições baseadas em cópia, execute estas etapas antes de iniciar a operação de transferência de armazenamento no 7MTT.
+* Para transições sem cópia, execute estas etapas antes de iniciar a operação Export & Halt 7-Mode Systems no 7MTT.
+
+
+.Passos
+. No _Inventory Assessment Workbook_, navegue até a guia *Host VM Disk Details*.
+. Identifique a VM host ESXi com PTRDM ou NPTRDM na coluna *Type*.
+. Observe o nome da VM, os detalhes do caminho do disco na coluna *disco* e o ID naa da coluna *Device mapeado*.
+. Verifique se o ID naa está listado no arquivo de mapeamento 7MTT gerado após a transição.
+. Verifique se o ID naa tem um novo ID naa correspondente na coluna *LUN WWID* do arquivo de mapeamento.
++
+Esta é a nova ID de naa LUN do Data ONTAP em cluster.
+
+. Use o Data ONTAP ID de naa LUN do cluster da coluna *WWID* LUN e os detalhes do caminho do disco para reanexar o LUN Data ONTAP em cluster à VM.
+
+
+*Informações relacionadas*
+
+xref:task_removing_stale_rdm_using_vsphere_client.adoc[Removendo RDMs obsoletos usando o vSphere Client]
+
+xref:task_reattaching_rdm_to_vms_using_vsphere_client.adoc[Reanexando o RDM às VMs usando o vSphere Client]
+
+xref:task_reattaching_rdm_using_esxi_cli_console.adoc[Reanexando o RDM usando o ESXi CLI/console]

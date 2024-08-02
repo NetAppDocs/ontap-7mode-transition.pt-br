@@ -1,0 +1,103 @@
+---
+permalink: inventory-collect/task_collecting_inventory_and_generating_inventory_report.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, collect, inventory, generating, inventory, report, transition 
+summary: 'Você pode coletar informações sobre os sistemas Data ONTAP (sistemas de 7 modos e nós do cluster), switches, hosts e aplicativos de host. Usando essas informações, você pode gerar um relatório de inventário que contém informações detalhadas sobre os sistemas 7-Mode, hosts e aplicativos host para avaliação de transição.' 
+---
+= Coletando inventário e gerando relatório de inventário
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode coletar informações sobre os sistemas Data ONTAP (sistemas de 7 modos e nós do cluster), switches, hosts e aplicativos de host. Usando essas informações, você pode gerar um relatório de inventário que contém informações detalhadas sobre os sistemas 7-Mode, hosts e aplicativos host para avaliação de transição.
+
+* Você deve ter baixado o `ict.exe` arquivo do site de suporte da NetApp.
+* Você deve ter o nome de usuário, senha e endereços IP dos sistemas de armazenamento e hosts para os quais o relatório de inventário é necessário.
+* O nome de usuário do sistema de storage e dos hosts deve ter Privileges suficiente para executar os comandos.
+* Se você estiver adicionando vários sistemas para a coleção de inventário, você deve ter criado um arquivo de texto codificado no formato ASCII ou UTF-8 e contém os detalhes do sistema, um sistema por linha.
++
+Cada detalhe do sistema deve estar no seguinte formato:
+
++
+`(ontap|windows|vmware|linux|cisco|brocade)://[(_domain_user__\\__user__):_[password]@](host_name|ip)__`
+
++
+Se você fornecer `*` como senha, será solicitado que você insira a senha na linha de comando.
+
+* Todos os recursos devem ser configurados e suas licenças devem ser habilitadas para que a pasta de trabalho possa conter as informações de inventário sobre os recursos.
+* Todas as configurações do sistema de armazenamento, como nomes de compartilhamento CIFS, nomes de usuário e nomes de grupo, devem estar no formato UTF-8.
+* Para o plano de zona FC, os sistemas e hosts de 7 modos devem ser conetados ao switch.
++
+O cluster pode ser conetado ao mesmo switch que o sistema de 7 modos ou a um novo switch na mesma malha.
+
+
+
+A ferramenta Inventory Collect pode coletar informações de configuração de um máximo de quatro controladores e 20 hosts simultaneamente. No entanto, para configurações dimensionadas com cotas, qtrees, exportações ou usuários e grupos UNIX, pode levar um tempo significativamente maior para que o relatório de inventário seja gerado.
+
+
+NOTE: Você deve evitar a realização de operações de coleta de inventário em controladores de storage ativos durante o horário de pico.
+
+. No prompt de comando do Windows, navegue até o caminho em que a ferramenta de coleta de inventário é baixada.
+. Gere o relatório de inventário executando o `ict` comando com o endereço IP do sistema e as credenciais:
++
+|===
+| Se você quiser fornecer informações... | Digite o seguinte comando... 
+
+
+ a| 
+Para cada sistema usando a interface de linha de comando
+ a| 
+"*ict --cmd collect --output _filename_ (ONTAP|windows|vmware|linux|Cisco|Brocade)://[(_user_|_domain_user_)[:(_password_|***)]_hostname_) ...*
+
+** `_filename_` é o nome que você deseja fornecer para o relatório de inventário.
+** `ontap|windows|vmware|linux` é o tipo de sistema.
++
+Por exemplo, para um sistema de armazenamento de 7 modos, o tipo de sistema é ONTAP e para um host Linux, o tipo de sistema é linux.
+
+** `cisco|brocade` São os switches FC compatíveis.
+** `_user|domain_user_` e `_password_` são as credenciais do sistema.
++
+Se o controlador não tiver palavra-passe, pode introduzir os carateres `\"\"` como palavra-passe.
+
+** `_hostname_` É o endereço IP ou o nome do host do controlador, host ou switch.
+
+
+
+
+ a| 
+Para vários sistemas em um arquivo de texto
+ a| 
+`*ict --cmd collect --output _filename_ --input _credentials_file.txt_*`
+
+`_credentials_file.txt_` é o arquivo de texto que contém os detalhes e credenciais do sistema para vários sistemas:
+
+** Apenas são suportados ficheiros de texto codificados em formato ASCII.
+** Se você fornecer `*` como senha, será solicitado que você insira a senha na linha de comando.
+** Se o controlador não tiver nenhuma palavra-passe, pode introduzir `""` como palavra-passe.
+
+
+|===
++
+
+NOTE: Se o seu sistema de armazenamento estiver executando o Windows 7 ou posterior e você tiver restringido o Privileges à pasta onde o arquivo XML de saída para o relatório de inventário será armazenado, os arquivos de saída serão automaticamente armazenados `VirtualStore` no diretório e o aplicativo será executado como de costume.
+
++
+O relatório de inventário é criado para um sistema de armazenamento e um host Linux. Os relatórios gerados são `collected_data.xml` e `collected_data_InventoryWorkbook.xml`:
+
++
+[listing]
+----
+ict --cmd collect --output collected_data ontap://root:test123@hostname1 linux://root@hostname2
+----
++
+É apresentado o tempo estimado necessário para a recolha de informações de inventário por controlador.
+
++
+A pasta de trabalho de inventário e o relatório de inventário são gerados em formato XML.
+
+. Veja a pasta de trabalho do inventário no Microsoft Excel usando o Microsoft Office 2007 ou versões posteriores.
+
+
+Você está pronto para importar o XML do relatório de inventário para a ferramenta de transição de 7 modos para avaliar os recursos e funcionalidades do controlador e hosts de 7 modos e para identificar como os recursos e funcionalidades funcionam na versão de cluster Data ONTAP selecionada para transição.

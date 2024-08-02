@@ -1,0 +1,123 @@
+---
+permalink: copy-free/task_removing_disk_shelves_from_7_mode_and_connecting_to_cluster_nodes.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, disconnect, disk, shelves, connect, cluster, node 
+summary: O cabeamento das gavetas de disco de 7 modos aos nós de cluster de destino é um processo manual. Após o cabeamento das gavetas de disco, é uma prática recomendada verificar o cabeamento usando o Config Advisor. Em seguida, você pode verificar o cabeamento usando a ferramenta de transição de 7 modos. A ferramenta executa apenas um subconjunto das verificações que são realizadas pelo Config Advisor. 
+---
+= Desconexão das gavetas de disco do sistema 7-Mode e conexão aos nós do cluster
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O cabeamento das gavetas de disco de 7 modos aos nós de cluster de destino é um processo manual. Após o cabeamento das gavetas de disco, é uma prática recomendada verificar o cabeamento usando o Config Advisor. Em seguida, você pode verificar o cabeamento usando a ferramenta de transição de 7 modos. A ferramenta executa apenas um subconjunto das verificações que são realizadas pelo Config Advisor.
+
+Você deve ter registrado as informações sobre a conetividade do compartimento de disco às portas do controlador de 7 modos.
+
+Você deve estar ciente de algumas das considerações para conectar compartimentos de disco SAS:
+
+* Você deve seguir as regras de cabeamento de portas quadradas e circulares SAS.
+* É possível misturar gavetas IOM6 e IOM3 na mesma stack, mas não deve haver mais do que uma única transição entre gavetas que estejam usando diferentes tipos de IOM.
++
+Por exemplo, o IOM6e (controlador)--IOM6 (compartimento)--IOM3 (compartimento)--IOM3 (compartimento) é uma configuração compatível. Mas o IOM6e (controlador)--IOM3 (gaveta)--IOM6 (gaveta)--IOM3 (gaveta) não é uma configuração compatível.
+
+
+
+.Passos
+. Verifique as IDs do compartimento de disco no par de HA de 7 modos e nos nós de cluster de destino:
++
+.. Se houver IDs de gaveta duplicados (se os IDs de gaveta de disco de 7 modos forem usados para as gavetas de disco nos nós de cluster de destino), altere as IDs de gaveta de disco.
++
+*** Para compartimentos de disco SAS, um ID do compartimento válido é de 00 a 99.
+*** As IDs de gaveta SAS devem ser exclusivas do par de HA. https://library.netapp.com/ecm/ecm_download_file/ECMP1119629["Guia de instalação e serviço das gavetas de disco SAS para DS4243, DS2246, DS4486 e DS4246"]
+*** Para compartimentos de disco FC, um ID de gaveta válido é de 1 a 7.
+*** As IDs de gaveta de FC devem ser exclusivas em cada loop de FC. https://library.netapp.com/ecm/ecm_download_file/ECMP1112854["Guia de Serviço de hardware DS14mk2 FC e DS14mk4 FC"]
+
+
+.. Ligue e desligue os compartimentos de disco para que os novos IDs entrem em vigor.
+
+
+. Desligue as gavetas de disco de 7 modos.
+. Dependendo se há portas adicionais disponíveis nos nós de cluster de destino, escolha uma das seguintes opções:
++
+|===
+| Se... | Então... 
+
+
+ a| 
+Portas adicionais estão disponíveis para conectar as gavetas de disco
+ a| 
+Conectar as gavetas de disco em uma nova stack aos nós de cluster de destino em uma configuração multipath.
+
+
+NOTE: É a prática recomendada conectar as gavetas de disco a uma stack separada. A ferramenta de transição de 7 modos deteta a disponibilidade do número necessário de portas nos nós de cluster de destino quando as pré-verificações são executadas.
+
+
+
+ a| 
+As portas não estão disponíveis para conectar as gavetas de disco
+ a| 
+Execute uma das seguintes ações:
+
+** Adicione uma nova placa de expansão e conete as gavetas de disco em uma nova stack aos nós de cluster de destino em uma configuração multipath.
++
+Você deve ter verificado se o cartão de expansão é suportado na plataforma de destino.
+
+** Conectar os compartimentos de disco a uma stack existente em uma configuração multipath.
+
+
+|===
++
+https://library.netapp.com/ecm/ecm_download_file/ECMP1119629["Guia de instalação e serviço das gavetas de disco SAS para DS4243, DS2246, DS4486 e DS4246"]
+
++
+https://library.netapp.com/ecm/ecm_download_file/ECMM1280273["DiskShelf14mk2 NO Guia de Serviço de hardware"]
+
++
+https://library.netapp.com/ecm/ecm_download_file/ECMP1112854["Guia de Serviço de hardware DS14mk2 FC e DS14mk4 FC"]
+
+. Ligue as gavetas de disco.
++
+
+IMPORTANT: Tem de aguardar pelo menos 70 segundos antes de prosseguir.
+
+. Use o Config Advisor para verificar as conexões.
++
+Você deve corrigir quaisquer problemas de cabeamento identificados pelo Config Advisor.
+
++
+https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["NetApp Downloads: Config Advisor"]
+
+. Na ferramenta de transição de 7 modos, clique em *Verify Cabling*.
++
+É apresentada uma mensagem que lista as considerações importantes para esta operação.
+
++
+*Solução de problemas:* se houver discos em falta em um agregado, o agregado se degradará e a verificação de cabeamento falhará. Se o número de discos ausentes estiver dentro de um limite permitido, você poderá continuar a transição com os agregados degradados executando o seguinte comando da CLI da ferramenta de transição de 7 modos:
+
++
+`*transition cft aggregate degraded-transition -p _project_name_ -n 7-__mode_host_name__ -a _7-mode_aggregate_name_ -i acknowledge*`
+
++
+Em seguida, você pode executar novamente a operação de verificação de cabeamento e continuar com a transição. Você deve garantir que haja discos sobressalentes suficientes no nó do cluster de destino para reconstruir esses grupos RAID após a transição dos agregados.
+
+. Clique em *Yes* para continuar.
+. Aguarde até que a operação seja concluída e execute as seguintes etapas para salvar os resultados da operação e coletar os logs da ferramenta:
++
+.. Clique em *Salvar como CSV* para salvar os resultados da operação em um arquivo.
+.. Clique em *Collect Tool Logs* para criar um backup de todos os arquivos de log de transição.
++
+É uma prática recomendada salvar os arquivos de log após cada operação de transição.
+
+.. Clique em *Fechar*.
+
+
++
+Se a operação demorar muito tempo a ser concluída, você pode clicar em *Executar em segundo plano* para sair da janela de resultados da operação. Você não deve editar o projeto ou executar qualquer outra tarefa quando a operação estiver em execução em segundo plano. Em seguida, pode visualizar os resultados das operações a partir do separador Operation History (Histórico de operações).
+
+
+
+*Informações relacionadas*
+
+xref:task_gathering_cabling_information_for_transition.adoc[Coleta de informações de cabeamento para transição]

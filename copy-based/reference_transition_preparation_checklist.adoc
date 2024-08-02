@@ -1,0 +1,405 @@
+---
+permalink: copy-based/reference_transition_preparation_checklist.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, preparation, checklist 
+summary: Antes de iniciar a transição, você deve verificar se atendeu a todos os pré-requisitos para a transição. 
+---
+= Lista de verificação de preparação da transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de iniciar a transição, você deve verificar se atendeu a todos os pré-requisitos para a transição.
+
+
+
+== Requisitos de versão do ONTAP
+
+|===
+| Item | Sim 
+
+
+ a| 
+Versão 7-Mode suportada https://mysupport.netapp.com/matrix["Ferramenta de Matriz de interoperabilidade do NetApp"]
+ a| 
+
+
+
+ a| 
+O cluster deve estar executando uma das seguintes versões do Data ONTAP:
+
+* Data ONTAP 8.2.x
+* Data ONTAP 8.3.x
+
+ a| 
+
+
+
+ a| 
+Você precisa fazer a transição para uma das seguintes versões do ONTAP:
+
+* Usando a ferramenta de transição de 7 modos 3,3.3:
++
+** ONTAP 9 .8 ou versões anteriores suportadas
+
+
+* Usando a ferramenta de transição de 7 modos 3,3.2:
++
+** ONTAP 9.7P2 ou versão 9,7 P posterior (versões 9,7 anteriores não são suportadas)
+** Versão 9,6 P do ONTAP 9.6P7 ou posterior (versões 9,6 anteriores não são suportadas)
+** ONTAP 9 .5 ou versão anterior do ONTAP 9
+** Lançamento do Clustered Data ONTAP 8.1.4P4 ou posterior 8.x.
+
+
+* Usando a ferramenta de transição de 7 modos 3,3.1:
++
+** ONTAP 9 .5 ou versão anterior do ONTAP 9
+** Lançamento do Clustered Data ONTAP 8.1.4P4 ou posterior 8.x.
+
+
+
+ a| 
+
+|===
+
+
+== Requisitos de licenciamento
+
+|===
+| Item | Sim 
+
+
+ a| 
+A licença SnapMirror está ativada no sistema de 7 modos
+ a| 
+
+
+
+ a| 
+As licenças do SnapMirror são habilitadas nos clusters primário e secundário para a transição de uma relação de volume SnapMirror
+ a| 
+
+
+
+ a| 
+A licença CIFS está ativada no cluster, se estiver ativada no sistema de 7 modos
+ a| 
+
+
+
+ a| 
+A licença NFS é ativada no cluster, se estiver ativada no sistema 7-Mode
+ a| 
+
+
+
+ a| 
+A licença iSCSI está ativada no cluster, se estiver ativada no sistema de 7 modos
+ a| 
+
+
+
+ a| 
+A licença FC é ativada no cluster, se estiver ativada no sistema 7-Mode
+ a| 
+
+
+
+ a| 
+Outras licenças de funcionalidades, se disponíveis no sistema de 7 modos, são adicionadas ao cluster
+ a| 
+
+|===
+
+
+== Requisitos do SnapMirror no sistema de 7 modos
+
+|===
+| Item | Sim 
+
+
+ a| 
+Licença SnapMirror
+ a| 
+
+
+
+ a| 
+`options snapmirror.enable on`
+ a| 
+
+
+
+ a| 
+`options interface.snapmirror.blocked ""`
+ a| 
+
+
+
+ a| 
+Verifique se uma das seguintes opções é verdadeira:
+
+* A `snapmirror.access` opção está definida como All (todos)
+* A `snapmirror.access` opção é definida como os endereços IP de todas as LIFs entre clusters no cluster
+* Se a `snapmirror.access` opção estiver definida como `legacy` e a `snapmirror.checkip.enable` opção for `off`, o nome do SVM será adicionado ao `/etc/snapmirror.allow` arquivo
+* Se a `snapmirror.access` opção estiver definida como legado e `snapmirror.checkip.enable` a opção for `on`, os endereços IP das LIFs entre clusters serão adicionados ao `/etc/snapmirror.allow` arquivo
+
+ a| 
+
+|===
+
+
+== Definições de volume no sistema de 7 modos
+
+|===
+| Item | Sim 
+
+
+ a| 
+O volume está online
+ a| 
+
+
+
+ a| 
+O volume não está restrito
+ a| 
+
+
+
+ a| 
+As seguintes opções de volume estão desativadas:
+
+* `no_i2p`
+* `read_realloc`
+* `nvfail`
+
+ a| 
+
+|===
+
+
+== Gerenciando o acesso ao cluster
+
+|===
+| Item | Sim 
+
+
+ a| 
+SSL está ativado
+
+`system services web show`
+ a| 
+
+
+
+ a| 
+HTTPS é permitido no LIF de gerenciamento de cluster
+
+`system services firewall policy show`
+ a| 
+
+|===
+
+
+== Gerenciando o acesso ao sistema 7-Mode
+
+|===
+| Item | Sim 
+
+
+ a| 
+O HTTPS está ativado
+
+`options httpd.admin.ssl.enable on`
+ a| 
+
+
+
+ a| 
+SSL está ativado
+
+`secureadmin setup ssl`
+
+`options ssl.enable on`
+ a| 
+
+
+
+ a| 
+SSLv2 e SSLv3 estão desativados
+
+`options ssl.v2.enable off`
+
+`options ssl.v3.enable off`
+ a| 
+
+|===
+
+
+== Requisitos de rede
+
+|===
+| Item | Sim 
+
+
+ a| 
+O cluster é acessível usando o LIF de gerenciamento de cluster
+ a| 
+
+
+
+ a| 
+Uma ou mais LIFs de clusters são configurados em cada nó do cluster para multipathing, duas LIFs de clusters são necessárias em cada nó
+ a| 
+
+
+
+ a| 
+As rotas estáticas são criadas para os LIFs entre clusters
+ a| 
+
+
+
+ a| 
+O sistema de 7 modos e o cluster são acessíveis a partir do sistema Windows no qual a ferramenta de transição de 7 modos está instalada
+ a| 
+
+
+
+ a| 
+O servidor NTP é configurado e a hora do sistema de 7 modos é sincronizada com a hora do cluster
+ a| 
+
+|===
+
+
+== Requisitos portuários
+
+|===
+| Item | Sim 
+
+
+ a| 
+Sistema de 7 modos
+
+* 10565/TCP
+* 10566/TCP
+* 10567/TCP
+* 10568/TCP
+* 10569/TCP
+* 10670/TCP
+* 80/TCP
+* 443/TCP
+
+ a| 
+
+
+
+ a| 
+Cluster
+
+* 10565/TCP
+* 10566/TCP
+* 10567/TCP
+* 10568/TCP
+* 10569/TCP
+* 10670/TCP
+* 11105/TCP
+* 80/TCP
+* 443/TCP
+
+ a| 
+
+|===
+
+
+== Requisitos da NFS
+
+|===
+| Item | Sim 
+
+
+ a| 
+A licença NFS é adicionada ao cluster
+ a| 
+
+
+
+ a| 
+A entrada DNS deve ser configurada para o domínio AD no SVM
+ a| 
+
+
+
+ a| 
+O NFS é adicionado à lista de protocolos permitidos para o SVM
+ a| 
+
+
+
+ a| 
+O relógio oscila entre o KDC e o cluster é inferior ou igual a 5 minutos
+ a| 
+
+|===
+
+
+== Requisitos da CIFS
+
+|===
+| Item | Sim 
+
+
+ a| 
+A licença CIFS é adicionada ao cluster
+ a| 
+
+
+
+ a| 
+Se a licença do MultiStore estiver ativada, o CIFS deve ser adicionado à lista de protocolos permitidos para a unidade do vFiler que possui os volumes em transição
+ a| 
+
+
+
+ a| 
+O CIFS é configurado e executado no sistema de 7 modos
+ a| 
+
+
+
+ a| 
+O tipo de autenticação no modo 7 para CIFS é o ative Directory (AD) ou o Workgroup
+ a| 
+
+
+
+ a| 
+O CIFS é adicionado à lista de protocolos permitidos para o SVM
+ a| 
+
+
+
+ a| 
+O DNS está configurado para o SVM
+ a| 
+
+
+
+ a| 
+O servidor CIFS está configurado para o SVM
+ a| 
+
+
+
+ a| 
+O CIFS é executado no SVM
+ a| 
+
+|===
+*Informações relacionadas*
+
+xref:concept_preparing_for_copy_based_transition.adoc[Preparando-se para a transição baseada em cópia]

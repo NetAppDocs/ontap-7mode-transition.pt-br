@@ -1,0 +1,104 @@
+---
+permalink: copy-free/task_running_manual_steps_for_rolling_back_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, manual, roll, back 
+summary: Você deve executar algumas etapas manuais no cluster e nos sistemas de 7 modos se decidir reverter a transição. A lista de etapas de reversão manual é gerada pela ferramenta de transição de 7 modos. 
+---
+= Reverter manualmente a transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você deve executar algumas etapas manuais no cluster e nos sistemas de 7 modos se decidir reverter a transição. A lista de etapas de reversão manual é gerada pela ferramenta de transição de 7 modos.
+
+As etapas de reversão variam dependendo do estágio em que você decide reverter. Você deve executar todas as etapas nesta tarefa se decidir reverter após uma operação de importação bem-sucedida. Se você decidir reverter em uma fase anterior, você terá que executar um subconjunto dessas etapas.
+
+.Passos
+. Inicie sessão no cluster.
+. Se algum volume transicionado estiver em uma relação do SnapMirror, escolha uma das seguintes ações:
++
+** Se um volume transicionado for o destino de uma relação SnapMirror, exclua a relação SnapMirror
+`*snapmirror delete -destination-path _destination-path_ -source-path _source-path_*`
+** Se um volume transicionado for a origem de uma relação SnapMirror, libere a relação SnapMirror:
+`*snapmirror release -destination-path destination-path -source-path source-path*`
+
+
+. A partir do cluster, verifique se as seguintes operações não estão em execução nos volumes transferidos:
++
+.. Operação de movimentação de volume
+`*volume move show*`
+.. Operação de movimentação de LUN
+`*lun move show*`
+.. Operação de cópia LUN
+`*lun copy show*`
+
+
+. Execute a reversão para todos os agregados do modo 7:
++
+.. Inicie sessão no nível de privilégios de diagnóstico
+`*set -privilege diagnostic*`
+.. Reverta os agregados para o estado 7-Mode usando o `storage transition revert start` comando.
++
+Esse comando requer parâmetros adicionais, como ID do projeto de transição e atributos agregados. Você deve usar o comando completo com os parâmetros e seus valores, conforme gerado pela ferramenta de transição de 7 modos.
+
+.. Verifique se a reversão é bem-sucedida para todos os agregados transicionados
+`*storage transition revert show-status*`
++
+O `status-code` campo de um agregado é exibido como `revert_complete` quando a reversão é bem-sucedida.
+
+
+
+. Reatribuir as propriedades de disco dos nós de cluster de destino aos controladores de modo 7:
++
+.. Atribua a propriedade do disco aos controladores 7-Mode
+`*disk assign –disk _disk_id_ –s _system_id_ -force true*`
+.. Verifique se a propriedade do disco está atribuída aos controladores do modo 7:
++
+`*storage disk show -fields owner-id*`
+
+
+
+. Remova os LIFs de 7 modos dos SVMs:
++
+`*network interface delete -vserver _svm_name_ -lif _lif_name_*`
+
+. Remova as restrições de transição sem cópia nos nós do cluster de destino do nível de privilégio de diagnóstico:
++
+`*storage transition pre-commit end -session-id _transition_project_id_*`
+
++
+Você também pode executar esta etapa depois que a operação de reversão estiver concluída e os controladores do modo 7 estiverem operacionais.
+
+. Exclua as informações do projeto de transição sobre os nós do cluster de destino usando o seguinte comando de nível de privilégio de diagnóstico:
++
+`*storage transition purge-info -session-id _transition_project_id_*`
+
++
+Você também pode executar esta etapa depois que a operação de reversão estiver concluída e os controladores do modo 7 estiverem operacionais.
+
+. Se a atribuição automática de propriedade do disco tiver sido desativada nos nós do cluster durante a operação de exportação e parada, ative-a:
++
+`*storage disk assign -auto true*`
+
+. Remova manualmente todas as configurações que a ferramenta fez a transição para os SVMs de destino.
++
+Você pode visualizar os resultados das operações de provisionamento e importação de SVM para obter informações sobre as configurações transferidas pela ferramenta.
+
+. Remova os compartimentos de disco dos nós de cluster de destino e, em seguida, reconete-os aos controladores de 7 modos.
++
+
+TIP: Você deve usar a ferramenta Config Advisor para verificar o cabeamento.
+
+. Se quaisquer IDs de gaveta de disco de 7 modos tiverem sido alteradas para resolver os conflitos com as IDs de gaveta de disco dos nós de cluster de destino, altere-as manualmente para as IDs antigas e desligue os compartimentos de disco para que as novas IDs entrem em vigor.
+. Inicialize os controladores de 7 modos de origem no modo normal.
+. A partir de um dos controladores 7-Mode de origem, habilite o recurso de aquisição:
++
+`*cf enable*`
+
+. Se a exclusão automática de cópias Snapshot agregadas tiver sido desativada durante a operação de exportação e parada, habilite-a:
++
+`*options snap autodelete _aggr_name_ on*`
+
+

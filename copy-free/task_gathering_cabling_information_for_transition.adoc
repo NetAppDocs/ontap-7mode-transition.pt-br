@@ -1,0 +1,103 @@
+---
+permalink: copy-free/task_gathering_cabling_information_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, gather, cabling, information 
+summary: Antes de iniciar a transição sem cópia, você deve coletar informações sobre adaptadores, portas, compartimentos de disco e conectividade de storage de seus controladores de 7 modos e Planejar como conectar as gavetas de disco de 7 modos aos nós de cluster de destino. 
+---
+= Coleta de informações de cabeamento para transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de iniciar a transição sem cópia, você deve coletar informações sobre adaptadores, portas, compartimentos de disco e conectividade de storage de seus controladores de 7 modos e Planejar como conectar as gavetas de disco de 7 modos aos nós de cluster de destino.
+
+Você deve ter impresso a Planilha de cabeamento de transição sem cópia.
+
+xref:reference_copy_free_transition_cabling_worksheet.adoc[Folha de cálculo de cabeamento de transição sem cópia]
+
+. Use o Config Advisor para realizar uma verificação de integridade no storage e cabeamento do modo 7 e coletar dados de cabeamento.
++
+Você deve usar a `7-Mode Install Checks` opção do perfil de execução "'Data ONTAP 7 e 8 (modo 7D)".
+
+. Reúna as informações necessárias sobre cada controlador de 7 modos usando o seguinte comando:
++
+`*sysconfig _slot_number_*`
+
++
+Você pode usar a saída deste comando para identificar quais portas são usadas para a conetividade do compartimento de disco.
+
++
+[listing]
+----
+host1> sysconfig 3
+        slot 3: SAS Host Adapter 3a
+                24 Disks:            13440.0GB
+                1 shelf with IOM3
+        slot 3: SAS Host Adapter 3b
+                24 Disks:            13440.0GB
+                1 shelf with IOM3
+        slot 3: SAS Host Adapter 3c
+                24 Disks:            13440.0GB
+                1 shelf with IOM3
+        slot 3: SAS Host Adapter 3d
+                24 Disks:            13440.0GB
+                1 shelf with IOM3
+----
+. A partir do cluster, execute o seguinte comando nodeshell em cada nó:
++
+`*system node run -node _node_name_ -command sysconfig -a*`
+
++
+Você pode usar a saída deste comando para obter informações sobre as portas disponíveis e os slots de placa de expansão.
+
+. Nos nós do cluster de destino, Planeje as portas a serem usadas para conetar as gavetas de disco de 7 modos:
++
+.. Reveja as portas disponíveis (abertas).
+.. Revise os slots da placa de expansão.
+.. Planeie a configuração da placa de expansão.
++
+Você pode Planejar mover as placas de expansão dos sistemas de 7 modos se elas também forem suportadas na plataforma de destino e na versão ONTAP. Você também pode Planejar para cartões PAM, se necessário.
+
++
+https://hwu.netapp.com["NetApp Hardware Universe"]
+
+.. Planeje as portas de destino a serem usadas para o cabeamento do compartimento de disco.
++
+A seleção das portas de destino depende de alguns dos seguintes fatores:
+
++
+*** Pilha de gaveta de disco separada ou existente
+*** Disponibilidade da porta
+*** Conexões SAS ou FC
+*** Disponibilidade de portas integradas ou placas de expansão
+
+
+
+
+. Vá para o data center para Registrar fisicamente as conexões de porta nos controladores 7-Mode e nós de cluster de destino na Planilha de cabeamento:
++
+.. Registre as portas usadas nos controladores 7-Mode na Planilha de cabeamento.
+.. Registre as portas usadas nos nós de cluster de destino na Planilha de cabeamento.
+.. Registre as portas de destino a serem usadas para conetar os compartimentos de disco de 7 modos, conforme planejado na <<STEP_D0CFE719A0384F7FA5D9E73C8EA6C2E7,PASSO_D0CFE719A0384F7FA5D9E73C8EA6C2E7>>Etapa .
+.. Certifique-se de ter os cabos certos para conetar as gavetas de disco.
++
+Você deve identificar quaisquer problemas com o cabeamento com base no novo local da stack de gaveta de disco.
+
+.. Planeje comprimentos de cabos mais longos devido aos requisitos de rack de escada ou data center.
+.. Rotule cada stack de gaveta de disco e cabo nas controladoras de 7 modos.
++
+A prática recomendada é rotular as pilhas de gaveta de disco de 7 modos para o caso de você querer reverter a transição e ter que reconetar as gavetas de disco aos controladores de 7 modos.
+
+
+
+
+
+*Informações relacionadas*
+
+https://library.netapp.com/ecm/ecm_download_file/ECMP1119629["Guia de instalação e serviço das gavetas de disco SAS para DS4243, DS2246, DS4486 e DS4246"]
+
+https://library.netapp.com/ecm/ecm_download_file/ECMM1280273["DiskShelf14mk2 NO Guia de Serviço de hardware"]
+
+https://library.netapp.com/ecm/ecm_download_file/ECMP1112854["Guia de Serviço de hardware DS14mk2 FC e DS14mk4 FC"]

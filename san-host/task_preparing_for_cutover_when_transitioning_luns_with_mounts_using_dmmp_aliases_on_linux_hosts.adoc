@@ -1,0 +1,42 @@
+---
+permalink: san-host/task_preparing_for_cutover_when_transitioning_luns_with_mounts_using_dmmp_aliases_on_linux_hosts.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, cutover, phase, lun, point, dmmp, device, names 
+summary: Se você estiver fazendo a transição de um LUN com um ponto de montagem usando um nome de alias em um host Linux, há várias etapas que você deve executar antes de entrar na fase de transição. 
+---
+= Preparando-se para a fase de transição ao fazer a transição de LUNs com pontos de montagem usando nomes de dispositivos DMMP em hosts Linux
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Se você estiver fazendo a transição de um LUN com um ponto de montagem usando um nome de alias em um host Linux, há várias etapas que você deve executar antes de entrar na fase de transição.
+
+Para configurações de FC, você precisa ter conectividade de malha e zoneamento para controladores Data ONTAP em cluster.
+
+Para configurações iSCSI, suas sessões iSCSI devem ser descobertas e conetadas aos controladores Data ONTAP em cluster.
+
+* Para transições baseadas em cópia, execute estas etapas antes de iniciar a operação de transferência de armazenamento na ferramenta de transição de 7 modos (7MTT).
+* Para transições sem cópia, execute estas etapas antes de iniciar a operação Export & Halt 7-Mode Systems no 7MTT.
+
+
+.Passos
+. Pare a e/S para os pontos de montagem.
+. Encerre os aplicativos que estão acessando os LUNs de acordo com as recomendações do fornecedor do aplicativo.
+. Desmontar dispositivos DMMP:
++
+`*umount _dir_name_*`
+
+. Lave a ID do dispositivo de DMMP LUN de 7 modos:
++
+`*multipath -f _device_name_*`
+
++
+Se necessário, você pode obter o nome do dispositivo DDMP na coluna *ID do dispositivo do sistema operacional* na guia *SAN Host LUNs* no _Inventory Assessment Workbook_.
+
+
+
+*Informações relacionadas*
+
+xref:task_gathering_pretransition_information_from_inventory_assessment_workbook.adoc[Recolha de informações de pré-transição do livro de trabalho de avaliação de inventário]

@@ -1,0 +1,24 @@
+---
+permalink: san-host/concept_transitioning_luns_with_mount_points_using_dmmp_devices_names.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, lun, mount, points, dmmp, device, name 
+summary: 'Antes de fazer a transição de um LUN com um ponto de montagem usando um nome de dispositivo DMMP, você deve substituir o nome do dispositivo DMMP pelo número UID do sistema de arquivos correspondente. É necessário executar etapas específicas para se preparar para a fase de transição e remontar os dispositivos DMMP no host após a transição. Você executa os mesmos procedimentos para Red Hat Enterprise Linux (RHEL) 5 e RHEL 6.' 
+---
+= Transição de LUNs com pontos de montagem utilizando nomes de dispositivos DMMP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de fazer a transição de um LUN com um ponto de montagem usando um nome de dispositivo DMMP, você deve substituir o nome do dispositivo DMMP pelo número UID do sistema de arquivos correspondente. É necessário executar etapas específicas para se preparar para a fase de transição e remontar os dispositivos DMMP no host após a transição. Você executa os mesmos procedimentos para Red Hat Enterprise Linux (RHEL) 5 e RHEL 6.
+
+*Informações relacionadas*
+
+xref:task_preparing_rhel_luns_transition_using_inventory_assessment_workbook.adoc[Preparando LUNs RHEL com pontos de montagem usando nomes de dispositivos DMMP para transição usando o Inventory Assessment Workbook]
+
+xref:task_preparing_rhel_luns_for_transition_using_the_cli.adoc[Preparando LUNs RHEL com pontos de montagem usando nomes de alias DMMP para transição usando a CLI]
+
+xref:task_preparing_for_cutover_when_transitioning_luns_with_mounts_using_dmmp_aliases_on_linux_hosts.adoc[Preparando-se para a fase de transição ao fazer a transição de LUNs com pontos de montagem usando nomes de dispositivos DMMP em hosts Linux]
+
+xref:task_remounting_dmmp_devices_on_linux_hosts_after_transition.adoc[Remontando dispositivos DMMP em hosts Linux após a transição]

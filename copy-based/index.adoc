@@ -1,0 +1,14 @@
+---
+permalink: copy-based/index.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, index 
+summary: Descreve como avaliar controladores, hosts e aplicativos do modo 7 para transição e executar uma migração baseada em cópia de dados e configuração de sistemas do modo 7 para o ONTAP usando a ferramenta de transição de 7 modos. 
+---
+= Guia de transição baseado em cópias
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este guia descreve como avaliar controladores, hosts e aplicativos do modo 7 para a transição e executar uma migração baseada em cópia de dados e configuração de sistemas do modo 7 para o ONTAP usando a ferramenta de transição de 7 modos.

@@ -1,0 +1,24 @@
+---
+permalink: san-host/concept_exceptions_and_known_issues_when_transitioning_san_hosts_to_clustered_ontap.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, exceptions, issues, san, host 
+summary: Você deve estar ciente de certas exceções e problemas conhecidos ao fazer a transição de hosts SAN do Data ONTAP operando no modo 7 para versões posteriores do ONTAP. 
+---
+= Exceções e problemas conhecidos ao fazer a transição de hosts SAN para o ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você deve estar ciente de certas exceções e problemas conhecidos ao fazer a transição de hosts SAN do Data ONTAP operando no modo 7 para versões posteriores do ONTAP.
+
+* Para a transição de máquinas Hyper-Virtual (VMs) apenas com tipos de arquivo VHD ou VHDX, você pode usar a migração em tempo real de armazenamento em vez da ferramenta de transição de 7 modos (7MTT).
++
+Para obter detalhes sobre a migração em tempo real de armazenamento Hyper-V, consulte a documentação da Microsoft.
+
+* Se você usou o mesmo nome do grupo em ambos os nós do controlador 7-Mode, a ferramenta de transição pode falhar para resolver o conflito do grupo.
++
+ID do bug https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=769715["769715"] .
+
+

@@ -1,0 +1,104 @@
+---
+permalink: copy-based/concept_cifs_configurations_supported_unsupported_or_requiring_manual_steps_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, supported, unsupported, cifs, configurations 
+summary: Algumas configurações CIFS não são transferidas para o ONTAP porque não são suportadas no ONTAP ou precisam ser transferidas manualmente. Você deve verificar todas as mensagens de erro e aviso de pré-verificação para avaliar o impactos de tais configurações na transição. 
+---
+= Configurações CIFS suportadas e não suportadas para transição para o ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Algumas configurações CIFS não são transferidas para o ONTAP porque não são suportadas no ONTAP ou precisam ser transferidas manualmente. Você deve verificar todas as mensagens de erro e aviso de pré-verificação para avaliar o impactos de tais configurações na transição.
+
+
+
+== Configurações compatíveis para a transição
+
+Em um nível alto, a ferramenta de transição de 7 modos faz a transição das seguintes configurações CIFS:
+
+* Configuração CC preferencial CIFS
+* Configuração de mapeamento do utilizador:
++
+** `/etc/usermap.cfg`
+** `_wafl.nt_admin_priv_map_to_root_`
+
+
+* Usuários e grupos locais CIFS
+* Configuração de link simbólico e widelink (`/etc/symlink.translations`)
+* Configuração de auditoria CIFS
+* Compartilhamentos CIFS
+* ACLs de compartilhamento CIFS
+* Configuração do diretório base CIFS
+* Opções CIFS:
++
+** `cifs.gpo.enable`
+** `cifs.smb2.enable`
+** `cifs.smb2.signing.required`
+** `cifs.wins_servers`
+** `cifs.grant_implicit_exe_perms`
+** `cifs.restrict_anonymous`
+
+
+* SMB2 ligações a servidores externos, como um controlador de domínio. O seguinte comando implementa este suporte:
++
+** `*cifs security modify -vserver SVM1 -smb2-enabled-for-dc-connections*`
+
+
+* Configuração de bloqueio de arquivos nativo FPolicy
+
+
+Consulte os resultados da pré-verificação para obter detalhes sobre essas configurações CIFS.
+
+
+
+== Configurações que não são suportadas no ONTAP
+
+As configurações de 7 modos a seguir não são suportadas no ONTAP. Portanto, essas configurações não podem ser transferidas.
+
+* NT4, e tipos de autenticação de senha
+* Opções separadas para assinatura SMB1 e SMB2
+* Estatísticas CIFS por cliente
+* 
++
+** Autenticação para clientes anteriores ao Windows NT
+
+
+* Auditoria de eventos de gerenciamento de contas para usuários e grupos locais
+* Entradas do UserMap com endereços IP, nomes de host, nomes de rede ou nomes de rede com sub-rede especificada em notação pontilhada
+* Compartilhamentos CIFS com restrição de acesso para contas de máquina
++
+As contas de máquina podem acessar todos os compartilhamentos após a transição.
+
+
+
+
+
+== Configurações que devem ser transferidas manualmente
+
+Algumas configurações CIFS são suportadas no ONTAP, mas não são transferidas pela ferramenta de transição de 7 modos.
+
+As configurações CIFS a seguir geram uma mensagem de aviso no pré-check. Você precisa aplicar manualmente essas configurações no SVM:
+
+* Definições de antivírus
+* Configurações de FPolicy
++
+Os servidores FPolicy e antivírus de 7 modos não funcionam com o ONTAP. Você deve entrar em Contato com os fornecedores de servidores para atualizar esses servidores. No entanto, você não deve desativar os servidores FPolicy e antivírus de 7 modos até que você confirme a transição. Estes são necessários no caso de você decidir reverter a transição.
+
+* Configurações do BranchCache
+* Configuração de mapeamento de carateres (charmap)
+* Atributo Forcegroup de compartilhamentos CIFS para criar arquivos com um grupo UNIX especificado como grupo proprietário
+* O atributo Maxusers de compartilhamentos CIFS para especificar o número máximo de conexões simultâneas permitidas a um compartilhamento CIFS de 7 modos
+* Configurações de proteção de acesso (SLAG) no nível de armazenamento
+* ACLs de nível de compartilhamento com permissão de estilo UNIX
+* Compartilhe ACLs para usuários e grupos UNIX
+* Nível de autenticação do LAN Manager
+* Aliases NetBIOS
+* Domínios de pesquisa CIFS
+* Algumas opções CIFS
++
+Consulte os resultados da pré-verificação para obter detalhes sobre essas opções.
+
+

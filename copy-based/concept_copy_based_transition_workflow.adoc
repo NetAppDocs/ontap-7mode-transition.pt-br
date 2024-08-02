@@ -1,0 +1,16 @@
+---
+permalink: copy-based/concept_copy_based_transition_workflow.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, workflow 
+summary: O fluxo de trabalho de transição baseado em cópia envolve a preparação para a migração, migração de dados e configurações e execução de configurações pós-transição. 
+---
+= Fluxo de trabalho de transição baseado em cópia
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O fluxo de trabalho de transição baseado em cópia envolve a preparação para a migração, migração de dados e configurações e execução de configurações pós-transição.
+
+image::../media/cbt_workflow.gif[fluxo de trabalho cbt]

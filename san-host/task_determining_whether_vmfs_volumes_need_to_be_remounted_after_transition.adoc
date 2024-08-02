@@ -1,0 +1,40 @@
+---
+permalink: san-host/task_determining_whether_vmfs_volumes_need_to_be_remounted_after_transition.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, vmfs, volumes, remounted 
+summary: Após a transição do Data ONTAP operando no modo 7 para o Data ONTAP em cluster, você pode ter volumes VMFS que precisam ser remontados para trazer armazenamentos de dados e VMs VMFS para seus estados de pré-transição. 
+---
+= Determinar se os volumes VMFS precisam ser remontados após a transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Após a transição do Data ONTAP operando no modo 7 para o Data ONTAP em cluster, você pode ter volumes VMFS que precisam ser remontados para trazer armazenamentos de dados e VMs VMFS para seus estados de pré-transição.
+
+* Para transições baseadas em cópia, execute estas etapas antes de iniciar a operação de transferência de armazenamento na ferramenta de transição de 7 modos (7MTT).
+* Para transições sem cópia, execute estas etapas antes de iniciar a operação Export & Halt 7-Mode Systems no 7MTT.
+
+
+.Passos
+. Abra o _Inventory Assessment Workbook_ gerado pela Inventory Collect Tool (ICT).
+. Clique na guia *sistemas de arquivos do host SAN*.
+. Verifique a coluna *Drive / Mount / datastore Name* para ver os sistemas de arquivos e armazenamentos de dados montados no host antes da transição.
+. Anote os IDs de naa LUN correspondentes na coluna *ID do dispositivo SCSI/Nome do dispositivo* para o datastore.
+. Verifique se os IDs naa anotados para o datastore estão listados no arquivo de mapeamento 7MTT gerado após a transição.
++
+** Se nenhum dos IDs naa estiver presente no arquivo de mapeamento 7MTT, o datastore e seus LUNs subjacentes não faziam parte da transição 7MTT e nenhuma correção é necessária.
+** Se apenas parte dos IDs naa estiverem presentes no arquivo de mapeamento 7MTT, sua transição estará incompleta e você não poderá prosseguir.
+** Se todas as IDs de naa estiverem presentes, você deverá remontar seus volumes VMFS.
+
+
+
+
+*Informações relacionadas*
+
+xref:task_remounting_vmfs_volumes_after_transition_using_vsphere_client.adoc[Remontando volumes VMFS após a transição usando o vSphere Client]
+
+xref:task_remounting_vmfs_volumes_after_transition_using_esxi_cli_console.adoc[Remontando volumes VMFS após a transição usando a CLI ESXi]
+
+xref:concept_what_the_inventory_collect_tool_is.adoc[O que é a ferramenta de coleta de inventário]

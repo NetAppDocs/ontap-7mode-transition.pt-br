@@ -1,0 +1,61 @@
+---
+permalink: copy-free/task_exporting_7_mode_system_and_hardware_information.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, exporte, storage, configurations, halt 
+summary: A janela de transição para a transição começa a partir da fase de exportação. Nesta fase, a ferramenta coleta informações do sistema, detalhes do compartimento de disco e configurações de armazenamento dos sistemas 7-Mode e, em seguida, pára os sistemas de armazenamento 7-Mode. 
+---
+= Exportação de configurações de armazenamento e parada de sistemas 7-Mode
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A janela de transição para a transição começa a partir da fase de exportação. Nesta fase, a ferramenta coleta informações do sistema, detalhes do compartimento de disco e configurações de armazenamento dos sistemas 7-Mode e, em seguida, pára os sistemas de armazenamento 7-Mode.
+
+* O processador de serviço (SP) ou o módulo de LAN remota (RLM) devem ser configurados com um endereço IPv4 no sistema de 7 modos.
+* Todos os clientes devem ser desconetados dos sistemas 7-Mode (desmontando exportações NFS, desconetanto compartilhamentos CIFS e desligando hosts SAN), mas os serviços nas e SAN aplicáveis devem estar sendo executados nos sistemas 7-Mode.
++
+
+IMPORTANT: Não deve parar quaisquer serviços de protocolo porque são necessários para recolher as configurações de protocolo a partir dos sistemas de armazenamento de 7 modos.
+
+* Todos os dados gravados nos volumes do modo 7D durante esta operação são perdidos.
+* Não deve efetuar quaisquer operações de gestão nos sistemas de 7 modos durante esta operação.
+* A ferramenta realiza as seguintes operações na fase de exportação:
++
+** Coleta todas as configurações de volume e armazenamento
+** Cria uma cópia Snapshot de cada agregado em transição
++
+Se você decidir reverter para o modo 7D em qualquer etapa da transição, essas cópias Snapshot serão usadas pela ferramenta para a operação de reversão.
+
+** Inicializa os controladores de 7 modos no modo de manutenção
+** Remove os proprietários de disco dos controladores 7-Mode
+** Desativa a atribuição automática de disco nos nós do cluster de destino
+
+
+
+
+.Passos
+. Clique em *Export & Halt*.
++
+É apresentada uma mensagem que lista considerações importantes para esta operação.
+
+. Clique na caixa de verificação *Confirme se o acesso do cliente está desconetado*.
+. Clique em *Yes* para continuar com a operação de exportação e parada.
++
+Os resultados da operação são apresentados.
+
+. Aguarde até que a operação seja concluída e execute as seguintes etapas para salvar os resultados da operação e coletar os logs da ferramenta:
++
+.. Clique em *Salvar como CSV* para salvar os resultados da operação em um arquivo.
+.. Clique em *Collect Tool Logs* para criar um backup de todos os arquivos de log de transição.
++
+É uma prática recomendada salvar os arquivos de log após cada operação de transição.
+
+.. Clique em *Fechar* para fechar a janela resultados da operação.
+
+
++
+Se a operação demorar muito tempo a ser concluída, você pode clicar em *Executar em segundo plano* para sair da janela de resultados da operação. Você não deve editar o projeto ou executar qualquer outra tarefa quando a operação estiver em execução em segundo plano. Em seguida, pode visualizar os resultados das operações a partir do separador Operation History (Histórico de operações).
+
+

@@ -1,0 +1,29 @@
+---
+permalink: copy-free/task_preparing_san_hosts_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, san, host 
+summary: Antes de fazer a transição de um ambiente SAN, você deve executar algumas etapas manuais para preparar os hosts SAN para a transição. 
+---
+= Preparando hosts SAN para a transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de fazer a transição de um ambiente SAN, você deve executar algumas etapas manuais para preparar os hosts SAN para a transição.
+
+Você deve ter gerado a pasta de trabalho de inventário para os hosts SAN usando a ferramenta de coleta de inventário.
+
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-ict-icg/home.html["Coleta de informações de transição de host e armazenamento"]
+
+.Passos
+. Verifique se o host é suportado para a transição.
++
+https://mysupport.netapp.com/matrix["Ferramenta de Matriz de interoperabilidade do NetApp"]
+
+. Execute as etapas de pré-transição no host.
++
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-7mtt-sanspl/home.html["Transição e remediação DE host SAN"]
+
+

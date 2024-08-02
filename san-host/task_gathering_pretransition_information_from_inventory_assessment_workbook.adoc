@@ -1,0 +1,46 @@
+---
+permalink: san-host/task_gathering_pretransition_information_from_inventory_assessment_workbook.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, pretransition, information, inventory, assessment, workbook 
+summary: Há informações no Catálogo de avaliação de Inventário de que você precisa em várias fases da transição. Você deve coletar e Registrar essas informações antes de iniciar a transição para que você possa referenciá-las conforme necessário ao longo do processo. 
+---
+= Recolha de informações de pré-transição do livro de trabalho de avaliação de inventário
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Há informações no _Inventory Assessment Workbook_ que você precisa em várias fases da transição. Você deve coletar e Registrar essas informações antes de iniciar a transição para que você possa referenciá-las conforme necessário ao longo do processo.
+
+.Passos
+. Use a ferramenta de coleta de inventário (ICT) para gerar o _Catálogo de avaliação de inventário_.
+. Abra o _Inventory Assessment Workbook_.
+. Vá para a guia *LUN*.
+. Na coluna *LUN name*, identifique e registe o nome do LUN a ser transferido.
+. Vá para a guia *SAN Host LUNs*.
+. Na coluna *ID do dispositivo SCSI*, identifique e grave o nome do dispositivo SCSI.
+. Na coluna *ID do dispositivo do sistema operacional*, identifique e grave o nome do dispositivo DMMP para que o LUN seja transferido.
+. Na coluna *sistemas de arquivos*, identifique e Registre o sistema de arquivos configurado no dispositivo DMMP.
+. Na coluna *UUID*, identifique e registe o número UUID para o LUN.
+. Na coluna *montar*, identifique e registe o diretório no qual o dispositivo DMMP está montado.
+. Vá para a guia *LVMs*.
+. Na coluna *Physical volume Name* (Nome do volume físico), identifique e registe os dispositivos DMMP que são utilizados pelo volume lógico.
+. Vá para a guia *SAN Host LVMs*.
+. Na coluna *Nome do grupo de volume*, identifique e registe o grupo de volumes.
+. Na coluna *caminho lógico de volume*, identifique e grave o volume lógico.
+. Vá para a guia *SAN Host filesystems*.
+. Na coluna *Filesystem*, identifique e grave o sistema de arquivos configurado no volume lógico.
+. Na coluna *Mount*, identifique e Registre o diretório no qual os volumes lógicos são montados.
+. Vá para a guia *GRUB Configuration*.
+. Na coluna *initrd*, identifique e registe a imagem initrd a ser modificada.
+. Vá para a guia *SAN Host HBAs*.
++
+Você também pode ver a guia *interfaces SAN iSCSI* para identificar o número iSCSI IQN e os endereços IP configurados em controladores de modo 7.
+
+. Na coluna *Target IPs (iSCSI)*, identifique e grave as sessões iSCSI para os controladores 7-Mode.
+
+
+*Informações relacionadas*
+
+xref:concept_what_the_inventory_collect_tool_is.adoc[O que é a ferramenta de coleta de inventário]

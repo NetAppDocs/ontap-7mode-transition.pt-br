@@ -1,0 +1,77 @@
+---
+permalink: copy-based/task_managing_logical_interfaces.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, manage, logical, interfaces 
+summary: Você pode adicionar, editar ou remover endereços IP de 7 modos de um projeto. 
+---
+= Gerenciamento de interfaces lógicas
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode adicionar, editar ou remover endereços IP de 7 modos de um projeto.
+
+Os LIFs são configurados na máquina virtual de armazenamento (SVM) na fase aplicar configuração (precutover):
+
+* Os endereços IP 7-Mode existentes são criados no estado administrativo "próprio".
+* Novos endereços IP são criados no estado administrativo "up".
+
+
+
+IMPORTANT: Os LIFs FC e iSCSI não são transferidos pela ferramenta de transição de 7 modos.
+
+.Passos
+. Execute uma das seguintes ações:
++
+|===
+| Se você quiser... | Então... 
+
+
+ a| 
+Edite um LIF existente
+ a| 
+.. Clique image:../media/edit_schedule.gif[""] em .
+.. Na caixa de diálogo Modificar LIF, faça as alterações necessárias e clique em *Salvar*.
+
+
+
+
+ a| 
+Remova um LIF existente
+ a| 
+.. Clique image:../media/delete_schedule.gif[""] na tabela.
++
+
+NOTE: Você pode remover um LIF somente quando o projeto estiver no estado de preparação, cópia de dados da linha de base, pausa, precutover ou atualização. No entanto, não é possível remover um LIF se a operação de transição falhar.
+
+.. Clique em *Select 7-Mode LIF*.
+.. Selecione os endereços IP de 7 modos para transição.
+.. Insira os detalhes do nó de destino e da porta de destino.
+.. Clique em *Salvar*.
+
+
+
+
+ a| 
+Adicione um endereço IP de 7 modos
+ a| 
+** Clique em *Select 7-Mode LIF*.
+** Selecione os endereços IP de 7 modos para transição.
+** Insira os detalhes do nó de destino e da porta de destino.
+** Clique em *Salvar*.
+
+
+
+
+ a| 
+Adicionar um novo LIF
+ a| 
+.. Clique em *Add New LIF* abaixo da tabela.
+.. Introduza os valores necessários.
+.. Clique em *Salvar*.
+
+
+|===
+

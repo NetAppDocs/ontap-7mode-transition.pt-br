@@ -1,0 +1,39 @@
+---
+permalink: san-host/task_testing_transitioned_san_boot_luns_on_aix_hosts_before_cutover.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, boot, lun, aix, hosts, cutover, phase, copy, based 
+summary: 'Se você estiver usando a ferramenta de transição de 7 modos (7MTT) 2,2 ou posterior e o Data ONTAP 8.3,2 ou posterior para fazer a transição dos LUNs de host do Windows de 7 modos, você pode testar os LUNs de Data ONTAP migrados antes da fase de transição para verificar se eles estão funcionando conforme desejado.' 
+---
+= O teste fez a transição de LUNs de inicialização de SAN em hosts AIX antes da fase de transição das transições baseadas em cópia
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Se você estiver usando a ferramenta de transição de 7 modos (7MTT) 2,2 ou posterior e o Data ONTAP 8.3,2 ou posterior para fazer a transição dos LUNs de host do Windows de 7 modos, você pode testar os LUNs Data ONTAP migrados antes da fase de transição para verificar se eles estão funcionando conforme desejado.
+
+Os LUNs do modo 7 devem estar prontos para a transição.
+
+Você deve manter a paridade de hardware entre o host de teste e o host de origem, e deve executar as etapas a seguir no host de teste.
+
+Os LUNs do Data ONTAP em cluster estão no modo de leitura/gravação durante o teste. Eles convertem em modo somente leitura quando o teste estiver concluído e você estiver se preparando para a fase de transição.
+
+.Passos
+. Após a conclusão da cópia de dados da linha de base, selecione *modo de teste* na interface do usuário (UI) do 7MTT.
+. Na IU do 7MTT, clique em *Apply Configuration*.
+. No host de teste, faça login no Console de Gerenciamento de hardware e, em seguida, inicialize seu host no menu *SMS*.
+. Depois que o host inicializar, altere o endereço IP e o nome do host.
+. Verifique se os LUNs do Data ONTAP em cluster estão presentes:
++
+`*sanlun lun show*`
+
+. Realize os testes conforme necessário.
+. Encerre o host de teste:
++
+`*shutdown -h*`
+
+. Na IU do 7MTT, clique em *Finish Testing*.
+
+
+Para que os LUNs do Data ONTAP em cluster sejam remapeados para o host de origem, você deverá preparar o host de origem para a fase de transição. Se os LUNs do Data ONTAP em cluster permanecerem mapeados para o host de teste, não serão necessárias mais etapas no host de teste.

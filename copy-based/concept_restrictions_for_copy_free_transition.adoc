@@ -1,0 +1,61 @@
+---
+permalink: copy-based/concept_restrictions_for_copy_free_transition.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, restrictions, 7, mode, volumes 
+summary: Você deve estar ciente de certas restrições para a transição de volumes do modo 7D. Algumas das restrições são devidas a recursos que não são suportados no ONTAP. Para algumas restrições, você pode executar uma ação corretiva que permite continuar com a transição. 
+---
+= Restrições para a transição de volumes de 7 modos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você deve estar ciente de certas restrições para a transição de volumes do modo 7D. Algumas das restrições são devidas a recursos que não são suportados no ONTAP. Para algumas restrições, você pode executar uma ação corretiva que permite continuar com a transição.
+
+
+
+== Tipos de volume
+
+Os seguintes tipos de volumes não são suportados para transição:
+
+* Volumes tradicionais
++
+Você pode usar métodos de transição baseados em host para fazer a transição de volumes tradicionais.
+
++
+https://www.netapp.com/pdf.html?item=/media/19510-tr-4052.pdf["Relatório técnico da NetApp 4052: Transição com êxito para o Clustered Data ONTAP (Data ONTAP 8.2.x e 8,3)"^]
+
+* Volumes FlexCache
+
+
+
+
+== estados do volume
+
+A transição é bloqueada se algum dos volumes do modo 7D selecionados para a transição estiver em um dos seguintes estados:
+
+* Offline
+* Restrito
+* Incoerente (`wafl inconsistent`)
+
+
+
+
+== Volume com qtrees que pertencem a uma unidade diferente do vFiler
+
+Você não pode fazer a transição de volumes com qtrees, onde os qtrees são propriedade de uma unidade diferente do do volume do vFiler. Antes da transição, você deve garantir que cada volume e todos os seus qtrees pertencem à mesma unidade do vFiler executando uma das seguintes ações:
+
+* Mova o qtrees para a unidade do vFiler que possui o volume.
+* Exclua o qtrees.
+
+
+
+
+== Inode para a definição de tradução de nome de caminho principal
+
+As traduções do inode para o nome de caminho principal devem estar ativadas em cada volume. Você pode ativar o pai para traduções de nome de caminho desativando a `no_i2p` opção:
+
+`*vol options _vol_name_ no_i2p off*`
+
+Não é necessário esperar que a digitalização i2p termine e pode continuar com a preparação da transição.

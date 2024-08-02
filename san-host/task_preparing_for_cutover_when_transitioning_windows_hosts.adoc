@@ -1,0 +1,36 @@
+---
+permalink: san-host/task_preparing_for_cutover_when_transitioning_windows_hosts.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, cutover, phase, windows, hosts 
+summary: Se você estiver fazendo a transição de um host do Windows do Data ONTAP operando no modo 7 para o Data ONTAP em cluster, há etapas que devem ser executadas após o início da transição, mas antes que a fase de transição comece. 
+---
+= Preparando-se para a fase de transição ao fazer a transição de hosts do Windows
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Se você estiver fazendo a transição de um host do Windows do Data ONTAP operando no modo 7 para o Data ONTAP em cluster, há etapas que devem ser executadas após o início da transição, mas antes que a fase de transição comece.
+
+Se estiver a executar o Data ONTAP DSM, a versão do Data ONTAP DSM instalada no servidor tem de ser suportada para a versão do Data ONTAP que está a ser executada no nó Data ONTAP de cluster de destino.
+
+Se você estiver executando o MSDSM, a versão dos Utilitários de host do Windows instalada no servidor deve ser suportada para a versão do Data ONTAP que está sendo executada no nó Data ONTAP de cluster de destino.
+
+* Para transições baseadas em cópia, execute estas etapas antes de iniciar a operação de transferência de armazenamento na ferramenta de transição de 7 modos (7MTT).
+* Para transições sem cópia, execute estas etapas antes de iniciar a operação Export & Halt 7-Mode no 7MTT.
+
+
+.Passos
+. Use o Gerenciador de disco para colocar offline os discos a serem transferidos.
+. Se o host for inicializado a partir da SAN e o LUN de inicialização estiver sendo transferido, encerre o host de inicialização.
+. Se o host estiver em cluster, use o Gerenciador de Cluster de failover para colocar offline os discos em cluster, incluindo o disco de quorum.
+. Se o host estiver executando o Windows Server 2003 e você precisar migrar o dispositivo de quorum, pare os serviços de cluster em todos os nós de cluster.
+. Se você estiver fazendo a transição de LUNs em um servidor que tenha o Hyper-V habilitado, execute as etapas apropriadas de transição do lado do host para o seu sistema operacional convidado.
+. Se você estiver fazendo a transição de LUNs em um servidor que tenha o Hyper-V habilitado e o dispositivo de inicialização do sistema operacional convidado residir em um LUN Data ONTAP que está sendo transferido, faça o seguinte:
++
+.. Encerre o SO convidado.
+.. Coloque offline o disco correspondente no sistema pai.
+
+
+

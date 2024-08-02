@@ -1,0 +1,37 @@
+---
+permalink: install-admin/task_installing_7mtt.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, install, transition, tool, windows 
+summary: Você pode instalar a ferramenta de transição de 7 modos em um sistema Windows usando o instalador baseado em assistente. 
+---
+= Instalar a ferramenta de transição de 7 modos em um sistema Windows
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode instalar a ferramenta de transição de 7 modos em um sistema Windows usando o instalador baseado em assistente.
+
+* Você deve ter revisado os requisitos do sistema para a ferramenta de transição de 7 modos.
++
+xref:concept_system_requirements_for_7mtt_on_windows.adoc[Requisitos de sistema para a ferramenta de transição de 7 modos no Windows]
+
+* Você deve ter o Privileges de administrador necessário para instalar e iniciar o aplicativo.
+* Você deve ter limpo o cache do navegador pressionando Ctrl F5.
++
+Você deve limpar o cache toda vez que instalar uma nova versão da ferramenta.
+
+
+
+.Passos
+. Transfira o software a partir do site de suporte da NetApp.
++
+http://mysupport.netapp.com/NOW/cgi-bin/software["Downloads de NetApp: Software"]
+
+. Execute o `NetApp_7ModeTransitionTool_Setup.exe` arquivo.
+. Na tela de boas-vindas da Configuração da ferramenta de transição de 7 modos, clique em *Next*.
+. Siga as instruções apresentadas no ecrã para continuar com a instalação.
+. Selecione *inicie a ferramenta* para abrir a ferramenta de transição de 7 modos imediatamente após a instalação.
+. Clique em *Finish* para concluir a instalação.
+

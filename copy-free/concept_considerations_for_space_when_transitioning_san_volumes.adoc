@@ -1,0 +1,26 @@
+---
+permalink: copy-free/concept_considerations_for_space_when_transitioning_san_volumes.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, space, considerations, san, volumes 
+summary: Você precisa garantir que haja espaço suficiente disponível nos volumes durante a transição. Além do espaço necessário para armazenar dados e cópias Snapshot, o processo de transição também requer 1 MB de espaço por LUN para atualizar determinados metadados do sistema de arquivos. 
+---
+= Considerações de espaço ao fazer a transição de volumes SAN
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você precisa garantir que haja espaço suficiente disponível nos volumes durante a transição. Além do espaço necessário para armazenar dados e cópias Snapshot, o processo de transição também requer 1 MB de espaço por LUN para atualizar determinados metadados do sistema de arquivos.
+
+Você pode usar o `df -h` comando no volume do modo 7 para verificar se há espaço livre de 1 MB por LUN disponível no volume. O volume também deve ter espaço livre equivalente à quantidade de dados que se espera que sejam gravados no volume antes que os hosts sejam quietos. Se o volume não tiver espaço livre suficiente disponível, a quantidade necessária de espaço deve ser adicionada ao volume do modo 7D.
+
+Se a transição falhar durante a fase de importação devido à falta de espaço no volume, será gerada a seguinte mensagem EMS: `LUN.vol.proc.fail.no.space: Processing for LUNs in volume vol_name failed due to lack of space`.
+
+Se houver volumes que contenham LUNs com espaço reservado, aumentar o volume em 1MB por LUN pode não fornecer espaço suficiente. Nesses casos, a quantidade de espaço que precisa ser adicionada é o tamanho da reserva Snapshot do volume. Depois que o espaço é adicionado ao volume, você pode usar o `lun transition start` comando para fazer a transição dos LUNs.
+
+*Informações relacionadas*
+
+xref:task_recovering_from_a_failed_lun_transition.adoc[A recuperar de uma transição LUN com falha]
+
+http://docs.netapp.com/ontap-9/index.jsp["Documentação do NetApp: ONTAP 9"]

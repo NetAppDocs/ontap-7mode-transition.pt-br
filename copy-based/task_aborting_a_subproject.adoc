@@ -1,0 +1,48 @@
+---
+permalink: copy-based/task_aborting_a_subproject.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, abort, project 
+summary: Você pode querer abortar um projeto em execução, por exemplo, quando o desempenho do controlador ou do cluster é afetado. Você pode cancelar um projeto em execução a partir do Dashboard. 
+---
+= Abortar um projeto
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode querer abortar um projeto em execução, por exemplo, quando o desempenho do controlador ou do cluster é afetado. Você pode cancelar um projeto em execução a partir do Dashboard.
+
+Você deve considerar o seguinte antes de abortar projetos que fazem a transição de volumes com relacionamentos do SnapMirror:
+
+* Se ambos os projetos tiverem sido iniciados, abortar um projeto aborta o projeto associado.
++
+Por exemplo, se você abortar um projeto primário, o projeto secundário também será abortado.
+
+* Se a operação de cancelamento falhar no projeto atual, o projeto associado não será abortado.
+* Se apenas um projeto ativo for abortado, a operação de início no projeto associado falhará.
+* Quando você cancela um projeto principal, a operação de cópia do volume primário do modo 7 para o volume secundário do ONTAP não é abortada.
++
+Apenas a operação de cópia do volume primário do modo 7 para o volume principal do ONTAP correspondente é abortada.
+
+
+
+
+NOTE: Se o projeto 7-Mode for abortado, a única opção é excluir o projeto. Não é possível retomar ou reiniciar o projeto depois de abortado.
+
+.Passos
+. No Dashboard, selecione o projeto que deseja cancelar.
+. Clique em *Cancelar*.
+. No cluster, exclua os volumes ONTAP que foram criados como parte da transição.
+. No sistema 7-Mode, solte as relações SnapMirror para os volumes ONTAP.
+. Se você cancelar uma relação de volume SnapMirror, você deve fazer o seguinte:
++
+.. Quebre e exclua a relação SnapMirror entre os volumes primários de 7 modos e os volumes secundários do ONTAP.
+.. No sistema principal de 7 modos, libere as relações SnapMirror para os volumes secundários do ONTAP.
+
+
+
+
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-cmpr/GUID-5CB10C70-AC11-41C0-8C16-B4D0DF916E9B.html["Comandos ONTAP 9"]
+
+https://library.netapp.com/ecm/ecm_download_file/ECMP1511537["Data ONTAP 8. Comandos 2D: Referência de página manual para o modo 7D, volume 1D."]

@@ -1,0 +1,108 @@
+---
+permalink: san-host/task_testing_luns_with_file_systems_on_lvm_devices_before_cutover_phase.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, lun, file, system, lvm, devices, cutover, phase 
+summary: 'Se você estiver usando a ferramenta de transição de 7 modos (7MTT) 2,2 ou posterior e o Data ONTAP 8.3,2 ou posterior para executar uma transição baseada em cópia do seu host do Red Hat Enterprise Linux (RHEL), você poderá testar seus LUNs Data ONTAP migrados em cluster com sistemas de arquivos em dispositivos LVM antes da fase de transição. O host de origem pode continuar executando e/S para os LUNs de 7 modos de origem durante o teste.' 
+---
+= Testar LUNs com sistemas de arquivos em dispositivos LVM antes da fase de transição de transições baseadas em cópia
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Se você estiver usando a ferramenta de transição de 7 modos (7MTT) 2,2 ou posterior e o Data ONTAP 8.3,2 ou posterior para realizar uma transição baseada em cópia do seu host do Red Hat Enterprise Linux (RHEL), você poderá testar seus LUNs Data ONTAP migrados em cluster com sistemas de arquivos em dispositivos LVM antes da fase de transição. O host de origem pode continuar executando e/S para os LUNs de 7 modos de origem durante o teste.
+
+* Os novos LUNs do Data ONTAP em cluster devem ser mapeados para o host de teste.
+* Os LUNs precisam estar prontos para a transição.
+
+
+Você deve manter a paridade de hardware entre o host de teste e o host de origem e deve executar as etapas a seguir no host de teste.
+
+Os LUNs do Data ONTAP em cluster estão no modo de leitura/gravação durante o teste. Eles convertem em modo somente leitura quando o teste estiver concluído e você estiver se preparando para a fase de transição.
+
+Durante o modo de teste, não desativa nem exporta o grupo de volumes. Por esse motivo, você pode ver erros de sistema de arquivos ao montar os volumes lógicos no host de teste.
+
+.Passos
+. Após a conclusão da cópia de dados da linha de base, selecione *modo de teste* na interface do usuário (UI) do 7MTT.
+. Na IU do 7MTT, clique em *Apply Configuration*.
+. No host de teste, descubra seus novos LUNs do Data ONTAP em cluster:
++
+`*rescan-scsi-bus.sh*`
+
+. Verifique se seus novos LUNs do Data ONTAP em cluster foram descobertos:
++
+`*sanlun lun show*`
+
+. Configurar dispositivos DMMP para os LUNs Data ONTAP em cluster:
++
+`*multipath*`
+
+. Obtenha o ID do identificador do dispositivo para os LUNs Data ONTAP em cluster:
++
+`*multipath -ll*`
+
++
+O seguinte é um exemplo de um identificador de dispositivo ID: "'3600a09804d532d79565d47617679764d'"
+
+. Identificar os dispositivos DMMP usados pela LVM:
++
+`*pvscan*`
+
++
+3600a09804d532d79565d476176797655 é um exemplo de um dispositivo DMMP usado pelo LVM.
+
+. Identificar o grupo de volumes:
++
+`*vgscan*`
+
+. Identificar o volume lógico:
++
+`*lvscan*`
+
+. Ativar os volumes lógicos: *
+`*vgchange -ay _volume_group_*`
+. Verifique o status do volume lógico: *
+`*lvdisplay*`
++
+A `LV Status` coluna na saída deve exibir disponível.
+
+. Determine se existe uma entrada de ponto de montagem para o volume lógico no `/etc/fstab` arquivo no host de origem.
++
+No exemplo a seguir, o volume lógico `/dev/mapper/vg_7MTT-lv1` é exibido no `/etc/fstab` arquivo:
+
++
+[listing]
+----
+# /etc/fstab
+...
+tmpfs   /dev/shm  tmpfs   defaults        0 0
+devpts  /dev/pts  devpts  gid=5, mode=620 0 0
+sysfs   /sys      sysfs   defaults        0 0
+proc    /proc     proc    defaults        0 0
+/dev/mapper/vg_7MTT-lv1 /7MTT  ext4  defaults 0	0
+----
+. Se houver uma entrada de ponto de montagem para o volume lógico `/etc/fstab` no arquivo no host de origem, edite manualmente o `/etc/fstab` arquivo no host de teste para adicionar a entrada do ponto de montagem.
+. Monte o ponto de montagem:
++
+`*mount -a*`
+
+. Verifique se os pontos de montagem estão montados:
++
+`*mount*`
+
+. Realize os testes conforme necessário.
+. Depois de concluir o teste, desligue o anfitrião:
++
+`*shutdown -h -t0 now*`
+
+. Na IU do 7MTT, clique em *Finish Testing*.
+
+
+Para que os LUNs do Data ONTAP em cluster sejam remapeados para o host de origem, você deverá preparar o host de origem para a fase de transição. Se os LUNs do Data ONTAP em cluster permanecerem mapeados para o host de teste, não serão necessárias mais etapas no host de teste.
+
+*Informações relacionadas*
+
+xref:task_gathering_pretransition_information_from_inventory_assessment_workbook.adoc[Recolha de informações de pré-transição do livro de trabalho de avaliação de inventário]
+
+xref:task_preparing_for_cutover_when_transitioning_linux_host_file_systems_on_lvm_devices.adoc[Preparando-se para a fase de transição ao fazer a transição de sistemas de arquivos host Linux em dispositivos LVM]

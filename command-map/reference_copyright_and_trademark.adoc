@@ -1,0 +1,12 @@
+---
+permalink: command-map/reference_copyright_and_trademark.html 
+sidebar: sidebar 
+keywords: ontap, command, map, transition, copyright, trademark 
+summary: Direitos de autor e marca comercial para o Guia de Administradores de 7 modos. 
+---
+= Direitos autorais e marca registrada
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+

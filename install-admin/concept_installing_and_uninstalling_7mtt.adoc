@@ -1,0 +1,26 @@
+---
+permalink: install-admin/concept_installing_and_uninstalling_7mtt.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, install, uninstall, transition, windows 
+summary: Você pode baixar e instalar a ferramenta de transição de 7 modos em um sistema Windows usando o instalador padrão baseado em assistente. No entanto, se você tiver uma versão previamente instalada da ferramenta de transição de 7 modos, você precisa estar ciente de certos pré-requisitos antes de fazê-lo. 
+---
+= Instalar ou desinstalar a ferramenta de transição de 7 modos em um sistema Windows
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode baixar e instalar a ferramenta de transição de 7 modos em um sistema Windows usando o instalador padrão baseado em assistente. No entanto, se você tiver uma versão previamente instalada da ferramenta de transição de 7 modos, você precisa estar ciente de certos pré-requisitos antes de fazê-lo.
+
+* Se você tiver uma versão 7-Mode Transition Tool anterior à 3,0 instalada em seu sistema, então você precisa desinstalar isso antes de instalar a versão mais recente.
++
+Você deve criar um backup dos arquivos de log se optar por manter os arquivos de log durante a desinstalação. O instalador da 7-Mode Transition Tool instala a ferramenta na mesma pasta e substitui os arquivos de log da próxima vez que você executá-la.
+
+* Se você tiver a ferramenta de transição de 7 modos 3,0 ou posterior instalada em seu sistema, as seguintes condições devem ser atendidas antes de instalar a versão mais recente da ferramenta de transição de 7 modos:
++
+** Todos os projetos de transição baseados em cópia existentes devem ser concluídos ou cancelados.
+** Todos os projetos de transição sem cópia existentes devem ser concluídos ou concluídos.
+
+
+

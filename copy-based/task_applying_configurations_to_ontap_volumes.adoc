@@ -1,0 +1,67 @@
+---
+permalink: copy-based/task_applying_configurations_to_ontap_volumes.html 
+sidebar: sidebar 
+keywords: apply, configuration, ontap, copy, based, transition 
+summary: 'Após a conclusão da cópia de dados da linha de base, você pode copiar e aplicar todas as configurações nas do sistema 7-Mode (incluindo protocolos e configuração de serviços) aos volumes ONTAP. Se o cluster de destino estiver executando o Data ONTAP 8.3,2 ou posterior, as configurações de SAN serão transferidas nesta fase.' 
+---
+= Aplicando configurações ao ONTAP volumes
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Após a conclusão da cópia de dados da linha de base, você pode copiar e aplicar todas as configurações nas do sistema 7-Mode (incluindo a configuração de protocolos e serviços) aos volumes ONTAP. Se o cluster de destino estiver executando o Data ONTAP 8.3,2 ou posterior, as configurações de SAN serão transferidas nesta fase.
+
+* As configurações são aplicadas na fase do precutover, que tem dois modos: O modo somente leitura precutover e o modo de leitura/gravação precutover.
+* O modo de leitura/escrita precutover não é suportado quando o projeto contém o seguinte:
++
+** Os volumes SAN e o cluster de destino estão executando o Data ONTAP 8.3,1 ou anterior. Nesta situação, as seguintes configurações não são aplicadas na fase de precutover, em vez disso são aplicadas durante a fase de transição:
++
+*** Configurações de SAN
+*** Configurações do Snapshot Schedule
+
+
+** Volumes SnapLock Compliance:
++
+Se o projeto contiver volumes SnapLock Compliance, as configurações do Programa Instantâneo não serão aplicadas na fase de precutover, em vez disso, essas configurações serão aplicadas durante a fase de transição.
+
++
+xref:concept_considerations_for_transitioning_of_snaplock_compliance_volumes.adoc[Considerações para a transição de volumes SnapLock Compliance]Consulte .
+
+
+
+* Se o cluster de destino estiver executando o Data ONTAP 8.3,1 ou anterior, o modo de leitura/gravação não será suportado durante o precutover se qualquer volume no projeto contiver LUNs.
+* Se o cluster de destino estiver executando o Data ONTAP 8.3,1 ou anterior e um projeto contiver volumes SAN e nas, somente as configurações nas serão transferidas na fase de pré-backup e essas configurações nas podem ser testadas somente no modo somente leitura.
++
+As configurações DE SAN são transferidas apenas na fase de transição de storage.
+
++
+
+NOTE: Os LIFs SAN não estão configurados.
+
+* Se o cluster de destino estiver executando o Data ONTAP 8.3,1 ou anterior e o projeto contiver volumes SAN, a configuração de agendamento instantâneo não será aplicada durante a fase de configuração de aplicação (precutover).
++
+Essas configurações são aplicadas durante a fase de transição.
+
+* Se o cluster de destino estiver executando o Data ONTAP 8.3,1 ou anterior e o projeto contiver volumes SAN, a configuração de agendamento instantâneo não será aplicada durante a fase de configuração de aplicação (precutover).
++
+Essas configurações são aplicadas durante a fase de transição.
+
+
+
+.Passos
+* Execute a operação de transição no modo somente leitura:
++
+`*transition cbt precutover -p _project_name_ -m ro_test -c _max_cap_concurrent_transfers_ -b _snapmirror_throttle_*`
+
+* Execute a operação de transição no modo de leitura/gravação:
++
+.. Aplique as configurações ao ONTAP
+`*transition cbt precutover -p _project_name_ -m rw_test -c _max_cap_concurrent_transfers_ -b _snapmirror_throttle_*`
+.. Teste e verifique manualmente as configurações no ONTAP.
+.. Inicie a operação de ressincronização
+`*transition cbt resync -p _project_name_*`
+
+
+

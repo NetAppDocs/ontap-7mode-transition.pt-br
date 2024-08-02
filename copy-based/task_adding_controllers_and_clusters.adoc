@@ -1,0 +1,38 @@
+---
+permalink: copy-based/task_adding_controllers_and_clusters.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, add, controller, clusters 
+summary: Antes de iniciar a transição, você deve adicionar os controladores e clusters de 7 modos necessários para a transição. Os controladores 7-Mode incluídos para avaliação são adicionados automaticamente para migração. 
+---
+= Adição de controladores e clusters
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de iniciar a transição, você deve adicionar os controladores e clusters de 7 modos necessários para a transição. Os controladores 7-Mode incluídos para avaliação são adicionados automaticamente para migração.
+
+* As informações de cluster e controlador do 7-Mode fornecidas não são persistentes.
++
+Se o serviço 7-Mode Transition Tool for reiniciado, a ferramenta solicitará informações sobre controladores e clusters que fazem parte de projetos ativos. Você deve fornecer o mesmo nome de host fornecido para o seu sistema quando você criou o projeto.
+
+* Se um controlador de 7 modos fizer parte de um par de HA, a ferramenta não solicita credenciais do parceiro de HA do controlador de 7 modos (a menos que o parceiro de HA faça parte de outro projeto ativo).
++
+.. No painel superior, clique em *sistemas de armazenamento*.
+.. No campo *Nome do host*, insira o FQDN ou o endereço IP do controlador de modo 7 ou do sistema ONTAP.
++
+Para um cluster, você pode especificar o endereço IP ou FQDN da interface de gerenciamento de cluster. Para um controlador de 7 modos, você deve especificar o endereço IP da unidade padrão do vFiler, porque os endereços IP de unidades individuais do vFiler não são aceitos.
+
+
+
+
+
+.Passos
+. Insira as credenciais de administrador para o host especificado e clique em *Adicionar*.
++
+Os controladores 7-Mode são adicionados à tabela "'Controladores 7-Mode'" e os clusters são adicionados à tabela "'Clustered Data ONTAP Systems'".
+
+. Repita as etapas 2 e 3 para adicionar todos os controladores e clusters de que você precisa para a transição.
+. Se a coluna Status indicar que as credenciais do sistema estão ausentes ou que as credenciais foram alteradas do que foi inserido inicialmente na ferramenta, clique no image:../media/edit_schedule.gif[""] ícone e insira as credenciais novamente.
+

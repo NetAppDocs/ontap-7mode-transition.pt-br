@@ -1,0 +1,223 @@
+---
+permalink: copy-free/reference_copy_free_transition_cabling_worksheet.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, cabling, worksheet 
+summary: Você pode usar a Planilha de cabeamento de transição sem cópia para Planejar seu cabeamento. Você deve Registrar informações sobre as portas e compartimentos de disco conectados aos controladores do 7-Mode e nós de cluster de destino. Você também deve Registrar as portas a serem usadas para conetar as gavetas de disco de 7 modos aos nós do cluster de destino. 
+---
+= Folha de cálculo de cabeamento de transição sem cópia
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode usar a Planilha de cabeamento de transição sem cópia para Planejar seu cabeamento. Você deve Registrar informações sobre as portas e compartimentos de disco conectados aos controladores do 7-Mode e nós de cluster de destino. Você também deve Registrar as portas a serem usadas para conetar as gavetas de disco de 7 modos aos nós do cluster de destino.
+
+image::../media/cft_cabling_plan_worksheet.gif[folha de cálculo do plano de cablagem cft]
+
+* Portas do módulo A/B: Conexões de porta para o módulo A/B
+* Tipo de prateleira/Etiqueta de ativo: Tipo de prateleira de disco
+* IDs de gaveta: IDs de gaveta de disco
+
+
+
+
+== Planilha de cabeamento de amostra
+
+|===
+4+| Cabeamento de 7 modos 4+| Cabeamento de Data ONTAP em cluster 
+
+
+4+| Controlador A (nome do host): 7hostA 4+| Nó A (nome do host): cluster1-01 
+
+
+4+| Localização: Colorado Piso: Terceiro bastidor: 8 4+| Localização: Colorado Piso: Quinto Rack: 3 
+
+
+| Portas do módulo A. | Portas do módulo B. | Tipo de prateleira/Etiqueta de ativo | IDs de gaveta | Portas do módulo A. | Portas do módulo B. | Tipo de prateleira/Etiqueta de ativo | IDs de gaveta 
+
+
+ a| 
+1a
+ a| 
+0a
+ a| 
+DS4243/150254-7
+ a| 
+10-13
+ a| 
+1a
+ a| 
+0a
+ a| 
+DS4243/174243-2
+ a| 
+10-11
+
+
+
+ a| 
+1b
+ a| 
+0b
+ a| 
+DS4243/151205-2
+ a| 
+30-37
+ a| 
+1b
+ a| 
+0b
+ a| 
+DS4243/150254-7
+ a| 
+20-23
+
+
+
+ a| 
+1c (offline)
+ a| 
+0c (offline)
+ a| 
+n/a.
+ a| 
+n/a.
+ a| 
+1c
+ a| 
+0c
+ a| 
+DS4243/151205-2
+ a| 
+30-37
+
+
+
+ a| 
+1d
+ a| 
+0d
+ a| 
+DS4243/143921-4
+ a| 
+14-15
+ a| 
+1d
+ a| 
+0d
+ a| 
+DS4243/143921-4
+ a| 
+14-15
+
+
+
+ a| 
+*Controlador B (nome do host): 7hostB*
+ a| 
+*Nó B (nome do host): cluster1-02*
+
+
+
+ a| 
+*Localização: Colorado Floor: Terceiro Rack: 8 *
+ a| 
+*Localização: Colorado Floor: Quinto Rack: 3 *
+
+
+
+ a| 
+*Portas do módulo A*
+ a| 
+*Portas do módulo B*
+ a| 
+*Tipo de prateleira/Etiqueta de ativo*
+ a| 
+*IDs de gaveta*
+ a| 
+*Portas do módulo A*
+ a| 
+*Portas do módulo B*
+ a| 
+*Tipo de prateleira/Etiqueta de ativo*
+ a| 
+*IDs de gaveta*
+
+
+
+ a| 
+1a
+ a| 
+0a
+ a| 
+DS4243/174263-6
+ a| 
+10-13
+ a| 
+1a
+ a| 
+0a
+ a| 
+DS4243/174233-2
+ a| 
+10-11
+
+
+
+ a| 
+1b (offline)
+ a| 
+0b (offline)
+ a| 
+n/a.
+ a| 
+n/a.
+ a| 
+1b
+ a| 
+0b
+ a| 
+DS4243/174263-6
+ a| 
+20-23
+
+
+
+ a| 
+1c
+ a| 
+0c
+ a| 
+DS4243/174274-9
+ a| 
+30-37
+ a| 
+1c
+ a| 
+0c
+ a| 
+DS4243/174274-9
+ a| 
+30-37
+
+
+
+ a| 
+1d
+ a| 
+0d
+ a| 
+DS4243/174285-6
+ a| 
+14-15
+ a| 
+1d
+ a| 
+0d
+ a| 
+DS4243/174285-6
+ a| 
+14-15
+
+|===

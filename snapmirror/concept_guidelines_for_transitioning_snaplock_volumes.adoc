@@ -1,0 +1,41 @@
+---
+permalink: snapmirror/concept_guidelines_for_transitioning_snaplock_volumes.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, transition, guidelines, snaplock, volumes, requirements 
+summary: Você pode fazer a transição de volumes SnapLock de 7 modos para volumes SnapLock criados no ONTAP 9.5 ou anterior. Você precisa estar ciente dos requisitos e diretrizes para a transição de volumes do SnapLock. 
+---
+= Diretrizes para a transição de volumes SnapLock
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Para fazer a transição de volumes SnapLock de 7 modos para o ONTAP 9, você precisa estar ciente desses requisitos e diretrizes.
+
+* A transição de volumes SnapLock de 7 modos não é suportada se os volumes SnapLock contiverem LUNs.
+* Você pode fazer a transição de volumes SnapLock Enterprise de 7 modos para volumes SnapLock Enterprise em qualquer versão do ONTAP 9, exceto o ONTAP 9.6.
+* Você pode fazer a transição de volumes SnapLock Compliance de 7 modos para volumes SnapLock Compliance em qualquer versão do ONTAP 9, exceto o ONTAP 9.6.
+* Ao fazer a transição de uma relação de SnapMirror de volume de 7 modos, você pode usar a transição escalonada (transição secundária primeiro e depois primária) somente para volumes SnapLock Enterprise.
++
+A relação de recuperação de desastres (DR) do SnapMirror entre volumes primários de 7 modos e volumes secundários do ONTAP é compatível apenas com volumes SnapLock Enterprise, mas não com volumes SnapLock Compliance.
+
++
+xref:task_transitioning_a_data_protection_relationship.adoc[Fazendo a transição de uma relação de volume SnapMirror em uma configuração escalonada]
+
+* Você deve fazer a transição de uma relação de SnapMirror de volume de 7 modos entre os volumes SnapLock Compliance fazendo a transição dos volumes primário e secundário em paralelo.
++
+xref:task_transitioning_a_volume_snapmirror_relationship_in_parallel.adoc[Fazendo a transição de uma relação de volume SnapMirror em paralelo]
+
+* A partir do ONTAP 9.10,1, é possível criar volumes SnapLock e não SnapLock no mesmo agregado.
++
+Para fazer a transição de volumes SnapLock de 7 modos para o ONTAP 9.10,1 ou posterior, você deve criar manualmente os volumes ONTAP com o `-snaplock-type {non-snaplock|compliance|enterprise}` sinalizador. Depois de criar manualmente os volumes, gerencie a transição com a ferramenta de transição de 7 modos.
+
++
+Se você usar a ferramenta de transição de 7 modos para criar um volume no ONTAP 9.10,1 ou posterior, o volume não será criado como um volume SnapLock e isso resultará em uma linha de base SnapMirror com falha.
+
+
+
+*Informações relacionadas*
+
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-arch-con/home.html["Arquivamento e conformidade com a tecnologia SnapLock"^]

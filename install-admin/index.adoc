@@ -1,0 +1,14 @@
+---
+permalink: install-admin/index.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, install, index 
+summary: Descreve como instalar e configurar a ferramenta de transição de 7 modos para transição livre de cópia ou transição baseada em cópia. 
+---
+= Guia de instalação e configuração
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este guia descreve como instalar e configurar a ferramenta de transição de 7 modos para transição sem cópia ou transição baseada em cópia.

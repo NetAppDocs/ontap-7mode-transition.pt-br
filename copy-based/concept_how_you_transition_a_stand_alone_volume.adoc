@@ -1,0 +1,260 @@
+---
+permalink: copy-based/concept_how_you_transition_a_stand_alone_volume.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, stand, alone, volume 
+summary: 'A transição de um volume autônomo inclui diferentes fases: Preparação, cópia de dados, aplicação de configuração (precutover) e transferência de armazenamento. Depois de concluir a transição, você deve executar algumas etapas de pós-transição antes de retomar o acesso do cliente. Entender o que ocorre durante cada fase ajuda você a gerenciar sua transição de forma eficiente.' 
+---
+= Como você faz a transição de um volume autônomo
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A transição de um volume autônomo inclui diferentes fases: Preparação, cópia de dados, configuração de aplicação (precutover) e transferência de armazenamento. Depois de concluir a transição, você deve executar algumas etapas de pós-transição antes de retomar o acesso do cliente. Entender o que ocorre durante cada fase ajuda você a gerenciar sua transição de forma eficiente.
+
+image::../media/transition_singlevol.gif[A ilustração a seguir descreve diferentes fases de transição,such as preparation,data copy]
+
+|===
+| Fase | Passos 
+
+
+ a| 
+Preparação
+ a| 
+. Recolha de informações
+. Realizar a pré-verificação
+. Criando agendas de cópia de dados
+
+
+
+
+ a| 
+Cópia de dados
+ a| 
+. Criando os volumes ONTAP como somente leitura
+. Criando uma relação de transição entre pares
+. Estabelecendo um relacionamento SnapMirror
+. Realizar uma transferência de linha de base
+. Executar atualizações incrementais agendadas
+
+
+
+
+ a| 
+Precutover
+ a| 
+. Quebrando o relacionamento SnapMirror
+. Aplicando configurações ao SVM
+. Configuração de LIFs de dados no SVM
+. Dados e configurações de teste (manual e apenas para pré-cortador RW)
+. Ressincronizar volumes ONTAP com volumes 7-Mode correspondentes
+
+
+
+
+ a| 
+Redução de storage
+ a| 
+. Desligar o acesso do cliente (manual)
+. Executar uma atualização final do SnapMirror
+. Quebrando o relacionamento SnapMirror
+. Remoção de endereços IP de 7 modos e configuração das LIFs de dados para o estado up no SVM
+. Colocar o volume de origem offline
+
+
+Após a transição, executar etapas pós-transição e permitir o acesso ao cliente (manual)
+
+
+
+ a| 
+Verificação da cadeia de custódia para volumes SnapLock
+ a| 
+. Enumerando todos os arquivos WORM de volumes 7-Mode
+. Calculando a impressão digital para cada arquivo WORM nos volumes do modo 7 (enumerado na etapa anterior) e calculando a impressão digital para o arquivo WORM correspondente nos volumes ONTAP transicionados
+. Gerar um relatório com detalhes sobre o número de arquivos com impressões digitais correspondidas e não correspondidas e o motivo da incompatibilidade
+
+
+|===
+
+
+== Fase de preparação
+
+Nesta fase, são recolhidas informações sobre o sistema de 7 modos e o cluster, volumes e endereços IP. A ferramenta de transição de 7 modos executa as seguintes tarefas nesta fase:
+
+. Coleta e adiciona informações de volume e sistema de armazenamento de 7 modos.
+. Executa a pré-verificação da transição.
+. Coleta e adiciona informações de cluster, SVM e agregado.
+. Coleta endereços IP que devem ser configurados no SVM:
++
+** Seleciona os endereços IP que existem no sistema de 7 modos.
+** Especifica novos endereços IP que devem ser configurados no SVM. OBSERVAÇÃO: A transição de iSCSI e FC LIFs (SAN) não é suportada pela ferramenta. Você deve configurar manualmente SAN LIFs no SVM antes da transição.
+
+
+. Cria agendas de cópia de dados para cópia de linha de base e atualizações incrementais.
+. Se o projeto contiver volumes SnapLock, coleta informações sobre os volumes SnapLock de leitura e gravação para os quais a verificação da Cadeia de Custódia é necessária e os detalhes do volume ONTAP que armazena os dados de impressão digital gerados durante a operação de verificação da Cadeia de Custódia.
++
+
+NOTE: A operação de verificação da Cadeia de Custódia é suportada apenas para volumes com nomes de arquivo que tenham apenas carateres ASCII.
+
+. Planeja a transição de configuração selecionando as configurações de 7 modos que precisam ser transferidas para o SVM de destino e os volumes de destino.
+
+
+Você não deve modificar os objetos (volumes, endereços IP, informações do sistema, etc.) no controlador depois de corrigir os erros e avisos que são relatados durante a pré-verificação.
+
+
+
+== Fase de cópia de dados
+
+Nesta fase, os dados dos volumes do modo 7D são copiados para os volumes do ONTAP. A ferramenta de transição de 7 modos executa as seguintes tarefas nesta fase:
+
+. Cria os volumes ONTAP com acesso somente leitura.
+. Configure uma relação de transição entre pares entre o sistema 7-Mode e o SVM.
+. Estabelece uma relação SnapMirror de transição (relação do tipo TDP) entre os volumes 7-Mode e os volumes ONTAP.
+. Completa a transferência de cópia de dados da linha de base com base nas entradas de programação.
+. Executa atualizações incrementais agendadas para os volumes do ONTAP.
+
+
+
+
+== Aplicar fase de configuração (precutover)
+
+É uma prática recomendada executar a operação do precutover alguns dias ou semanas antes da janela de transição planejada. Esta atividade destina-se a verificar se todas as configurações são aplicadas corretamente e se são necessárias alterações.
+
+Nesta fase, as configurações dos volumes do modo 7 são copiadas para volumes do ONTAP.
+
+Existem dois modos para a fase de configuração de aplicação (precutover): *Precutover read-only* e *precutover read/write*.
+
+O modo de leitura/escrita precutover não é suportado quando o projeto contém:
+
+* Os volumes SAN e o cluster de destino estão executando o Data ONTAP 8.3,1 ou anterior
++
+Nesta situação, as seguintes configurações não são aplicadas na fase aplicar configuração (precutover). Em vez disso, eles são aplicados durante a fase de transição.
+
++
+** Configurações de SAN
+** Configurações do Snapshot Schedule
+
+
+* Volumes SnapLock Compliance
++
+Se o projeto contiver volumes SnapLock Compliance, as configurações do Programa Instantâneo não serão aplicadas na fase aplicar configuração (precutover). Em vez disso, essas configurações são aplicadas durante a fase de transição.
+
++
+xref:concept_considerations_for_transitioning_of_snaplock_compliance_volumes.adoc[Considerações para a transição de volumes SnapLock Compliance]
+
+
+
+Se o cluster de destino estiver executando o Data ONTAP 8.3,1 ou anterior e quiser executar a operação Apply Configuration (precutover) no modo de leitura/gravação para volumes nas, você deverá criar projetos separados para volumes nas e volumes SAN. Essa ação é necessária porque o modo de leitura/gravação do precutover não é suportado se você tiver volumes SAN em seu projeto.
+
+Se o projeto contiver volumes SnapLock Compliance e você quiser executar a operação aplicar configuração (precutover) no modo leitura/gravação para volumes que não sejam SnapLock Compliance, você deverá criar projetos separados para volumes SnapLock Compliance e volumes que não sejam SnapLock Compliance. Essa ação é necessária porque o modo de leitura/gravação do precutover não é suportado se você tiver volumes SnapLock Compliance em seu projeto.
+
+A ferramenta executa os seguintes passos no *precutover read-only mode*:
+
+. Executa uma atualização incremental de volumes do modo 7 para volumes do ONTAP.
+. Quebra a relação SnapMirror entre volumes de 7 modos e volumes ONTAP.
++
+
+NOTE: Para volumes SnapLock Compliance, a relação SnapMirror entre o volume do modo 7 e os volumes do ONTAP não é quebrada. A relação do SnapMirror não é interrompida porque a operação de ressincronização do SnapMirror entre os volumes do modo 7 e do ONTAP não é compatível com volumes do SnapLock Compliance.
+
+. Coleta configurações de volumes 7-Mode e aplica as configurações aos volumes ONTAP e à SVM.
+. Configura os LIFs de dados no SVM:
++
+** Os endereços IP 7-Mode existentes são criados no SVM no estado administrativo inativo.
+** Novos endereços IP são criados no SVM no estado administrativo.
+
+
+. Ressincroniza a relação SnapMirror entre volumes de 7 modos e volumes ONTAP
+
+
+A ferramenta executa os seguintes passos no *precutover read/write mode*:
+
+. Executa uma atualização incremental de volumes do modo 7 para volumes do ONTAP.
+. Quebra a relação SnapMirror entre volumes de 7 modos e volumes ONTAP.
+. Coleta configurações de volumes de 7 modos e aplica as configurações aos volumes do ONTAP e à SVM.
+. Configura os LIFs de dados no SVM:
++
+** Os endereços IP 7-Mode existentes são criados no SVM no estado administrativo inativo.
+** Novos endereços IP são criados no SVM no estado administrativo.
+
+
+. Torna os volumes ONTAP disponíveis para acesso de leitura/gravação.
++
+Depois de aplicar a configuração, os volumes ONTAP estarão disponíveis para acesso de leitura/gravação para que o acesso de leitura/gravação de dados possa ser testado nesses volumes durante o teste de configuração de aplicação (precutover). Você pode verificar manualmente as configurações e o acesso aos dados no ONTAP.
+
+. Ressincroniza os volumes do ONTAP quando a operação "Finish testing" é acionada manualmente.
+
+
+
+
+== Fase de redução de storage
+
+A ferramenta de transição de 7 modos executa as seguintes tarefas nesta fase:
+
+. Opcional: Executa uma atualização do SnapMirror sob demanda para reduzir o tempo de inatividade após a transferência.
+. Manual: Desconete o acesso do cliente do sistema 7-Mode.
+. Executa uma atualização final do SnapMirror de volumes do modo 7 para volumes do ONTAP.
+. Quebra e exclui a relação do SnapMirror entre os volumes do modo 7 para volumes do ONTAP, fazendo com que os volumes do ONTAP sejam lidos/gravados.
++
+Se o volume selecionado for um volume SnapLock Compliance e o volume for o destino de uma relação SnapMirror, a relação SnapMirror entre o volume do modo 7 e o volume ONTAP será excluída sem uma operação de interrupção SnapMirror. Esta ação é executada para garantir que os volumes ONTAP SnapLock Compliance secundários permaneçam no modo somente leitura. Os volumes ONTAP SnapLock Compliance secundários devem estar no modo somente leitura para que a operação de ressincronização seja bem-sucedida entre os volumes SnapLock Compliance primário e secundário.
+
+. Aplica a configuração de agendamento de instantâneos se:
++
+** O cluster de destino está executando o cluster Data ONTAP 8.3,0 ou 8.3.1 e o projeto contém volumes SAN.
+** O projeto contém volumes SnapLock Compliance.
+
+
+. Aplica configurações de SAN, se o cluster de destino estiver executando o Data ONTAP 8.3,1 ou anterior.
+. Aplica configurações de cota, se houver.
+. Remove os endereços IP de 7 modos existentes selecionados para transição do sistema de 7 modos e traz os LIFs de dados no SVM para o estado administrativo.
++
+
+NOTE: Os LIFs DE SAN não são transferidos pela ferramenta de transição de 7 modos.
+
+. Opcional: Coloca os volumes 7-Mode offline.
+
+
+
+
+== Processo de verificação da cadeia de custódia para volumes SnapLock
+
+Tem de efetuar a operação de verificação da Cadeia de Custódia. A ferramenta executa as seguintes operações quando uma verificação da Cadeia de Custódia é iniciada:
+
+. Enumera todos os arquivos WORM de volumes 7-Mode.
+. Calcula a impressão digital para cada arquivo WORM nos volumes de 7 modos (enumerados na etapa anterior) e calcula a impressão digital para o arquivo WORM correspondente nos volumes ONTAP transicionados.
+. Gera um relatório com detalhes sobre o número de arquivos com impressões digitais correspondidas e não correspondidas e o motivo da incompatibilidade.
+
+
+[NOTE]
+====
+* A operação de verificação da Cadeia de Custódia é suportada apenas para volumes SnapLock de leitura e gravação que tenham nomes de arquivos com apenas carateres ASCII.
+* Esta operação pode levar um tempo significativo com base no número de arquivos nos volumes SnapLock de 7 modos.
+
+
+====
+
+
+== Etapas de pós-transição
+
+Depois que a fase de transição de armazenamento terminar com êxito e a transição for concluída, você deverá executar algumas tarefas manuais pós-transição:
+
+. Execute as etapas necessárias para configurar recursos que não foram transferidos ou que foram parcialmente transferidos, conforme listado no relatório de pré-verificação.
++
+Por exemplo, IPv6 e FPolicy devem ser configurados manualmente após a transição.
+
+. Para a transição SAN, reconfigure os hosts.
++
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-7mtt-sanspl/home.html["Transição e remediação DE host SAN"]
+
+. Verifique se o SVM está pronto para fornecer dados aos clientes, verificando o seguinte:
++
+** Os volumes do SVM são on-line e leitura/gravação.
+** Os endereços IP estão ativos e acessíveis no SVM.
+
+
+. Redirecione o acesso do cliente para os volumes ONTAP.
+
+
+*Informações relacionadas*
+
+xref:task_transitioning_volumes_using_7mtt.adoc[Migração de dados e configuração a partir de volumes 7-Mode]

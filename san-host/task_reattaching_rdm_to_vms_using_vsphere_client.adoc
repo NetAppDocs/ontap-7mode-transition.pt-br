@@ -1,0 +1,54 @@
+---
+permalink: san-host/task_reattaching_rdm_to_vms_using_vsphere_client.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, rdm, vm, vshpere, client 
+summary: 'Após a transição de um host ESXi usando a ferramenta de transição de 7 modos (7MTT), você deve reanexar seus RDMs a máquinas virtuais (VMs).' 
+---
+= Reanexando o RDM às VMs usando o vSphere Client
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Após a transição de um host ESXi usando a 7-Mode Transition Tool (7MTT), você deve reanexar seus RDMs a máquinas virtuais (VMs).
+
+Seus mapeamentos de dispositivo brutos (RDMs) obsoletos devem ter sido removidos.
+
+.Passos
+. Abra o host ESXi ou o vCenter Server que gerencia o host ESXi.
+. Clique com o botão direito do Mouse na VM e selecione *Editar configurações*.
++
+A janela Propriedades da VM é aberta.
+
+. Clique em *Add*.
++
+A janela Adicionar hardware será exibida.
+
+. Clique em *disco rígido*.
+. Clique em *Next* para selecionar o disco.
+. Selecione *Mapeamentos de dispositivos brutos*.
+. Clique em *Next* para selecionar o LUN de destino.
+. Selecione o LUN com o novo ID NAA do Data ONTAP em cluster que você observou no arquivo de mapeamento 7MTT.
+. Clique em *seguinte*.
+. Escolha *Select datastore*.
+. Selecione o datastore que corresponde ao caminho do disco que você anotou no arquivo de mapeamento 7MTT.
+. Clique em *seguinte*.
+. Escolha *Physical* ou *Virtual* para o *Compatibility Mode*.
++
+Escolha o modo de compatibilidade indicado quando o RDM obsoleto foi removido.
+
+. Clique em *seguinte*.
+. Escolha *Opções avançadas*.
+. Selecione o *nó de dispositivo virtual*.
++
+Selecione o modo de dispositivo virtual que você observou quando você removeu o RDM obsoleto.
+
+. Clique em *seguinte*.
+. Clique em *Finish* para enviar suas alterações.
+. Repita as etapas para todas as VMs com RDM conetado.
+
+
+*Informações relacionadas*
+
+xref:task_removing_stale_rdm_using_vsphere_client.adoc[Removendo RDMs obsoletos usando o vSphere Client]

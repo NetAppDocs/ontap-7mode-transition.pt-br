@@ -1,0 +1,126 @@
+---
+permalink: copy-based/task_applying_7_mode_configurations.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, apply, 7, mode, configuration 
+summary: 'Depois que a cópia de dados da linha de base estiver concluída, você pode copiar e aplicar todas as configurações do sistema de 7 modos (incluindo a configuração de protocolos e serviços) aos volumes ONTAP. Se o cluster de destino estiver executando qualquer versão do ONTAP 8.3.2 e versões posteriores com suporte, a configuração da SAN será transferida nesta fase.' 
+---
+= Aplicando configurações de 7 modos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Após a conclusão da cópia de dados da linha de base, você pode copiar e aplicar todas as configurações do sistema 7-Mode (incluindo a configuração de protocolos e serviços) aos volumes ONTAP. Se o cluster de destino estiver executando qualquer versão do ONTAP 8.3.2 e versões posteriores com suporte, a configuração da SAN será transferida nesta fase.
+
+Se você estiver fazendo a transição de volumes SAN, você deve ter criado pelo menos um LIF de dados do protocolo apropriado (iSCSI ou FC) para cada nó no cluster.
+
+* As configurações são aplicadas na fase aplicar configuração (precutover), que tem dois modos: Precutover modo somente leitura e precutover modo leitura/gravação.
+
+
+O modo de leitura/escrita precutover não é suportado quando o projeto contém:
+
+* Os volumes SAN e o cluster de destino estão executando o Data ONTAP 8.3,1 ou anterior. Nesta situação, as seguintes configurações não são aplicadas na fase de precutover, em vez disso são aplicadas durante a fase de transição:
++
+** Configurações de SAN
+** Configurações do Snapshot Schedule
+
+
+* Volumes SnapLock Compliance:
++
+Se o projeto contiver volumes SnapLock Compliance, as configurações do Programa Instantâneo não serão aplicadas na fase de precutover, em vez disso, essas configurações serão aplicadas durante a fase de transição.
+
++
+xref:concept_considerations_for_transitioning_of_snaplock_compliance_volumes.adoc[Considerações para a transição de volumes SnapLock Compliance]Consulte .
+
+
+
+.Passos
+. No Dashboard, selecione o projeto.
+. Aplicar as configurações:
++
+|===
+| Se você quiser aplicar todas as configurações em... | Então... 
+
+
+ a| 
+Modo só de leitura
+ a| 
+Clique em *Apply Configuration*.
+
+
+
+ a| 
+Modo de leitura/gravação
+ a| 
+.. Selecione a caixa de verificação *modo de teste*.
+.. Clique em *Apply Configuration*.
++
+Os volumes do ONTAP são feitos para leitura/gravação e você pode testar as configurações e as operações de acesso aos dados.
+
+.. Selecione *Apply Configuration in test mode* (aplicar configuração no modo de teste) na caixa de diálogo Apply Configuration (Precutover) (aplicar configuração).
+
+
+|===
+. Marque a caixa de seleção *Personalizar o número de transferências simultâneas do SnapMirror e limite do acelerador para esta operação* para especificar o número de operações de cópia de dados do SnapMirror e o limite do acelerador:
++
+.. Insira o número máximo de transferências simultâneas de SnapMirror para serem executadas durante a transição.
+.. Insira a porcentagem de fluxos disponíveis que podem ser usados para transferências SnapMirror.
++
+Por padrão, a ferramenta usa 50% do volume disponível de transferências SnapMirror.
+
+.. Introduza um limite de aceleração ou selecione *máximo* para utilizar a largura de banda máxima.
++
+Por padrão, a ferramenta usa o acelerador máximo para a transição de configuração.
+
+
+
+. Marque a caixa de seleção *Transition Kerberos Configuration* para fornecer detalhes de configuração do servidor Kerberos baseados em UNIX ou Microsoft AD para transição.
++
+
+NOTE: Esta opção é ativada apenas quando o Kerberos está configurado no sistema de armazenamento de 7 modos de origem.
+
++
+.. Insira os detalhes do servidor Kerberos, como nome do host, endereço IP, nome de usuário e senha.
++
+
+NOTE: Para fazer a transição da configuração Kerberos, pelo menos um LIF tem de ser transferido como parte do projeto e o LIF tem de ser resolvido para um nome de anfitrião.
+
+
+
+. Clique em *continuar*.
++
+É apresentada a caixa de diálogo Operation Progress (progresso da operação) e a operação Copy Configuration (Configuração da cópia) é iniciada.
+
+. Se a transição de configuração for realizada no modo de leitura/gravação, clique em *Finish testing* (concluir teste) após a conclusão do teste e verificação das configurações.
++
+Este modo deve ser utilizado apenas para fins de teste. Todos os dados gravados no cluster nos volumes que estão sendo migrados durante o modo de teste são perdidos.
+
++
+A ferramenta restabelece o relacionamento SnapMirror e ressincroniza (com base no cronograma ativo para esse projeto naquele momento) os volumes ONTAP. Todos os dados gravados no modo 7 são ressincronizados com os volumes ONTAP.
+
++
+
+NOTE: Para uma ressincronização bem-sucedida, uma cópia Snapshot comum deve existir entre os volumes do modo 7 e do Data ONTAP em cluster. Você não deve excluir manualmente a cópia Snapshot comum; caso contrário, a ressincronização falha.
+
+
+
+Os endereços IP de 7 modos permanecem operacionais. Os LIFs são configurados na máquina virtual de storage (SVM) das seguintes maneiras:
+
+* Os endereços IP 7-Mode existentes são criados no estado administrativo inativo.
++
+Durante a transição de armazenamento, esses endereços IP são removidos do sistema de 7 modos e os LIFs de máquina virtual de armazenamento (SVM) correspondentes são levados para o estado administrativo. Se você selecionar o modo de leitura/gravação do precutover, será necessário usar um LIF diferente para obter acesso aos volumes que estão sendo migrados para o cluster.
+
+* Novos endereços IP são criados no estado administrativo up.
++
+Se você selecionar o modo de leitura/gravação do precutover, esses LIFs podem ser usados para testar o acesso aos volumes que estão sendo migrados no cluster.
+
+
+
+*Informações relacionadas*
+
+xref:task_managing_logical_interfaces.adoc[Gerenciamento de interfaces lógicas]
+
+xref:concept_considerations_for_quotas.adoc[Considerações relativas às quotas]
+
+https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/7MTT_v2.0%2F%2FTransitioned_Data_ONTAP_features["Recursos 7MTT v2,0/transitioned Data ONTAP"]

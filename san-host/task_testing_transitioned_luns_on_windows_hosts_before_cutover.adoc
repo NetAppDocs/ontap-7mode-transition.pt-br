@@ -1,0 +1,64 @@
+---
+permalink: san-host/task_testing_transitioned_luns_on_windows_hosts_before_cutover.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, test, lun, windows, cutover, phase 
+summary: 'Se você estiver usando a ferramenta de transição de 7 modos (7MTT) 2,2 ou posterior e o Data ONTAP 8.3,2 ou posterior para fazer a transição dos LUNs do host do Windows, você pode testar os LUNs Data ONTAP migrados para verificar se você pode colocar o disco on-line e se as operações do aplicativo funcionam como esperado antes da fase de transição. O host de origem pode continuar executando e/S para os LUNs de 7 modos de origem durante o teste.' 
+---
+= Teste de LUNs transicionados em hosts Windows antes da fase de transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Se você estiver usando a ferramenta de transição de 7 modos (7MTT) 2,2 ou posterior e o Data ONTAP 8.3,2 ou posterior para fazer a transição dos LUNs de host do Windows, você pode testar os LUNs Data ONTAP migrados para verificar se você pode colocar o disco on-line e se as operações do aplicativo funcionam como esperado antes da fase de transição. O host de origem pode continuar executando e/S para os LUNs de 7 modos de origem durante o teste.
+
+Os LUNs do modo 7 devem estar prontos para a transição.
+
+Você deve manter a paridade de hardware entre o host de teste e o host de origem, e deve executar as etapas a seguir no host de teste.
+
+Os LUNs do Data ONTAP em cluster estão no modo de leitura/gravação durante o teste. Eles convertem em modo somente leitura quando o teste estiver concluído e você estiver se preparando para a fase de transição.
+
+.Passos
+. Após a conclusão da cópia de dados da linha de base, selecione *modo de teste* na interface do usuário (UI) do 7MTT.
+. Na IU do 7MTT, clique em *Apply Configuration*.
+. Gerar o 7-Mode para o arquivo de mapeamento de LUN do Data ONTAP em cluster:
++
+** Para transições baseadas em cópia, execute o seguinte comando a partir do host onde o 7MTT está instalado
+`*transition cbt export lunmap -p _project-name_ -o _file_path_*`
++
+Por exemplo:
+
++
+`*transition cbt export lunmap -p SanWorkLoad -o c:/Libraires/Documents/7-to-C-LUN-MAPPING.csv*`
+
+** Para transições sem cópia, execute o seguinte comando a partir do sistema onde o 7MTT está instalado
+`*transition cft export lunmap -p _project-name_ -s _svm-name_ -o _output-file_`
++
+
+NOTE: Você deve executar este comando para cada uma das suas máquinas virtuais de armazenamento (SVMs).
+
++
+Por exemplo:
+
++
+`*transition cft export lunmap -p SANWorkLoad -s svml -o c:/Libraries/Documents/7-to-C-LUN-MAPPING-svml.csv*`
+
+
+
+. Coloque os discos e aplicativos transicionados online:
++
+** Se os discos transicionados não fizerem parte do failover de cluster, use o Gerenciador de discos do Windows para colocar os discos on-line.
+** Se os discos transicionados fizerem parte do failover de cluster, use o Gerenciador de failover de cluster para colocar os discos on-line.
+
+
+. Realize os testes conforme necessário.
+. Depois que o teste estiver concluído, coloque seus aplicativos e discos offline:
++
+** Se os discos transicionados não fizerem parte do failover de cluster, use o Gerenciador de discos do Windows para colocar os discos off-line.
+** Se os discos transicionados fizerem parte do failover de cluster, use o Gerenciador de failover de cluster para colocar os discos off-line.
+
+
+
+
+Para que os LUNs do Data ONTAP em cluster sejam remapeados para o host de origem, você deverá preparar o host de origem para a fase de transição. Se os LUNs do Data ONTAP em cluster permanecerem mapeados para o host de teste, não serão necessárias mais etapas no host de teste.

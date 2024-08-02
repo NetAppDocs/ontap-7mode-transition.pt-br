@@ -1,0 +1,36 @@
+---
+permalink: san-host/task_reregistering_vms_after_transition_on_non_san_boot_esxi_host_using_vsphere_client.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, vm, esxi, vsphere, client 
+summary: 'Depois de fazer a transição de um host não-SAN inicializado, você deve Registrar novamente suas máquinas virtuais (VMs).' 
+---
+= Reregistrando VMs após a transição em hosts ESXi que não sejam SAN inicializam usando o vSphere Client
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Depois de fazer a transição de um host não-SAN inicializado, você deve Registrar novamente suas máquinas virtuais (VMs).
+
+O host deve estar on-line e os LUNs devem ser descobertos.
+
+* Para transições baseadas em cópia, execute estas etapas antes de iniciar a operação de transferência de armazenamento na ferramenta de transição de 7 modos.
+* Para transições sem cópia, execute estas etapas antes de iniciar a operação Export & Halt 7-Mode Systems no 7MTT.
+
+
+.Passos
+. Abra o _Inventory Assessment Workbook_ gerado pela Inventory Collect Tool (ICT).
+. Navegue até a guia Host VMs e, em seguida, Registre o caminho *VM Config File* e *Location/datastore Name* da VM.
+. Use o vSphere Client para fazer login no host ESXi ou no vCenter Server que gerencia o host ESXi.
+. Em *Host e clusters*, selecione o host ESXi.
+. Navegue até *Configuração* > *hardware* > *armazenamento*.
+. Selecione o datastore com o nome do datastore que você anotou anteriormente.
+. Clique com o botão direito do rato e selecione *Procurar datastore*.
++
+A janela do navegador do datastore é aberta.
+
+. Navegue até o caminho *VM Config File* que você anotou anteriormente.
+. Clique com o botão direito do Mouse no arquivo ".vmx 'e selecione *Adicionar ao inventário*.
+. Repita essas etapas para cada VM listada na guia *Host VMs* no _Inventory Assessment Workbook_ gerado pelo ICT.
+

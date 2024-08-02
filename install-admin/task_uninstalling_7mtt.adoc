@@ -1,0 +1,35 @@
+---
+permalink: install-admin/task_uninstalling_7mtt.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, install, uninstall, transition, tool, windows 
+summary: Você pode desinstalar a ferramenta de transição de 7 modos usando o utilitário de programa de desinstalação do Windows. 
+---
+= Desinstalar a ferramenta de transição de 7 modos em um sistema Windows
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode desinstalar a ferramenta de transição de 7 modos usando o utilitário de programa de desinstalação do Windows.
+
+* Você deve ter concluído todas as transições em andamento.
++
+
+IMPORTANT: Instalar uma versão mais recente ou reinstalar a mesma versão da ferramenta não permite que você acesse as operações de transição iniciadas pela instância desinstalada.
+
+* Se a ferramenta de transição de 7 modos estiver em execução, ela deve ser fechada.
+
+
+O Java Runtime Environment (JRE) não é removido como parte da desinstalação.
+
+.Passos
+. Clique em *Iniciar* > *Painel de Controle* > *Desinstalar um programa*.
+. Selecione a ferramenta de transição de 7 modos na lista de programas e clique em *Desinstalar*.
+. Conclua as etapas no assistente para desinstalar a ferramenta de transição de 7 modos.
++
+Você pode optar por salvar os detalhes e Registros do projeto para fins de solução de problemas.
+
+
+
+Você deve criar um backup dos arquivos de log se optar por manter os arquivos de log durante a desinstalação. O instalador da 7-Mode Transition Tool instala a ferramenta na mesma pasta e substitui os arquivos de log da próxima vez que você executá-la.

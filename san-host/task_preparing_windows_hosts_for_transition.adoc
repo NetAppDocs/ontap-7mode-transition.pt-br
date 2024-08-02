@@ -1,0 +1,39 @@
+---
+permalink: san-host/task_preparing_windows_hosts_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, windows, host 
+summary: Há etapas que você deve executar antes de fazer a transição dos hosts do Windows do Data ONTAP operando no modo 7 para o Data ONTAP em cluster. 
+---
+= Preparando os hosts do Windows para a transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Há etapas que você deve executar antes de fazer a transição dos hosts do Windows do Data ONTAP operando no modo 7 para o Data ONTAP em cluster.
+
+Este procedimento aplica-se a transições baseadas em cópia e transições sem cópia.
+
+
+NOTE: Se estiver a utilizar o Windows 2003, tem de atualizar para o Windows 2008. A HRT (Host Remediation Tool) não é suportada no Windows 2003 e precisa do Windows 2008 ou posterior para ser executado corretamente.
+
+.Passos
+. Identifique os números de série LUN, IDs LUN e os números de disco físico do Windows correspondentes dos LUNs que estão sendo transferidos.
++
+** Se o seu sistema estiver a executar o Data ONTAP DSM, utilize o snap-in da extensão de Gestão do Data ONTAP DSM (acessível através do Gestor de servidor ou do `get-sandisk` cmdlet do Windows PowerShell).
+** Se o seu sistema estiver a executar o MSDSM, utilize a ferramenta de recolha de inventário (ICT).
+
+
+. Prepare-se para tornar os LUNs visíveis para o host após a conclusão da transição.
++
+** Se os LUNs transferidos forem LUNs FC ou FCoE, crie ou modifique o zoneamento da malha.
+** Se os LUNs que estão a ser transferidos forem iSCSI LUNs, crie sessões iSCSI que se ligam ao controlador Data ONTAP em cluster.
+
+
+. Use o ICT para gerar a pasta de trabalho de avaliação de inventário.
+
+
+*Informações relacionadas*
+
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sanconf/home.html["Configuração SAN"]

@@ -1,0 +1,14 @@
+---
+permalink: copy-free/concept_troubleshooting_transition_issues.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, troubleshooting, issues 
+summary: Você deve estar ciente de como solucionar problemas com a ferramenta de transição de 7 modos e onde procurar arquivos de log. Quando você usa a ferramenta de transição de 7 modos, você pode ver mensagens de erro que identificam o problema e fornecem a solução. 
+---
+= Solução de problemas de transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você deve estar ciente de como solucionar problemas com a ferramenta de transição de 7 modos e onde procurar arquivos de log. Quando você usa a ferramenta de transição de 7 modos, você pode ver mensagens de erro que identificam o problema e fornecem a solução.

@@ -1,0 +1,65 @@
+---
+permalink: san-host/task_booting_from_san_boot_lun_on_aix_hosts_with_fc_fcoe_configurations_after_transition.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, booting, san, lun, aix, host, fc, fcoe, configuration 
+summary: Depois de fazer a transição de um LUN de inicialização SAN em um host AIX com uma configuração FC ou FCoE, você deve executar determinadas etapas para inicializar seu host a partir do LUN de inicialização SAN. 
+---
+= Inicializando a partir de LUN de inicialização SAN em hosts AIX com configurações FC/FCoE após a transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Depois de fazer a transição de um LUN de inicialização SAN em um host AIX com uma configuração FC ou FCoE, você deve executar determinadas etapas para inicializar seu host a partir do LUN de inicialização SAN.
+
+Para transições baseadas em cópia, você deve executar estas etapas após concluir a operação de transferência de armazenamento na ferramenta de transição de 7 modos. Transições sem cópia não são suportadas em hosts AIX.
+
+. Faça login no Console de Gerenciamento de hardware (HMC) e, em seguida, inicialize seu host no menu SMS.
+. Selecione o host.
+. Selecione *operações* > *Ativar* > *Perfil*.
+. Clique na guia Avançado.
+. Selecione *SMS* e clique em *OK*.
+. No menu principal do SMS, introduza `*5*` para selecionar *5. Selecione Opções de inicialização*.
+. Digite `*1*` para selecionar *1. Selecione Instalar/Boot Device*.
+. Digite `*5*` para selecionar *5. Listar todos os dispositivos*.
+. Introduza o número do dispositivo do LUN de arranque SAN ONTAP com o qual pretende iniciar.
++
+No exemplo a seguir, o LUN desejado é a opção 5:
+
++
+[listing]
+----
+Select Device
+Device 	Current 	Device
+Number		Position	Name
+1.   -   PCIe2 4-port 1GbE Adapter
+     ( loc=U78CB.001.WZS062Y-P1-C12-T1 )
+2.   -   PCIe2 4-port 1GbE Adapter
+     ( loc=U78CB.001.WZS062Y-P1-C12-T2 )
+3.   -   PCIe2 4-port 1GbE Adapter
+     ( loc=U78CB.001.WZS062Y-P1-C12-T3 )
+4.   -   PCIe2 4-port 1GbE Adapter
+     ( loc=U78CB.001.WZS062Y-P1-C12-T4 )
+5.   -   107 GB		FC Harddisk, part=2 (AIX 7.1.0)
+     ( loc=U78CB.001.WZS062Y-P1-C7-T1-W232200a09830ca3a-L0000000000000000 )
+6.   -   107 GB		FC Harddisk, part=2 (AIX 7.1.0)
+     ( loc=U78CB.001.WZS062Y-P1-C7-T2-W232200a09830ca3a-L0000000000000000 )
+---------------------------------------------------------------
+Navigation keys:
+M = return to Main Menu  N = Next page of list
+ESC key = return to previous screen   X = eXit System Management Services
+---------------------------------------------------------------
+Type menu item number and press Enter or select Navigation keys: 5
+----
+. Digite `*2*` para selecionar *2. Inicialização do modo normal*.
+. Entrar `*1*` para sair do menu SMS.
+. Aguarde até que o sistema operacional seja inicializado.
+. Apresentar o nome do caminho LUN:
++
+`*sanlun lun show*`
+
++
+A saída na coluna MODE deve ter mudado de `7` para `C`.
+
+

@@ -1,0 +1,24 @@
+---
+permalink: copy-based/task_post_transition_task_for_a_metrocluster_configuration.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, cron, job, schedules, metrocluster, remote, configuration 
+summary: Os cronogramas de trabalho do cron criados durante a transição não são replicados para o local remoto e, portanto, o switchover negociado falha após a transição. Você deve criar manualmente as agendas de tarefas do cron no local remoto após a transição. 
+---
+= Configurando cronogramas de tarefas do cron no site remoto após a transição de uma configuração do MetroCluster
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Os cronogramas de trabalho do cron criados durante a transição não são replicados para o local remoto e, portanto, o switchover negociado falha após a transição. Você deve criar manualmente as agendas de tarefas do cron no local remoto após a transição.
+
+A transferência de storage para o local ativo do modo 7 deve ter sido concluída com êxito.
+
+.Passos
+. Registre as mensagens do cron job geradas na transição de armazenamento para identificar os agendamentos de tarefas que devem ser replicados para o local remoto.
++
+image::../media/mcc_cron_jobs.gif[trabalhos do cron do mcc]
+
+. Na CLI do cluster do local remoto, execute os `job schedule cron create` comandos gravados no <<STEP_F72D5FA759564336A365328A3414D57A,Passo 1>>.
+

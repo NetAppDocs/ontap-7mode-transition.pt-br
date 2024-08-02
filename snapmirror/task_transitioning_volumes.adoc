@@ -1,0 +1,24 @@
+---
+permalink: snapmirror/task_transitioning_volumes.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, snapmirror, transition, volume, data, protection, relationship, stand, alone 
+summary: 'Você pode fazer a transição de um volume ou volumes autônomos que estejam em relacionamentos de proteção de dados (em relacionamentos de volume SnapMirror) usando a tecnologia SnapMirror.' 
+---
+= Fazendo a transição de volumes
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode fazer a transição de um volume ou volumes autônomos que estejam em relacionamentos de proteção de dados (em relacionamentos de volume SnapMirror) usando a tecnologia SnapMirror.
+
+Se uma atualização agendada em curso for abortada devido a uma operação NDO (aquisição ou realocação agregada), a atualização será retomada automaticamente após a conclusão da operação NDO.
+
+Se você fizer a transição de um volume autônomo ou de uma relação de SnapMirror de volume com LUNs, será necessário criar grupos de dados e mapear LUNs. Em seguida, é necessário executar as tarefas de pós-transição necessárias nos hosts antes de configurar o acesso aos volumes Data ONTAP em cluster transferidos.
+
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-7mtt-sanspl/home.html["Transição e remediação DE host SAN"]
+
+*Informações relacionadas*
+
+xref:task_transitioning_7_mode_volumes_using_snapmirror.adoc[Fazendo a transição de volumes do modo 7D usando o SnapMirror]

@@ -1,0 +1,27 @@
+---
+permalink: inventory-collect/concept_collecting_host_and_storage_inventory_information_for_transition_assessment.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, transition, collect, storage, host, inventory, information 
+summary: A ferramenta de coleta de inventário permite que você colete informações sobre os sistemas clusterizados Data ONTAP e 7 modos, switches, hosts e os aplicativos executados nesses hosts e crie um relatório de inventário. Em seguida, você pode importar o relatório de inventário para a ferramenta de transição de 7 modos para avaliação de transição. 
+---
+= Coleta de informações de inventário de armazenamento e host
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A ferramenta de coleta de inventário permite que você colete informações sobre os sistemas clusterizados Data ONTAP e 7 modos, switches, hosts e os aplicativos executados nesses hosts e crie um relatório de inventário. Em seguida, você pode importar o relatório de inventário para a ferramenta de transição de 7 modos para avaliação de transição.
+
+A ferramenta gera uma pasta de trabalho de relatório de inventário e um arquivo XML de relatório de inventário que contém detalhes de configuração dos sistemas de armazenamento e host.
+
+A ferramenta Inventory Collect usa protocolos TLS ou SSL para se comunicar com os sistemas de armazenamento 7-Mode e SSH ou WMI para se comunicar com hosts. A ferramenta se comunica com o sistema de armazenamento usando o protocolo TLS se o TLS estiver ativado no sistema de armazenamento. Se o TLS estiver desativado e o SSLv3 estiver ativado em um sistema de armazenamento, a ferramenta usará o SSLv3 para se comunicar com o sistema de armazenamento.
+
+
+NOTE: A prática recomendada é ativar o TLS e desativar o SSLv3 no sistema de armazenamento para evitar vulnerabilidades de segurança do SSLv3 (CVE-2014-3566).
+
+Se você não puder instalar a ferramenta de transição de 7 modos em seu ambiente devido a razões de segurança, então você pode importar o arquivo XML do relatório de inventário gerado pela ferramenta de coleta de inventário para a ferramenta de transição de 7 modos (instalada fora do seu data center) para gerar um relatório de avaliação. Você pode usar o relatório de avaliação para avaliar os recursos e funcionalidades de seus sistemas e identificar como esses recursos e funcionalidades funcionam na versão do Clustered Data ONTAP selecionada para transição.
+
+O Inventory Collect Tool é um utilitário autônomo que não requer nenhuma instalação.
+
+Certifique-se de consultar a ferramenta de transição de 7 modos atual link:http://docs.netapp.com/us-en/ontap-7mode-transition/releasenotes.html["Notas de versão"]para obter as informações mais recentes sobre as versões de destino suportadas e problemas conhecidos.

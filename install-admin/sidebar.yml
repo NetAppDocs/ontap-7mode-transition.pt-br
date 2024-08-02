@@ -1,0 +1,57 @@
+---
+section: install-admin
+title: 7-Mode Transition Tool instalação e administração
+url: "/install-admin/index.html"
+entries:
+- title: Transição para o Clustered ONTAP usando a ferramenta de transição de 7 modos
+  url: "/install-admin/concept_transition_to_clustered_ontap_using_7mtt.html"
+  entries:
+  - title: ONTAP target Releases suportados pela ferramenta de transição de 7 modos
+    url: "/install-admin/concept_ontap_target_releases_supported_by_7mtt.html"
+  - title: Comparação da transição livre de cópia e transição baseada em cópia
+    url: "/install-admin/concept_comparison_of_copy_free_transition_and_copy_based_transition.html"
+  - title: Interfaces e recursos de transição disponíveis no Windows e Linux
+    url: "/install-admin/reference_interfaces_and_transition_capabilities_available_on_windows_and_linux.html"
+- title: Instalar ou desinstalar a ferramenta de transição de 7 modos em um sistema
+    Windows
+  url: "/install-admin/concept_installing_and_uninstalling_7mtt.html"
+  entries:
+  - title: Requisitos de sistema para instalar a ferramenta de transição de 7 modos
+      em sistemas Windows
+    url: "/install-admin/concept_system_requirements_for_7mtt_on_windows.html"
+  - title: Instalar a ferramenta de transição de 7 modos em um sistema Windows
+    url: "/install-admin/task_installing_7mtt.html"
+  - title: Ativar o início de sessão para utilizadores que não fazem parte do grupo
+      Administrador
+    url: "/install-admin/task_enabling_login_for_users_not_part_of_administrator_group.html"
+  - title: Iniciar sessão na ferramenta de transição de 7 modos
+    url: "/install-admin/task_logging_in_to_tool.html"
+  - title: Desinstalar a ferramenta de transição de 7 modos em um sistema Windows
+    url: "/install-admin/task_uninstalling_7mtt.html"
+- title: Instalar ou desinstalar a ferramenta de transição 7-Mode no Linux (somente
+    transição baseada em cópia)
+  url: "/install-admin/concept_installing_and_uninstalling_7mtt_on_linux.html"
+  entries:
+  - title: Requisitos de sistema para instalar a ferramenta de transição 7-Mode no
+      Linux
+    url: "/install-admin/concept_system_requirements_for_7_mode_transition_tool_on_linux.html"
+  - title: Instalando a ferramenta de transição 7-Mode no Linux
+    url: "/install-admin/task_installing_7_mode_transition_tool_on_linux.html"
+  - title: Desinstalar o 7-Mode Transition Tool no Linux
+    url: "/install-admin/task_uninstalling_7_mode_transition_tool_on_linux.html"
+- title: Modificação das opções de configuração da ferramenta de transição de 7 modos
+  url: "/install-admin/task_modifying_default_configuration_settings_of_7mtt.html"
+- title: Solução de problemas
+  url: "/install-admin/concept_troubleshooting_web_interface_issues.html"
+  entries:
+  - title: A instalação da ferramenta falha com um erro de SO incompatível
+    url: "/install-admin/reference_tool_installation_fails_with_incompatible_os_error.html"
+  - title: A instalação ou desinstalação da ferramenta de transição de 7 modos está
+      bloqueada
+    url: "/install-admin/reference_installation_or_uninstallation_of_7mtt_is_blocked.html"
+  - title: Reinstalar ou atualizar a ferramenta de transição de 7 modos falha no sistema
+      Windows
+    url: "/install-admin/reference_reinstalling_or_upgrading_7mtt_fails_on_windows_system.html"
+  - title: Notificação do Assistente de Compatibilidade de programas do Windows exibida
+      durante a instalação da ferramenta
+    url: "/install-admin/reference_windows_compatibility_assistant_notification_displayed_while_installing.html"

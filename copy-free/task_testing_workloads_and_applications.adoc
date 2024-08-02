@@ -1,0 +1,63 @@
+---
+permalink: copy-free/task_testing_workloads_and_applications.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, test, workload, application 
+summary: Você deve testar manualmente todos os workloads e aplicações no ambiente de pré-produção. Você pode então iniciar a produção por uma breve duração para avaliar se a reversão é necessária antes de comprometer o projeto. 
+---
+= Teste de workloads e aplicações
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você deve testar manualmente todos os workloads e aplicações no ambiente de pré-produção. Você pode então iniciar a produção por uma breve duração para avaliar se a reversão é necessária antes de comprometer o projeto.
+
+Os agregados transicionados devem ter pelo menos 5% de espaço físico livre.
+
+
+NOTE: A melhor prática é ter pelo menos 20% de espaço livre nos agregados transicionados.
+
+Algumas operações são restritas durante os testes de pré-produção.
+
+xref:concept_restrictions_during_preproduction_testing.adoc[Restrições durante testes de pré-produção]
+
+.Passos
+. Conete os clientes aos volumes transferidos.
+. Se você tiver workloads SAN, execute as tarefas de correção de host pós-transição nos hosts SAN.
++
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-7mtt-sanspl/home.html["Transição e remediação DE host SAN"]
+
+. Teste todos os workloads e aplicações que usam os dados e configurações transferidos.
+. Verifique se os agregados transicionados não estão ficando sem espaço monitorando o espaço físico livre nos agregados transicionados da guia agregados no painel ferramenta de transição de modo 7D.
++
+* Solução de problemas:* se você ficar sem espaço nos agregados transicionados, você pode adicionar discos.
+
++
+.. Inicie sessão no nível de privilégio avançado
+`*set -privilege advanced*`
+.. Selecione os discos sobressalentes das gavetas de disco de 7 modos e adicione discos para aumentar o espaço nos agregados transicionados
+`*storage aggregate add-disks -aggregate _aggr_name_ -disklist _disk1_*`
++
+Se os discos sobressalentes do 7-Mode não estiverem disponíveis, você poderá usar discos sobressalentes das gavetas de disco nos nós do cluster; no entanto, isso complica o processo de reversão.
+
+
+
+
+
+Você pode começar a fornecer dados de produção.
+
+[IMPORTANT]
+====
+Você pode fornecer dados no ambiente de produção por um breve período para garantir que as cargas de trabalho estejam operando corretamente em um ambiente de produção e que não seja necessário reverter para o modo 7. Você não deve prolongar esta fase e não deve atrasar o envio do projeto de transição livre de cópias pelas seguintes razões:
+
+* A probabilidade de ficar sem espaço nos agregados transicionados aumenta à medida que novos dados são gravados nos volumes.
+* Quaisquer novos dados gravados nos volumes durante esta fase não estarão disponíveis durante a reversão.
+
+
+====
+*Informações relacionadas*
+
+xref:concept_reverting_a_copy_free_transition_project.adoc[Executar uma reversão de transição para o modo 7D.]
+
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-cmpr/GUID-5CB10C70-AC11-41C0-8C16-B4D0DF916E9B.html["Comandos ONTAP 9"]

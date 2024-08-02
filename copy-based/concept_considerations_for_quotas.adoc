@@ -1,0 +1,26 @@
+---
+permalink: copy-based/concept_considerations_for_quotas.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, quotas 
+summary: 'Você deve estar ciente de como as cotas são transicionadas quando "Apply Configuration" (precutover) é executado no modo somente leitura e leitura-gravação.' 
+---
+= Considerações relativas às quotas
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você deve estar ciente de como as cotas são transicionadas quando ""aplicar configuração"" (precutover) é executado no modo somente leitura e leitura-gravação.
+
+As cotas são aplicadas das seguintes maneiras durante a fase precutover:
+
+* Modo só de leitura
++
+As cotas não são aplicadas no modo somente leitura do precutover no sistema ONTAP; elas são aplicadas somente durante a fase de transferência de armazenamento.
+
+* Modo de leitura-gravação
++
+As cotas são aplicadas no modo de leitura e gravação do precutover no sistema ONTAP, para que você possa testá-las no ONTAP. No entanto, as cotas são removidas durante a ressincronização (após a conclusão do teste) dos volumes ONTAP. As cotas são aplicadas novamente durante a fase de transição do storage.
+
+

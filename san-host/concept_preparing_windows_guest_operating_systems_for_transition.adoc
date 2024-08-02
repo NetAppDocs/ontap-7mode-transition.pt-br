@@ -1,0 +1,18 @@
+---
+permalink: san-host/concept_preparing_windows_guest_operating_systems_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, windows, guest, operating, systems 
+summary: 'Se as VMs do Windows usarem dispositivos RDM (PTRDM) físicos compatíveis, você deve colocar os discos off-line na VM do Windows antes da transição. Você pode usar o Gerenciador de disco para colocar os discos off-line.' 
+---
+= Preparando os sistemas operacionais Windows Guest para a transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Se as VMs do Windows usarem dispositivos RDM (PTRDM) compatíveis físicos, você deverá colocar os discos off-line na VM do Windows antes da transição. Você pode usar o Gerenciador de disco para colocar os discos off-line.
+
+* Para transições baseadas em cópia, execute estas etapas antes de iniciar a operação de transferência de armazenamento na ferramenta de transição de 7 modos (7MTT).
+* Para transições sem cópia, execute estas etapas antes de iniciar a operação Export & Halt 7-Mode Systems no 7MTT.
+

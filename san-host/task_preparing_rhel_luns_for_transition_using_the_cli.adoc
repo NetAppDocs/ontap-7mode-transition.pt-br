@@ -1,0 +1,91 @@
+---
+permalink: san-host/task_preparing_rhel_luns_for_transition_using_the_cli.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, phel, lun, mount, points, dmmp, alias, names, cli 
+summary: Antes da transição de um ponto de montagem utilizando um nome de dispositivo DMMP, tem de substituir o nome do dispositivo DMMP pelo respetivo número UUID do sistema de ficheiros. 
+---
+= Preparando LUNs RHEL com pontos de montagem usando nomes de alias DMMP para transição usando a CLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes da transição de um ponto de montagem utilizando um nome de dispositivo DMMP, tem de substituir o nome do dispositivo DMMP pelo respetivo número UUID do sistema de ficheiros.
+
+Este procedimento aplica-se a transições baseadas em cópia e transições sem cópia.
+
+.Passos
+. Identifique e Registre a ID do dispositivo SCSI para que o LUN seja transferido:
++
+`*sanlun lun show*`
+
++
+O ID do dispositivo SCSI está listado sob a coluna Nome do arquivo na saída.
+
+. Identifique e registe o nome do dispositivo DMMP para o LUN a ser transferido:
++
+`*multipath -ll _SCSI_device_ID_*`
+
++
+No exemplo a seguir `360a9800037534562572b453855496b41`, está o nome do dispositivo DMMP:
+
++
+[listing]
+----
+[root@IBMx3550M3-229-169 ~]# multipath -ll /dev/sdc
+dmmp_fs_lun (360a9800037534562572b453855496b41) dm-3 NETAPP, LUN
+[size=1.0G] [features=3 queue_if_no_path pg_init_retries 50] [hwhandler=0][rw]
+\_ round-robin 0 [prio=2][active]
+	\_ 9:0:0:1 sdc 8:32  [active][ready]
+	\_ 9:0:0:1 sdg 8:96  [active][ready]
+----
+. Identificar o sistema de ficheiros configurado no dispositivo DMMP:
++
+`*blkid | grep -i _DMMP_device_name_*`
+
++
+O valor DO TIPO na saída identifica o sistema de arquivos.
+
++
+No exemplo a seguir, o sistema de arquivos é `ext3`.
+
++
+[listing]
+----
+[root@ibmx3550-229-108 ~]#blkid | grep -i 3600a09804d532d79565d47617679658
+/dev/mapper/3600a09804d532d79565d47617679658:
+UUID="450b999a-4f51-4828-8139-29b20d2f8708" TYPE="ext3" SEC_TYPE="ext2"
+----
+. Identifique o número UUID para o LUN:
++
+`*dumpe2fs _device_path_name_ | grep UUID*`
+
+. Identifique o diretório no qual o dispositivo DMMP está montado:
++
+`*df -h*`
+
++
+No exemplo a seguir, `/mnt/dmmp_ext3` representa o diretório no qual o dispositivo DMMP está montado:
+
++
+[listing]
+----
+[root@IBMx3550M3-229-169 ~]# df -h
+Filesystem Size Used Avail Use% Mounted on
+/dev/mapper/dmmp_fs_lun
+1008M 34M 924M 4% /mnt/dmnp_ext3
+----
+. Verifique no `/etc/fstab` arquivo se os pontos de montagem do dispositivo DMMP estão definidos:
++
+`*cat /etc/fstab*`
+
++
+O nome do dispositivo DMMP e o diretório de montagem devem ser exibidos na saída.
+
+. Crie uma cópia de segurança `/etc/fstab` do ficheiro:
++
+`*cp /etc/fstab /etc/_fstab_pre_transition_bkup_*`
+
+. Edite o `/etc/fstab` ficheiro para substituir o nome do dispositivo DMMP pelo respetivo número UUID do sistema de ficheiros.
+

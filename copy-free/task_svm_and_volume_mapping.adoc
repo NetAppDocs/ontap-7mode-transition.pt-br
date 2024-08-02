@@ -1,0 +1,78 @@
+---
+permalink: copy-free/task_svm_and_volume_mapping.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, map, svm, volumes 
+summary: Você deve mapear cada controlador de 7 modos no par de HA para um SVM de destino. Se você tiver unidades do vFiler, selecione um SVM de destino para cada unidade do vFiler. Os volumes do controlador 7-Mode ou da unidade do vFiler são transferidos para o SVM mapeado. 
+---
+= Mapeamento de SVMs e volumes
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você deve mapear cada controlador de 7 modos no par de HA para um SVM de destino. Se você tiver unidades do vFiler, selecione um SVM de destino para cada unidade do vFiler. Os volumes do controlador 7-Mode ou da unidade do vFiler são transferidos para o SVM mapeado.
+
+Você precisa ter criado os SVMs no cluster de destino.
+
+https://docs.netapp.com/us-en/ontap/concept_administration_overview.html["Gerenciamento de clusters com o System Manager"]
+
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sag/home.html["Administração do sistema"]
+
+Uma unidade do vFiler pode ser mapeada apenas para uma única SVM. Os volumes de qualquer outro controlador de 7 modos ou unidade do vFiler não podem ser transferidos para um SVM mapeado.
+
+.Passos
+. Na guia SVM e Mapeamento de volume, selecione o SVM de destino para o qual você deseja fazer a transição dos volumes de cada controlador de 7 modos ou unidade do vFiler.
++
+O SVM de destino pode estar no IPspace padrão ou não padrão.
+
+. Dependendo se você deseja aplicar a mesma política de caminho de junção para os volumes em todos os SVMs ou uma política de caminho de junção diferente para os volumes em cada SVM, escolha uma das seguintes ações:
++
+|===
+| Se você quiser... | Então... 
+
+
+ a| 
+Aplique a mesma política de caminho de junção a todos os SVMs
+ a| 
+.. Clique em *aplicar*.
+.. Selecione uma opção para a política de caminho de junção.
+.. Clique em *OK*.
+
+
+
+
+ a| 
+Especifique a política de caminho de junção para cada SVM
+ a| 
+Selecione a política de caminho de junção na lista suspensa para cada SVM de destino.
+
+|===
++
+A política de caminho de junção especifica o caminho com o qual os volumes Data ONTAP em cluster de destino devem ser montados para acesso do cliente. Você pode adicionar um dos seguintes valores para a política de caminho de junção:
+
++
+** *Preserve caminhos de montagem de 7 modos*
++
+Mantém os mesmos caminhos de junção que os que estão sendo usados nos volumes de origem 7-Mode e os volumes são montados com caminhos de junção no formato `/vol/__source_volume_name__` após a transição.
+
+** *Use o nome de volume do Clustered Data ONTAP*
++
+Todos os volumes Data ONTAP agrupados de destino são montados com caminhos de junção com o nome de volume Data ONTAP agrupado no formato `_/target_volume_name_` após a transição.
+
+** *Use o nome do volume do modo 7*
++
+Todos os volumes Data ONTAP agrupados de destino são montados com caminhos de junção com o nome do volume do modo 7 no formato `_/source_volume_name_` após a transição.
+
+
+
+. Clique image:../media/delete_me_edit_schedule.gif["Ícone de edição"] em para modificar o nome do volume Data ONTAP em cluster de destino.
++
+Por padrão, o volume de Data ONTAP em cluster de destino tem o mesmo nome que o volume do modo 7D. Se um volume com o mesmo nome do volume do modo 7 já existir no SVM, o volume de destino receberá automaticamente um novo nome.
+
+. Clique em *Salvar mapeamento* para cada SVM mapeado.
+. Clique em *seguinte*.
++
+É apresentado o ecrã rede.
+
+

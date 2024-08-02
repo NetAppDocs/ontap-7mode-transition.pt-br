@@ -1,0 +1,204 @@
+---
+permalink: copy-based/task_creating_a_transition_session.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, create, project 
+summary: Você pode criar um projeto de transição que identifique os objetos do modo 7D a serem transferidos e como eles mapeiam para os objetos ONTAP. Ao criar o projeto, a ferramenta de transição de 7 modos coleta e salva as informações sobre os objetos de transição. Você pode usar essas informações de projeto para realizar a transição em etapas. 
+---
+= Criando um projeto de transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode criar um projeto de transição que identifique os objetos do modo 7D a serem transferidos e como eles mapeiam para os objetos ONTAP. Ao criar o projeto, a ferramenta de transição de 7 modos coleta e salva as informações sobre os objetos de transição. Você pode usar essas informações de projeto para realizar a transição em etapas.
+
+Você deve ter coletado as seguintes informações:
+
+* Tipo de projeto: Os valores possíveis são independentes, primários ou secundários
+* FQDN ou endereço IP do sistema de armazenamento de 7 modos ou da unidade padrão do vFiler, se o MultiStore for licenciado
+* Nome de utilizador administrativo e palavra-passe do sistema de armazenamento de 7 modos
+* Lista de volumes do modo 7D.
+* FQDN do cluster ou endereço IP do LIF de gerenciamento de cluster
+* Nome do SVM
+
+
+.Passos
+. No menu *Iniciar*, clique em *todos os programas* > *ferramenta de transição de 7 modos NetApp* > *ferramenta de transição de 7 modos NetApp (CLI) 3,0* para abrir o prompt de comando da ferramenta de transição de 7 modos.
+. Adicione o nome de usuário e a senha dos sistemas que fazem parte do projeto de transição:
++
+`*transition credentials add -h _host_name_ -u _user_name_*`
+
++
+`_host_name_` É FQDN ou endereço IP do sistema ou cluster de 7 modos.
+
++
+`_user_name_` é o nome de utilizador administrativo do sistema.
+
++
+
+NOTE: Você deve repetir esta etapa para cada sistema de storage que deseja adicionar aos projetos de transição.
+
++
+[listing]
+----
+7-Mode Transition Tool>transition credentials add -h system1.example.com -u root
+Enter password for 'root@system1.example.com':
+----
+. Criar um projeto de transição:
++
+`*transition cbt create -p _project_name_ -t _project_type_ -n _7-Mode_system_ -c _data-copy-ipaddress_ [-f _vfiler_name_] [-h _cluster_ -v _vserver_name_*`
+
++
+`_project_name_` é o nome do projeto de transição.
+
++
+`_project_type_` é o tipo de projeto. Os valores válidos são independentes, secundários ou primários.
+
++
+`_7-Mode_system_` É o endereço FQDN ou IP do sistema de 7 modos.
+
++
+`_cluster_` É o FQDN do cluster ou endereço IP do LIF de gerenciamento de cluster.
+
++
+
+NOTE: Os nomes de host do seu sistema 7-Mode e cluster devem ser os mesmos que você forneceu durante a criação do projeto.
+
++
+`_data-copy-ipaddress_` É o endereço IP sobre o qual os dados são copiados.
+
++
+`_vfiler_name_` É o nome da unidade não padrão do vFiler.
+
++
+`_vserver_name_` É o nome do SVM.
+
++
+
+NOTE: Para uma nova SVM, você deve fornecer o nome agregado do volume raiz do SVM com `-g` a opção.
+
++
+[listing]
+----
+7-Mode Transition Tool>transition cbt create -p sample_project -t standalone -n system1.example.com -n 10.238.55.33 -h cluster1.example.com -v vs2
+----
++
+O projeto de transição muda para o estado de preparação.
+
+. Adicione o volume do modo 7D e o volume ONTAP ao projeto:
++
+`*transition cbt volumepair add -p _project_name_ -v _7-Mode_volume_ -c _vserver_volume_ -g _aggr_name_ -t*`
+
++
+`_7-Mode_volume_` É o nome do volume do modo 7D.
+
++
+`_vserver_volume_` É o volume ONTAP na SVM.
+
++
+
+NOTE: Você também pode adicionar um volume ONTAP para o qual a transferência de linha de base foi concluída. Quando você adiciona esse volume na fase de preparação, apenas transferências incrementais são realizadas durante a fase de cópia de dados.
+
++
+`_aggr_name_` É o agregado no qual o volume ONTAP `_vserver_volume_` é criado durante a operação de início.
+
++
+`_-t_` É usado quando um volume que está em relacionamentos SnapMirror deve ser transicionado como volume autônomo.
+
++
+
+NOTE: Quando um volume é transicionado como volume autônomo, as relações SnapMirror não são preservadas durante a transição.
+
++
+Para volumes do SnapLock Compliance que estão na relação do SnapMirror, a transição das relações do SnapMirror para volumes do SnapLock Compliance não é automatizada pela ferramenta de transição de 7 modos. Todos os volumes do SnapLock Compliance que estão na relação do SnapMirror devem ser transferidos como volumes autônomos (especificando o sinalizador -t), incluindo os volumes em projetos autônomos, primários ou secundários. Em seguida, você deve executar manualmente a operação de ressincronização do SnapMirror entre esses volumes após a transição.
+
++
+Consulte xref:concept_considerations_for_transitioning_of_snaplock_compliance_volumes.adoc[Considerações para a transição de volumes SnapLock Compliance]
+
++
+[listing]
+----
+7-Mode Transition Tool>transition cbt volumepair add -p sample_project -v vol1 -c vol1 -g aggr1
+----
+. Adicione os endereços IP a serem transferidos para o projeto:
++
+`*transition cbt lif add -p _project_name_ -i _ip-address_ [-m _netmask_] [-g _default-gateway_] [-p _home_port_] [ -n _home_node_]*`
+
++
+Para um projeto de transição, você também pode adicionar endereços IP existentes que não estão configurados ou removidos do sistema de modo 7 durante a transição de armazenamento e novos endereços IP que ainda não estão configurados no modo 7 ou no ONTAP.
+
++
+
+NOTE: Os LIFs FC e iSCSI não são transferidos pela ferramenta de transição de 7 modos.
+
++
+[listing]
+----
+7-Mode Transition Tool>transition cbt lif add -p sample_project -i 192.0.2.250 -m 255.255.255.128 -g 192.40.0.1 -p e0a -n cluster1-01
+----
++
+Os novos endereços IP são configurados no sistema ONTAP no estado up durante a operação Apply Configuration (precutover) (aplicar configuração).
+
+. Siga estas etapas para adicionar informações ao projeto primário e secundário:
++
+|===
+| Se você quiser adicionar informações sobre o... | Digite... 
+
+
+ a| 
+Sistema 7-Mode primário para o projeto secundário
+ a| 
+`*transition cbt add-primary-seven-mode-system -p _project_name_ -h _source-host_ -f _management-ipaddress_ -d _data-copy-ipaddress_ [-m _multipathing-ipaddress_]*`
+
+Para obter mais informações, https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/SnapMirror/CBT_%3A_How_to_provide_all_the_required_primary_7-Mode_details_for_a_given_secondary_project["CBT : como fornecer todos os detalhes do modo 7 primário necessários para um determinado projeto secundário"]consulte .
+
+
+
+ a| 
+Cluster secundário ou SVM no projeto primário
+ a| 
+`*transition cbt add-secondary-cluster-mode-system -p _project_name_ -h _c-mode-host-name_ -v _vserver-name_*`
+
+Para obter mais informações, consulte a. https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/CBT%3A_How_to_add_the_required_secondary_cluster_details_to_the_primary_project["CBT: Como adicionar os detalhes necessários do cluster secundário ao projeto primário"]
+
+|===
++
+`_project_name_` é o nome do projeto de transição.
+
++
+`_source-host_` É o nome primário do host do sistema de armazenamento de 7 modos ou endereço IP como visto na `snapmirror status` saída de comando do sistema secundário de 7 modos.
+
++
+Para considerações sobre como fornecer os detalhes do sistema primário do modo 7, consulte as páginas de manual.
+
++
+`_management-ipaddress_` É o endereço IP de gerenciamento do host de origem.
+
++
+`_data-copy-ipaddress_` É o endereço IP sobre o qual os dados são copiados.
+
++
+`_multipathing-ipaddress_` É o endereço IP adicional que é usado para cópia de dados.
+
++
+`_c-mode-host-name_` É o endereço FQDN ou IP do cluster para o qual os volumes secundários no projeto foram transferidos.
+
++
+`_vserver-name_` É o nome do SVM que hospeda os volumes secundários.
+
+. Criar uma agenda de cópia de dados:
++
+`*transition cbt schedule add -p _project_name_ -n _schedule_name_ -d _days-range_ -b _start-time_ -e _duration_ -u _update-frequency_ -t _available-transfers-percentage_ -c _max-cap-concurrent-transfers_ -x _project-snapmirror-throttle_*`
+
++
+O comando a seguir mostra como adicionar uma programação que usa 100% das transferências simultâneas de SnapMirror disponíveis. No entanto, ele não excede as 25 transferências simultâneas do SnapMirror em nenhum ponto do tempo.
+
++
+`*transition schedule add -p sample_project -n dr_active -d 1-5 -b 23:30 -e 03:00 -c 25 -x 200 -u 00:30*`
+
+. Veja as informações detalhadas sobre o projeto de transição criado:
++
+`*transition cbt show -p _project-name_*`
+
+

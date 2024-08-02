@@ -1,0 +1,80 @@
+---
+permalink: copy-based/reference_limits_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, limits 
+summary: Ao fazer a transição de volumes usando a ferramenta de transição de 7 modos, você deve considerar certos limites para avaliação, como o número de controladores e hosts que podem ser avaliados simultaneamente. Para a migração, você deve analisar o número de volumes em um projeto e o número de projetos que podem ser executados simultaneamente. 
+---
+= Limites para a transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Ao fazer a transição de volumes usando a ferramenta de transição de 7 modos, você deve considerar certos limites para avaliação, como o número de controladores e hosts que podem ser avaliados simultaneamente. Para a migração, você deve analisar o número de volumes em um projeto e o número de projetos que podem ser executados simultaneamente.
+
+A tabela a seguir lista o número de controladores e hosts que podem ser avaliados simultaneamente:
+
+|===
+| Parâmetro | Limite máximo 
+
+
+ a| 
+Número de controladores
+ a| 
+50
+
+
+
+ a| 
+Número de hosts
+ a| 
+20
+
+
+
+ a| 
+Número de hosts ESXi
+ a| 
+10
+
+|===
+
+NOTE: O número máximo de controladores de 7 modos em uma única avaliação depende do número de objetos, como número de volumes, qtrees, cota e exportações.
+
+A tabela a seguir lista o número de volumes em um projeto e o número de projetos que podem ser executados simultaneamente durante a migração:
+
+|===
+| Parâmetro | Limite máximo 
+
+
+ a| 
+Número de volumes em um projeto
+ a| 
+160
+
+
+
+ a| 
+Limite recomendado para o número total de volumes em todos os projetos ativos na interface web a qualquer momento
+ a| 
+240
+
+
+
+ a| 
+Número máximo de projetos ativos em qualquer momento
+ a| 
+50
+
+
+NOTE: Se você tiver 50 projetos ativos, poderá replicar dados de sistemas de storage 50 7-Mode e seus destinos SnapMirror associados.
+
+
+
+ a| 
+Número de programações de cópia de dados por projeto
+ a| 
+7
+
+|===

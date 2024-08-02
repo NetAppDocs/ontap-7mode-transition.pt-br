@@ -1,0 +1,36 @@
+---
+permalink: install-admin/task_enabling_login_for_users_not_part_of_administrator_group.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, install, enable, login, user, administrator, group 
+summary: Por padrão, os usuários devem ser membros do grupo Administrador no sistema Windows no qual a ferramenta de transição de 7 modos está instalada. A qualquer momento, você pode habilitar o login para usuários que não são membros do grupo Administradores e que não podem instalar a ferramenta, mas que estão autenticados para usar o sistema Windows no qual a ferramenta está instalada. 
+---
+= Ativar o início de sessão para utilizadores que não fazem parte do grupo Administrador
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Por padrão, os usuários devem ser membros do grupo Administrador no sistema Windows no qual a ferramenta de transição de 7 modos está instalada. A qualquer momento, você pode habilitar o login para usuários que não são membros do grupo Administradores e que não podem instalar a ferramenta, mas que estão autenticados para usar o sistema Windows no qual a ferramenta está instalada.
+
+.Passos
+. Faça login no host do Windows usando o admin Privileges.
+. Modifique o arquivo de configuração da ferramenta para permitir que os usuários que não fazem parte do grupo Administrador façam login na ferramenta:
++
+.. Abra o `\etc\conf\transition-tool.conf` ficheiro a partir do diretório de instalação.
+.. Defina o valor do `tool.login.non.admin.enabled` parâmetro no `transition-tool.conf` arquivo como verdadeiro.
+.. Salve o arquivo.
+
+
+. Reinicie o serviço de transição.
++
+.. Clique em *Iniciar* > *Painel de controlo* > *sistema e Serviços* > *Ferramentas administrativas* > *Serviços*.
+.. Clique com o botão direito do rato no serviço *NetApp 7-Mode Transition Tool* e clique em *Stop*.
+.. Clique com o botão direito do Mouse no serviço *NetApp 7-Mode Transition Tool* novamente e clique em *Start*.
+
+
+
+
+*Informações relacionadas*
+
+xref:task_modifying_default_configuration_settings_of_7mtt.adoc[Modificação das opções de configuração da ferramenta de transição de 7 modos]

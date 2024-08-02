@@ -1,0 +1,34 @@
+---
+permalink: snapmirror/concept_considerations_for_using_snapmirror_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, 7, transition, mode, snapmirror, operations, snapvault, considerations 
+summary: Você deve estar ciente de certas considerações ao executar operações de transição simultaneamente com operações SnapMirror ou SnapVault que ocorrem no sistema 7-Mode, como o número máximo de transferências simultâneas de SnapMirror, agendas de cópia de dados e uso de vários caminhos para transição. 
+---
+= Considerações para usar o SnapMirror para transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você deve estar ciente de certas considerações ao executar operações de transição simultaneamente com operações SnapMirror ou SnapVault que ocorrem no sistema 7-Mode, como o número máximo de transferências simultâneas de SnapMirror, agendas de cópia de dados e uso de vários caminhos para transição.
+
+
+
+== Número máximo de transferências simultâneas de SnapMirror
+
+Durante a transição, o número máximo de transferências SnapMirror simultâneas suportadas nos sistemas 7-Mode e ONTAP depende do número de operações de replicação de volume SnapMirror permitidas para um modelo de sistema de storage específico.
+
+Para obter informações sobre o número máximo de transferências simultâneas de SnapMirror de volume para o modelo do sistema, consulte link:https://library.netapp.com/ecm/ecm_get_file/ECMP1635994["Guia de backup e recuperação on-line de proteção de dados do Data ONTAP para o modo 7"].
+
+
+
+== Agendas de cópia de dados
+
+As programações de cópia de dados para operações de transição não devem se sobrepor aos programações existentes para operações SnapMirror ou SnapVault em execução no sistema 7-Mode.
+
+
+
+== Usando vários caminhos para a transição
+
+Você pode especificar dois caminhos para a transição usando um endereço IP de cópia de dados e um endereço IP multipath. No entanto, ambos os caminhos podem ser usados apenas para balanceamento de carga, não para failover.

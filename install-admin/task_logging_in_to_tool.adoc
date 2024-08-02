@@ -1,0 +1,69 @@
+---
+permalink: install-admin/task_logging_in_to_tool.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, install, login, transition, tool 
+summary: 'Você pode fazer login na ferramenta de transição de 7 modos (interface web) usando suas credenciais do sistema Windows no qual a ferramenta está instalada. O procedimento para efetuar login varia de acordo com o tipo de credenciais de usuário que você tem.' 
+---
+= Iniciar sessão na ferramenta de transição de 7 modos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode fazer login na ferramenta de transição de 7 modos (interface da Web) usando suas credenciais do sistema Windows no qual a ferramenta está instalada. O procedimento para efetuar login varia de acordo com o tipo de credenciais de usuário que você tem.
+
+Os utilizadores convidados não têm permissão para iniciar sessão na ferramenta.
+
+.Passos
+. Navegue até a página de login:
++
+|===
+| Se você é um... | Então... 
+
+
+ a| 
+Usuário que é membro do grupo Administrador e se você estiver acessando a ferramenta (interface da Web) do servidor no qual ela foi instalada
+ a| 
+Clique duas vezes no ícone da ferramenta de transição de 7 modos na sua área de trabalho.
+
+
+
+ a| 
+Usuário que é membro do grupo Administrador e se você não instalou a ferramenta
+ a| 
+Use um navegador compatível para navegar para um dos seguintes URLs:
+
+** `https://_IP_address:port_/transition`
+** `http://_IP_address:port_/transition`
+`_IP_address_` É o endereço IP do servidor e `_port_` pode ser 8443 (padrão), o valor especificado para `_tool.https.port_`, ou 8088, o valor especificado para o `_tool.http.port_` parâmetro no `_transition-tool.conf_` arquivo.
+
+
+
+
+ a| 
+Usuário que é membro do grupo Administrador e se você estiver acessando a ferramenta (interface da Web) de outro computador
+ a| 
+Use um navegador compatível para navegar para um dos seguintes URLs:
+
+** `https://_IP_address:port_/transition`
+** `http://_IP_address:port_/transition`
+`_IP_address_` É o endereço IP do servidor e a porta pode ser 8443 (padrão), o valor especificado para `_tool.https.port_`, ou 8088, o valor especificado para o `_tool.http.port_` parâmetro no `_transition-tool.conf_` arquivo.
+
+
+
+
+ a| 
+Usuário que não é membro do grupo Administrador e se você estiver acessando a ferramenta (interface da Web), seja do servidor no qual foi instalado ou de outro computador
+ a| 
+Use um navegador compatível para navegar para um dos seguintes URLs:
+
+** `https://_IP_address:port_/transition`
+** `http://_IP_address:port_/transition`
+`_IP_address_` É o endereço IP do servidor e a porta pode ser 8443 (padrão), o valor especificado para `_tool.https.port_` , ou 8088, o valor especificado para `_tool.http.port_` o parâmetro no `_transition-tool.conf_` arquivo.
+
+
+|===
+. Se o navegador exibir uma mensagem sobre o certificado SSL autoassinado, aceite o certificado autoassinado para continuar.
+. Faça login na interface da Web usando as credenciais do sistema Windows no qual a ferramenta está instalada.
+

@@ -1,0 +1,25 @@
+---
+permalink: copy-based/task_deleting_7_mode_volume_snapshot_copies_from_transitioned_volumes.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, delete, volume, snapshot, copy 
+summary: Como as cópias Snapshot do volume do modo 7 não são excluídas automaticamente de um volume transicionado, você deve excluir essas cópias Snapshot manualmente após a conclusão da operação de transição. 
+---
+= Excluindo cópias Snapshot de volume de 7 modos de volumes transferidos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Como as cópias Snapshot do volume do modo 7 não são excluídas automaticamente de um volume transicionado, você deve excluir essas cópias Snapshot manualmente após a conclusão da operação de transição.
+
+Como a convenção de nomenclatura para cópias Snapshot difere entre ambientes de modo 7 e Data ONTAP em cluster, as cópias Snapshot de 7 modos não podem ser sobrescritas automaticamente pelas cópias Snapshot no ambiente Data ONTAP em cluster.
+
+Para obter uma melhor utilização de espaço, você deve excluir as cópias snapshot de modos indesejadas, incluindo as das relações de 7 modos para 7 modos para 7 modos SnapMirror e as relações de 7 modos para cluster Data ONTAP SnapMirror.
+
+.Passos
+. Após a conclusão da operação de transferência de storage, exclua as cópias snapshot de 7 modos indesejadas:
++
+`*snap delete -vserver <svm_name> -volume <volume_name> -snapshot <snapshot_name>*`
+
+

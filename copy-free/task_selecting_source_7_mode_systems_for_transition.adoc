@@ -1,0 +1,45 @@
+---
+permalink: copy-free/task_selecting_source_7_mode_systems_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, create, project 
+summary: A primeira etapa no Planejamento de um projeto de transição é selecionar o par de HA de 7 modos de origem do qual você deseja fazer a transição das gavetas de disco, agregados, volumes e configurações e, em seguida, criar um projeto de transição. 
+---
+= Criando um projeto de transição livre de cópias
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A primeira etapa no Planejamento de um projeto de transição é selecionar o par de HA de 7 modos de origem do qual você deseja fazer a transição das gavetas de disco, agregados, volumes e configurações e, em seguida, criar um projeto de transição.
+
+* Os controladores de 7 modos no par de HA devem estar executando uma versão compatível do ONTAP em uma plataforma compatível com uma transição livre de cópias.
++
+https://mysupport.netapp.com/matrix["Ferramenta de Matriz de interoperabilidade do NetApp"]
+
+* Ambas as controladoras na configuração de HA precisam estar íntegras.
++
+.. Selecione o método de migração *Copy-Free Transition* na página inicial e clique em *Start Planning*.
++
+Se o controlador e o cluster necessários para um novo projeto não forem adicionados, você poderá inserir os detalhes no painel Inserir credenciais do dispositivo.
+
+.. Selecione o par de HA de 7 modos de origem que você deseja fazer a transição.
+.. Clique em *criar Projeto*.
++
+... Na janela Detalhes do Projeto, forneça um nome para o projeto.
+... Selecione um grupo de projetos ao qual o projeto deve ser adicionado.
++
+Você pode criar um novo grupo de projeto ou adicionar o projeto ao grupo padrão.
+
++
+Criar um grupo de projetos permite agrupar e monitorar projetos relacionados.
+
+... Clique em *Salvar*.
++
+É apresentado o ecrã Select Target Cluster (Selecionar cluster de destino).
+
+
+
+
+
+

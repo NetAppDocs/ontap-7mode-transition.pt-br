@@ -1,0 +1,18 @@
+---
+permalink: copy-free/concept_reverting_a_copy_free_transition_project.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, performing, rollback, 7, mode 
+summary: Rollback refere-se a interromper a transição para o sistema ONTAP e reverter para o sistema de modo 7D. A reversão de transição é manual; no entanto, a ferramenta de transição de 7 modos fornece a lista de tarefas manuais que você precisa executar para uma reversão. 
+---
+= Executar uma reversão de transição para o modo 7D.
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Rollback refere-se a interromper a transição para o sistema ONTAP e reverter para o sistema de modo 7D. A reversão de transição é manual; no entanto, a ferramenta de transição de 7 modos fornece a lista de tarefas manuais que você precisa executar para uma reversão.
+
+É possível reverter um projeto de transição na fase de provisionamento, exportação, cabeamento, importação ou teste de pré-produção da SVM. Você não pode reverter após o projeto de transição ser comprometido.
+
+Quaisquer novos dados gravados ou modificados, como LUNs ou clones de LUN, nos volumes transferidos serão perdidos após uma reversão. Os volumes serão revertidos para o seu estado original de 7 modos.

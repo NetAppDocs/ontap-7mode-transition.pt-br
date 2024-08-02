@@ -1,0 +1,52 @@
+---
+permalink: copy-free/task_preparing_7_mode_system_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, prepare, ha, pair 
+summary: Antes de iniciar uma transição, você deve concluir certas tarefas no sistema 7-Mode, como habilitar o sistema 7-Mode para se comunicar com o cluster de destino e ativar HTTPS e TLS. 
+---
+= Preparando o par de HA de 7 modos para a transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de iniciar uma transição, você deve concluir certas tarefas no sistema 7-Mode, como habilitar o sistema 7-Mode para se comunicar com o cluster de destino e ativar HTTPS e TLS.
+
+O par de HA deve estar íntegro e nenhum dos nós deve estar no modo de aquisição, que pode ser verificado usando o comando cf status. Você também pode usar a ferramenta NetApp AutoSupport para detetar quaisquer erros ou condições de risco.
+
+. Se o HTTPS não estiver ativado no sistema de armazenamento, ative o HTTPS:
++
+`*options httpd.admin.ssl.enable on*`
+
++
+O HTTPS está ativado por predefinição.
+
+. Ative o TLS nos sistemas de armazenamento de 7 modos para permitir que a ferramenta de transição de 7 modos se comunique com os sistemas de 7 modos:
++
+.. Se o SSL ainda não estiver ativado no sistema de armazenamento, configure e inicie o SSL
+`*secureadmin setup ssl*`
++
+O SSL é configurado para os sistemas de armazenamento por padrão. Se o SSL tiver sido configurado anteriormente para o sistema de armazenamento, você será perguntado se deseja continuar. Você pode sair da configuração SSL se não quiser fazer alterações.
+
+.. Ativar SSL
+`*options ssl.enable on*`
++
+Esta opção deve estar ativada para permitir a comunicação através de TLS.
+
+.. Ativar TLS
+`*options tls.enable on*`
+.. Desativar SSLv2 e SSLv3 no sistema de 7 modos
+`*options ssl.v2.enable off*`
++
+`*options ssl.v3.enable off*`
+
+
+
++
+A ferramenta de transição de 7 modos usa protocolos TLS ou SSL para se comunicar com os sistemas de armazenamento de 7 modos. A ferramenta se comunica com o sistema de armazenamento usando o protocolo TLS se o TLS estiver ativado no sistema de armazenamento. Se o TLS estiver desativado e o SSLv3 estiver ativado em um sistema de armazenamento, a ferramenta usará o SSLv3 para se comunicar com o sistema de armazenamento.
+
++
+IMPORTANTE: A prática recomendada é habilitar o TLS e desabilitar o SSLv2 e o SSLv3 para evitar vulnerabilidades de segurança.
+
+

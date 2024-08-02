@@ -1,0 +1,29 @@
+---
+permalink: copy-based/concept_considerations_for_deduplication_and_compression.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, deduplication, compression 
+summary: Ao usar a compactação, os volumes de origem e destino devem pertencer a um agregado de 64 bits. Todas as economias de compactação e deduplicação no volume de origem são retidas na rede durante a transição. Após a transição, o volume de destino herda todos os atributos de compactação e deduplicação e a economia de storage do volume de origem. 
+---
+= Considerações para deduplicação e compactação
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Ao usar a compactação, os volumes de origem e destino devem pertencer a um agregado de 64 bits. Todas as economias de compactação e deduplicação no volume de origem são retidas na rede durante a transição. Após a transição, o volume de destino herda todos os atributos de compactação e deduplicação e a economia de storage do volume de origem.
+
+A transição de dados desduplicados e compatados ajuda a reduzir a largura de banda da rede durante a transição devido aos seguintes motivos:
+
+* Os blocos compartilhados são transferidos apenas uma vez.
+* A compressão é mantida durante toda a transferência.
+* Dados compatados e desduplicados envolvem tamanhos de transferência menores como resultado da economia de espaço de compactação e deduplicação; portanto, as transferências são concluídas com mais rapidez.
+
+
+Você não deve iniciar a compactação ou a deduplicação de dados existentes no volume de origem durante a transição. Se a deduplicação ou a compactação estiverem em andamento, você deverá iniciar a transição somente após a conclusão da operação de deduplicação ou compactação. Portanto, dados não duplicados ou não compatados e arquivos de metadados temporários adicionais não são enviados pela rede para o volume de destino.
+
+Para que a deduplicação e a compactação entrem em vigor em todos os novos dados gravados no volume ONTAP, é necessário habilitar os cronogramas de deduplicação e compactação após a transição.
+
+A partir do Data ONTAP 8.1, a deduplicação mantém um banco de dados de impressões digitais parcialmente ordenado no volume, juntamente com a cópia agregada. Como resultado, o sistema de destino terá a economia de espaço do volume de origem, bem como uma cópia da base de dados de impressões digitais encomendadas. Após a migração, quando a eficiência de volume é executada no novo volume pela primeira vez, o banco de dados de impressões digitais agregadas é construído automaticamente a partir da cópia no volume de destino. Isso pode resultar em um aumento único no tempo necessário para que as operações de eficiência de volume sejam concluídas.
+
+Se o volume de origem estiver executando um Data ONTAP operando no modo 7 antes do 8,1, você deve executar o `volume efficiency start` comando com o `-scan-old-data option` parâmetro para otimizar a economia de espaço. Após a conclusão da migração, você deve verificar se o cronograma de deduplicação atende aos requisitos do cluster e considerar a mudança para uma política de eficiência de volume.

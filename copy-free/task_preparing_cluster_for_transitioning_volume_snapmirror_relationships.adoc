@@ -1,0 +1,35 @@
+---
+permalink: copy-free/task_preparing_cluster_for_transitioning_volume_snapmirror_relationships.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, prepare, cluster, snapmirror, relationship 
+summary: Para fazer a transição das relações de SnapMirror de volume de 7 modos, você deve adicionar a licença SnapMirror aos clusters de origem e destino. Você também precisa criar um relacionamento de peer de cluster entre os clusters para os quais os volumes primário e secundário das relações do SnapMirror são transferidos e criar as programações do SnapMirror. 
+---
+= Preparando o cluster para fazer a transição das relações do volume SnapMirror
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Para fazer a transição das relações de SnapMirror de volume de 7 modos, você deve adicionar a licença SnapMirror aos clusters de origem e destino. Você também precisa criar um relacionamento de peer de cluster entre os clusters para os quais os volumes primário e secundário das relações do SnapMirror são transferidos e criar as programações do SnapMirror.
+
+Você deve ter gravado as programações SnapMirror definidas no `/etc/snapmirror.conf` arquivo do sistema secundário de 7 modos.
+
+.Passos
+. Adicione a licença SnapMirror nos clusters de origem e destino:
++
+`*system license add _license_code_*`
+
+. A partir de cada cluster, crie o relacionamento de pares de cluster.
++
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-clus-peer/home.html["Configuração expressa de peering de cluster e SVM"]
+
+. Crie agendas nas SVMs secundárias que correspondam às programações no sistema secundário de 7 modos:
++
+`*job schedule cron create*`
+
+
+
+*Informações relacionadas*
+
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-cmpr/GUID-5CB10C70-AC11-41C0-8C16-B4D0DF916E9B.html["Comandos ONTAP 9"]

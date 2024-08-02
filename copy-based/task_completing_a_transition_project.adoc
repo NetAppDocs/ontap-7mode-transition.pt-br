@@ -1,0 +1,62 @@
+---
+permalink: copy-based/task_completing_a_transition_project.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, complete, project 
+summary: Você pode concluir uma transição completando os projetos individuais. Como essa operação é disruptiva, você deve avaliar quando executá-la. Ao fazer a transição de volumes em um relacionamento SnapMirror, o projeto secundário deve ser concluído antes de concluir a transição do projeto primário. 
+---
+= Concluir um projeto de transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode concluir uma transição completando os projetos individuais. Como essa operação é disruptiva, você deve avaliar quando executá-la. Ao fazer a transição de volumes em um relacionamento SnapMirror, o projeto secundário deve ser concluído antes de concluir a transição do projeto primário.
+
+A transição de storage é concluída em poucos minutos. O tempo necessário para os clientes remontar os dados varia. O tempo da janela de transição ou interrupção do storage depende dos seguintes fatores:
+
+* Atualização final
++
+A atualização final dos dados depende da quantidade de alteração nos dados de origem desde a última atualização. As transferências incrementais minimizam a quantidade de dados que precisa ser transferida durante a transição.
+
+* Reconetando clientes
++
+Se forem necessárias atualizações para que cada cliente se conete ao cluster, o número de clientes que precisam ser atualizados determina o tempo de transição.
+
+
+
+As interrupções se aplicam somente aos volumes que estão sendo migrados. Não é necessário desligar todo o sistema de armazenamento de 7 modos de origem. Os volumes no sistema de origem que não estão sendo migrados podem permanecer online e acessíveis.
+
+. No Painel de migração, selecione o projeto que deseja concluir.
+. Desconete o acesso do cliente manualmente.
+. Clique em *Complete Transition*.
++
+.. Se você quiser manter os volumes de origem do 7-Mode online após a transição, desmarque a caixa de seleção *Take source volumes off-line after transition*.
++
+Por padrão, essa opção é selecionada e os volumes de origem são desconetados.
+
+.. Se você selecionou volumes do SnapLock para verificação da Cadeia de Custódia, marque a caixa de seleção *Eu entendo que não devo colocar volumes SnapLock de 7 modos offline durante a verificação da Cadeia de Custódia* para manter os volumes do SnapLock on-line após a transição.
+.. Se você selecionou a transição de um relacionamento SnapMirror entre clusters que estão executando versões compatíveis com ONTAP 9.3 ou versões posteriores, marque a caixa de seleção *Eu entendo que preciso converter manualmente o tipo de relacionamento SnapMirror de data_protection para extended_data_protection*.
+.. Marque a caixa de seleção *Personalizar o número de transferências simultâneas do SnapMirror e limite do acelerador para esta operação* para especificar o número de operações de cópia de dados do SnapMirror e o limite do acelerador.
+.. Clique em *continuar*.
+
+
++
+Os resultados da operação de transição são exibidos.
+
+
+
+Os endereços IP de 7 modos selecionados para a transição não são configurados a partir do sistema de armazenamento de 7 modos, e os LIFs associados criados antes da transição são trazidos para o estado administrativo. Os volumes do modo 7D estão offline.
+
+A partir do cluster, execute o comando vserver check lif-multitenancy run para verificar se os servidores de nomes estão acessíveis usando as LIFs transicionadas.
+
+
+NOTE: Se você criou um novo LIF, os usuários e aplicativos dos volumes transferidos devem ser remapeados para as unidades usando os novos endereços IP e portas depois que todos os projetos tiverem sido concluídos.
+
+Se você concluiu a transição de uma relação do SnapMirror entre clusters que estão executando versões compatíveis do ONTAP 9.3 ou versões posteriores, precisará converter a relação do SnapMirror do tipo DP para o tipo XDP.
+
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-dap/home.html["Proteção de dados"]
+
+*Informações relacionadas*
+
+xref:concept_guidelines_for_deciding_when_to_cutover.adoc[Diretrizes para decidir quando realizar a transição]

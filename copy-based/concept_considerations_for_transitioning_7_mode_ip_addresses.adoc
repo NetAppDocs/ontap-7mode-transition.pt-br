@@ -1,0 +1,24 @@
+---
+permalink: copy-based/concept_considerations_for_transitioning_7_mode_ip_addresses.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, 7, mode, ip, address 
+summary: 'Você deve estar ciente de certas considerações ao fazer a transição de endereços IP de 7 modos para máquinas virtuais de armazenamento (SVMs) no ONTAP.' 
+---
+= Considerações para a transição de endereços IP de 7 modos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você deve estar ciente de certas considerações ao fazer a transição de endereços IP de 7 modos para máquinas virtuais de armazenamento (SVMs) no ONTAP.
+
+* Você pode fazer a transição de endereços IP 7-Mode existentes ou especificar novos endereços IP a serem configurados no SVM usando a ferramenta de transição 7-Mode.
++
+** Os endereços IP 7-Mode existentes são criados no SVM no estado administrativo `down` na fase aplicar configuração (precutover).
+** Novos endereços IP são criados no SVM no estado administrativo `up` na fase aplicar configuração (precutover).
+
+
+* Os endereços IPv6 não podem ser transferidos e devem ser configurados manualmente após a transição.
+* ISCSI e FC LIFs não são transferidos e devem ser configurados manualmente após a transição.
+

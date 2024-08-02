@@ -1,0 +1,67 @@
+---
+permalink: snapmirror/task_creating_a_transition_peering_relationship.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, transition, create, peer, relationship, snapmirror 
+summary: Você deve criar um relacionamento de transição entre pares antes de configurar um relacionamento SnapMirror para transição entre um sistema de 7 modos e um cluster. Como administrador de cluster, você pode criar uma relação de transição entre pares entre o anSVM e um sistema 7-Mode usando o comando vserver peer transition create. 
+---
+= Criando uma relação de transição entre pares
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você deve criar um relacionamento de transição entre pares antes de configurar um relacionamento SnapMirror para transição entre um sistema de 7 modos e um cluster. Como administrador de cluster, você pode criar uma relação de transição entre pares entre o anSVM e um sistema 7-Mode usando o `vserver peer transition create` comando.
+
+* Você deve ter assegurado que o nome do sistema 7-Mode de origem não entra em conflito com nenhum SVMs locais ou SVMs já colocadas em Contato.
+* Você deve ter criado um volume Data ONTAP agrupado do tipo DP para o qual os dados do modo 7 devem ser transferidos.
++
+O tamanho do volume Data ONTAP em cluster deve ser igual ou superior ao tamanho do volume do modo 7D.
+
+* Você deve ter certeza de que os nomes da SVM não contêm "."
+* Se você estiver usando LIFs locais, você deve ter assegurado o seguinte:
++
+** LIFs locais são criados no espaço IPspace padrão
+** LIFs locais são configurados no nó no qual o volume reside
+** A política de migração de LIF é a mesma que o nó de volume, para que ambos possam migrar para o mesmo nó de destino
+
+
+
+
+Ao criar um relacionamento de ponto de transição, você também pode especificar um FQDN multipath ou endereço IP para balanceamento de carga das transferências de dados.
+
+.Passos
+. Use o `vserver peer transition create` comando para criar uma relação de transição entre pares.
+. Use o `vserver peer transition show` para verificar se o relacionamento de pares de transição foi criado com sucesso.
+
+
+
+
+== Exemplo de criação e visualização de relações entre pares de transição
+
+O comando a seguir cria uma relação de transição entre o SVM VS1 e o sistema 7-Mode src1 com o endereço multipath src1-e0d e LIFs locais lif1 e lif2:
+
+[listing]
+----
+cluster1::> vserver peer transition create -local-vserver vs1 -src-filer-name src1 -multi-path-address src1-e0d -local-lifs lif1,lif2
+----
+Os exemplos a seguir mostram uma relação de transição entre pares entre um único SVM (VS1) e vários sistemas 7-Mode:
+
+[listing]
+----
+cluster1::> vserver peer transition create -local-vserver vs1 -src-filer-name src3
+Transition peering created
+
+cluster1::> vserver peer transition create -local-vserver vs1 -src-filer-name src2
+Transition peering created
+----
+A saída a seguir mostra as relações entre pares de transição do SVM VS1:
+
+[listing]
+----
+cluster1::> vserver peer transition show
+Vserver  Source Filer  Multi Path Address   Local LIFs
+-------  ------------  -----------------    ---------
+vs1      src2	         	-				    	-
+vs1      src3	        	-				     	-
+----

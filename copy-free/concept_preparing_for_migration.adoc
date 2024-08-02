@@ -1,0 +1,20 @@
+---
+permalink: copy-free/concept_preparing_for_migration.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, prepare 
+summary: Antes de iniciar a transição sem cópia, você deve identificar o par de HA de 7 modos para a transição, entender os requisitos e restrições para a migração e preparar os sistemas e o cluster de 7 modos para a transição. Você também deve estar ciente dos recursos do Data ONTAP que são suportados e não suportados para a transição. 
+---
+= Preparando-se para a transição livre de cópias
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de iniciar a transição sem cópia, você deve identificar o par de HA de 7 modos para a transição, entender os requisitos e restrições para a migração e preparar os sistemas e o cluster de 7 modos para a transição. Você também deve estar ciente dos recursos do Data ONTAP que são suportados e não suportados para a transição.
+
+image::../media/delete_me_cft_preparation_workflow.gif[delete me fluxo de trabalho de preparação cft]
+
+*Informações relacionadas*
+
+https://mysupport.netapp.com/matrix["Ferramenta de Matriz de interoperabilidade do NetApp"]

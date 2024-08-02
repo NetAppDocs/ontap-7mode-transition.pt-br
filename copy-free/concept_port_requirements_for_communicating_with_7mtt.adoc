@@ -1,0 +1,54 @@
+---
+permalink: copy-free/concept_port_requirements_for_communicating_with_7mtt.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, port, requirements, 7, mode, tool 
+summary: A ferramenta de transição de 7 modos comunica com o sistema de 7 modos e o cluster através de determinadas portas. Você deve garantir que essas portas no sistema de 7 modos e no cluster estejam abertas para permitir a comunicação com a ferramenta de transição de 7 modos. 
+---
+= Requisitos de porta para comunicação com a ferramenta de transição de 7 modos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A ferramenta de transição de 7 modos comunica com o sistema de 7 modos e o cluster através de determinadas portas. Você deve garantir que essas portas no sistema de 7 modos e no cluster estejam abertas para permitir a comunicação com a ferramenta de transição de 7 modos.
+
+
+
+== Portas que devem estar abertas nos sistemas 7-Mode
+
+A ferramenta de transição de 7 modos se comunica com os sistemas de 7 modos usando HTTPS na porta 443.
+
+
+
+== Portas que devem estar abertas no cluster
+
+A ferramenta de transição de 7 modos se comunica com o cluster usando HTTPS na porta 443.
+
+
+
+== Portas que devem estar abertas na ferramenta de transição de 7 modos
+
+A porta 8444 da ferramenta de transição de 7 modos deve estar aberta para a interface web.
+
+Para fazer a transição de grupos netgroups e usuários e grupos locais CIFS, os seguintes requisitos devem ser atendidos:
+
+* A porta 8088 da ferramenta de transição de 7 modos deve estar disponível.
++
+Para uma alternativa à porta 8088, você deve alterar a porta especificada pelo `tool.http.port` parâmetro no `transition-tool.conf` arquivo do diretório de instalação da ferramenta de transição 7-Mode.
+
++
+
+NOTE: Você deve reiniciar o serviço 7-Mode Transition Tool depois de alterar a porta no arquivo de configuração.
+
+* Cada nó no cluster precisa ter pelo menos um data LIF configurado para o SVM de destino.
+* Todos os LIFs de dados do SVM devem ser capazes de se comunicar com a porta 8088 da ferramenta de transição de 7 modos ou com a porta especificada pelo `tool.http.port` parâmetro no `transition-tool.conf` arquivo.
++
+
+NOTE: Você deve verificar se os firewalls não bloqueiam esse tráfego.
+
+
+
+*Informações relacionadas*
+
+http://docs.netapp.com/us-en/ontap-7mode-transition/install-admin/index.html["7-Mode Transition Tool instalação e administração"]

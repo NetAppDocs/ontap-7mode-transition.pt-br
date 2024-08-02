@@ -1,0 +1,15 @@
+---
+permalink: copy-free/reference_trademark.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, trademark 
+summary: Informações sobre marcas comerciais para o Guia de transição livre de cópias. 
+---
+= Marca comercial
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+NetApp, o logotipo DA NetApp e as marcas listadas na página de marcas comerciais da NetApp são marcas comerciais da NetApp, Inc. Outros nomes de produtos e empresas podem ser marcas comerciais de seus respetivos proprietários.
+
+http://www.netapp.com/us/legal/netapptmlist.aspx[]

@@ -1,0 +1,14 @@
+---
+permalink: copy-free/index.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, index 
+summary: Descreve como fazer a transição de um par de HA de 7 modos para um cluster ONTAP usando a ferramenta de transição de 7 modos, sem precisar copiar dados de discos. Os compartimentos de disco existentes são conectados ao novo cluster. 
+---
+= Guia de transição livre de cópias
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este guia descreve como fazer a transição de um par de HA de 7 modos para um cluster ONTAP usando a ferramenta de transição de 7 modos, sem precisar copiar dados de discos. Os compartimentos de disco existentes são conectados ao novo cluster.

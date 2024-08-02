@@ -1,0 +1,42 @@
+---
+permalink: snapmirror/concept_planning_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, transition, plan, clustered, volumes, snapmirror 
+summary: Antes de copiar dados de volumes do modo 7 para volumes do ONTAP em cluster, você deve entender quando usar o SnapMirror para realizar a transição e revisar as informações sobre versões compatíveis do modo 7 e volumes compatíveis para transição. Você também deve estar ciente de certas considerações de transição. 
+---
+= Planejamento para a transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de copiar dados de volumes do modo 7 para volumes do ONTAP em cluster, você deve entender quando usar o SnapMirror para realizar a transição e revisar as informações sobre versões compatíveis do modo 7 e volumes compatíveis para transição. Você também deve estar ciente de certas considerações de transição.
+
+Você deve revisar as _Notas de Lançamento_ para a versão de destino de transição, caso haja algum problema de transição.
+
+https://library.netapp.com/ecmdocs/ECMLP2492508/html/frameset.html["Notas de versão do ONTAP 9"]
+
+As relações do SnapMirror entre os volumes do modo 7 e do ONTAP em cluster são compatíveis nas seguintes versões:
+
+* ONTAP 9 F.8 e versões posteriores
+* ONTAP 9.7P2 e versões posteriores 9,7
+* ONTAP 9.6P7 e versões posteriores 9,6
+* ONTAP 9.0 to ONTAP 9.5
+* ONTAP 9.9,1 e versões posteriores
+* ONTAP 9.10,1 e versões posteriores
+
+
+A partir do ONTAP 9.12,1, você não pode mais fazer a transição de volumes de 7 modos usando a tecnologia SnapMirror.
+
+Você pode usar o SnapMirror para fazer a transição de dados nos seguintes cenários:
+
+* A ferramenta de transição de 7 modos não suporta os seus requisitos de transição; por exemplo, a ferramenta de transição de 7 modos requer um host Windows ou Linux que pode estar indisponível no seu ambiente.
++
+*Recomendação:* você deve usar a ferramenta de transição de 7 modos para fazer a transição de volumes de 7 modos porque a ferramenta fornece pré-verificações para verificar a viabilidade da transição e migra todas as configurações de protocolo, rede e serviços junto com os dados.
+
++
+Você pode instalar e usar a ferramenta de transição de modo 7D para realizar as pré-verificações para a transição e, em seguida, usar os comandos SnapMirror para executar a migração de dados do volume de modo 7D para o volume ONTAP em cluster.
+
+* O cluster e a máquina virtual de storage (SVM) já estão configurados e somente os dados precisam ser transferidos dos volumes do modo 7 para os volumes do ONTAP em cluster.
+

@@ -1,0 +1,49 @@
+---
+permalink: copy-based/concept_guidelines_for_creating_a_data_copy_schedule.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, create, data, copy, schedule 
+summary: A ferramenta de transição de 7 modos executa um agendador que verifica a programação ativa a cada 5 minutos. Você precisa estar ciente dos requisitos para ativar um agendamento de cópia de dados. Você pode gerenciar as transferências do SnapMirror de forma eficaz seguindo algumas práticas recomendadas ao configurar os diferentes parâmetros de um agendamento de cópia de dados. 
+---
+= Considerações para criar uma agenda de cópia de dados
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A ferramenta de transição de 7 modos executa um agendador que verifica a programação ativa a cada 5 minutos. Você precisa estar ciente dos requisitos para ativar um agendamento de cópia de dados. Você pode gerenciar as transferências do SnapMirror de forma eficaz seguindo algumas práticas recomendadas ao configurar os diferentes parâmetros de um agendamento de cópia de dados.
+
+
+
+== Requisitos para ativar um agendamento de cópia de dados
+
+* O serviço da ferramenta de transição de 7 modos deve estar em execução.
++
+Se o serviço ferramenta de transição de 7 modos for reiniciado, as operações do SnapMirror não serão executadas até que as credenciais sejam adicionadas.
+
+* Deve haver pelo menos uma agenda de cópia de dados disponível para as operações de cópia de dados do SnapMirror serem executadas.
++
+Se não houver programação disponível para um determinado intervalo de tempo, as operações de cópia de dados do SnapMirror não serão executadas durante esse período.
+
+* Se as relações SnapMirror estiverem no estado quiesced, as operações de cópia de dados não serão executadas.
+* A hora do sistema do modo 7D e do cluster devem ser sincronizadas para que as transferências incrementais aconteçam de acordo com o cronograma de cópia de dados.
++
+Se a hora do sistema de 7 modos estiver atrasada para trás da hora do cluster, as atualizações são agendadas com mais frequência do que a frequência de atualização especificada. Se o tempo do sistema de 7 modos estiver antes do tempo do cluster, as atualizações serão atrasadas do que a frequência de atualização especificada.
+
+
+
+
+
+== Práticas recomendadas durante a cópia de dados
+
+Para melhorar o desempenho de replicação do SnapMirror, os sistemas de origem e destino devem ter a melhor utilização da CPU e memória disponível. Além disso, o tráfego de rede não relacionado à atividade de migração deve ser minimizado para que a taxa de transferência seja maximizada e a latência seja minimizada entre os sistemas de origem e destino.
+
+
+
+== Prioridade para transferências de dados
+
+Ao agendar as operações de cópia de dados, as operações de linha de base ou ressincronização têm prioridade sobre as transferências incrementais.
+
+Ao abortar as operações de cópia de dados para liberar as transferências SnapMirror, as transferências incrementais são abortadas primeiro e, em seguida, as operações de linha de base ou ressincronização são abortadas.
+
+Para transferências incrementais, é dada prioridade aos volumes que estão mais atrasados para trás do volume de origem com base no tempo decorrido da atualização anterior.

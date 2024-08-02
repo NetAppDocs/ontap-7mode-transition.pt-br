@@ -1,0 +1,3449 @@
+---
+permalink: command-map/reference_how_7_mode_options_map_to_clustered_ontap_commands.html 
+sidebar: sidebar 
+keywords: ontap, command, map, transition, commands, options 
+summary: No Data ONTAP operando no modo 7, você executa o comando OPTIONS para definir opções de software de sistema de armazenamento configuráveis. No ONTAP, você usa parâmetros de comando para definir essas opções. Você pode usar as tabelas fornecidas para ver como os comandos do modo 7 mapeiam os comandos do ONTAP. 
+---
+= Como as opções do modo 7D mapeiam para os comandos ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+No Data ONTAP operando no modo 7, você executa o `options` comando para definir opções de software de sistema de armazenamento configuráveis. No ONTAP, você usa parâmetros de comando para definir essas opções. Você pode usar as tabelas fornecidas para ver como os comandos do modo 7 mapeiam os comandos do ONTAP.
+
+Na coluna ""comando 7-Mode"", o comando base options não é mostrado, por uma questão de clareza. Onde você vê `acp.domain`, a forma longa real do comando são opções `acp.domain`.
+
+A seção ""compreendendo o mapeamento de comandos do modo 7D para o Data ONTAP em cluster" contém informações sobre como as tabelas neste capítulo são organizadas.
+
+xref:concept_how_to_interpret_clustered_ontap_command_maps_for_7_mode_administrators.adoc[Entendendo o mapeamento de comandos do modo 7D para o Data ONTAP em cluster]
+
+
+
+== A-E
+
+[role="lead"]
+*A*
+
+|===
+| Opção de 7 modos | Clustered Data ONTAP - comando 
+
+
+ a| 
+`acp.domain`
+ a| 
+`*system node run -node {nodename|local} options acp.domain*`
+
+
+
+ a| 
+`acp.enabled`
+ a| 
+`*system node run -node {nodename|local} options acp.enabled*`
+
+
+
+ a| 
+`acp.netmask`
+ a| 
+`*system node run -node {nodename|local} options acp.netmask*`
+
+
+
+ a| 
+`acp.port`
+ a| 
+`*system node run -node {nodename|local} options acp.port*`
+
+
+
+ a| 
+`auditlog.enable`
+ a| 
+`security audit`
+
+
+
+ a| 
+`auditlog.max_file_size`
+ a| 
+Não suportado
+
+
+
+ a| 
+`auditlog.readonly_api.enable`
+ a| 
+`security audit`
+
+
+
+ a| 
+`autologout.console.enable`
+ a| 
+`*system timeout modify -timeout*`
+
+
+
+ a| 
+`autologout.console.timeout`
+ a| 
+`*system timeout modify -timeout*`
+
+
+
+ a| 
+`autologout.telnet.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`autologout.telnet.timeout`
+ a| 
+Não suportado
+
+
+
+ a| 
+`autosupport.cifs.verbose`
+ a| 
+Não suportado
+
+
+
+ a| 
+`autosupport.content`
+ a| 
+`*system node autosupport modify -node _nodename_ -remove -private -data {true|false}*`
+
+
+
+ a| 
+`autosupport.doit`
+ a| 
+`*system node autosupport invoke -node _nodename_ -type {all|test}*`
+
+
+
+ a| 
+`autosupport.enable`
+ a| 
+`*system node autosupport modify -node _nodename_ -state {enable|disable}*`
+
+
+
+ a| 
+`autosupport.from`
+ a| 
+`*system node autosupport modify -node _nodename_ -from*`
+
+
+
+ a| 
+`autosupport.local_collection`
+ a| 
+`*system node autosupport modify -node _nodename_ -local-collection {true|false}*`
+
+
+
+ a| 
+`autosupport.mailhost`
+ a| 
+`*system node autosupport modify -node _nodename_ -mail-hosts*`
+
+
+
+ a| 
+`autosupport.max_http_size`
+ a| 
+`*system node autosupport modify -node _nodename_ -max-http-size*`
+
+
+
+ a| 
+`autosupport.max_smtp_size`
+ a| 
+`*system node autosupport modify -node _nodename_ -max-smtp-size*`
+
+
+
+ a| 
+`autosupport.minimal.subject.id`
+ a| 
+`*system node autosupport modify -node _nodename_ -hostname-subj*`
+
+
+
+ a| 
+`autosupport.nht_data.enable` (não no smf)
+ a| 
+`*autosupport modify -nht*`
+
+`*system node autosupport modify -nht*`
+
+
+
+ a| 
+`autosupport.noteto`
+ a| 
+`*system node autosupport modify -node _nodename_ -noteto*`
+
+
+
+ a| 
+`autosupport.partner.to`
+ a| 
+`*system node autosupport modify -node _nodename_ -partner-address*`
+
+
+
+ a| 
+`autosupport.performance_data.doit`
+ a| 
+`*system node autosupport invoke -node _nodename_ -type performance*`
+
+
+
+ a| 
+`autosupport.performance_data.enable`
+ a| 
+`*system node autosupport modify -node _nodename_ -perf {true|false}*`
+
+
+
+ a| 
+`autosupport.periodic.tx_window`
+ a| 
+`*system node autosupport modify -node _nodename_ -periodic-tx-window*`
+
+
+
+ a| 
+`autosupport.retry.count`
+ a| 
+`*system node autosupport modify -node _nodename_ -retry-count*`
+
+
+
+ a| 
+`autosupport.retry.interval`
+ a| 
+`*system node autosupport modify -node _nodename_ -retry-interval*`
+
+
+
+ a| 
+`autosupport.support.enable`
+ a| 
+`*system node autosupport modify -node _nodename_ -support {enable|disable}*`
+
+
+
+ a| 
+`autosupport.support.proxy`
+ a| 
+`*system node autosupport modify -node _nodename_ -proxy-url*`
+
+
+
+ a| 
+`autosupport.support.reminder`
+ a| 
+`*system node autosupport show -node _nodename_ -fields reminder*`
+
+
+
+ a| 
+`autosupport.support.transport`
+ a| 
+`*system node autosupport modify -node _nodename_ -transport {http|https|smtp}*`
+
+
+
+ a| 
+`autosupport.to`
+ a| 
+`*system node autosupport modify -node _nodename_ -to*`
+
+
+
+ a| 
+`autosupport.validate_digital_certificate`
+ a| 
+`*system node autosupport modify -node nodename -validate-digital-certificate {true|false}*`
+
+|===
+[role="lead"]
+*B*
+
+|===
+| Opção de 7 modos | Clustered Data ONTAP - comando 
+
+
+ a| 
+`backup.log.enable`
+ a| 
+Não suportado
+
+|===
+[role="lead"]
+*C*
+
+|===
+| Opção de 7 modos | Clustered Data ONTAP - comando 
+
+
+ a| 
+`cdpd.enable`
+ a| 
+`*system node run -node {nodename|local} options cdpd.enable*`
+
+
+
+ a| 
+`cdpd.holdtime`
+ a| 
+`*system node run -node {nodename|local} options cdpd.holdtime*`
+
+
+
+ a| 
+`cdpd.interval`
+ a| 
+`*system node run -node {nodename|local} options cdpd.interval*`
+
+
+
+ a| 
+`cf.giveback.auto.after.panic.takeover`
+ a| 
+`*storage failover modify -auto-giveback-after-panic*`
+
+
+
+ a| 
+`cf.giveback.auto.cancel.on_network_failure`
+ a| 
+Não suportado
+
+
+
+ a| 
+`cf.giveback.auto.delay.seconds`
+ a| 
+`*storage failover modify -delay-seconds*`
+
+
+
+ a| 
+`cf.giveback.auto.enable`
+ a| 
+`*storage failover modify -auto-giveback*`
+
+
+
+ a| 
+`cf.hw_assist.enable`
+ a| 
+`*storage failover modify -hwassist*`
+
+
+
+ a| 
+`cf.hw_assist.partner.address`
+ a| 
+`*storage failover modify -hwassist-partner-ip*`
+
+
+
+ a| 
+`cf.hw_assist.partner.port`
+ a| 
+`*storage failover modify -hwassist-partner-port*`
+
+
+
+ a| 
+`cf.mode`
+ a| 
+`*storage failover modify -mode*`
+
+
+
+ a| 
+`cf.remote_syncmirror.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`cf.sfoaggr_maxtime`
+ a| 
+`*storage failover modify -aggregate-migration-timeout*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`cf.takeover.change_fsid`
+ a| 
+Não suportado
+
+
+
+ a| 
+`cf.takeover.detection.seconds`
+ a| 
+`*storage failover modify -detection-time*`
+
+
+
+ a| 
+`cf.takeover.on_disk_shelf_miscompare`
+ a| 
+Não suportado
+
+
+
+ a| 
+`cf.takeover.on_failure`
+ a| 
+`*storage failover modify -onfailure*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`cf.takeover.on_network_interface_failure`
+ a| 
+Não suportado
+
+
+
+ a| 
+`cf.takeover.on_network_interface_failure.policy all_nics`
+ a| 
+Não suportado
+
+
+
+ a| 
+`cf.takeover.on_panic`
+ a| 
+`*storage failover modify -onpanic*`
+
+
+
+ a| 
+`cf.takeover.on_reboot`
+ a| 
+`*storage failover modify -onreboot*`
+
+
+
+ a| 
+`cf.takeover.on_short_uptime`
+ a| 
+`*storage failover modify -onshort-uptime*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`cifs.LMCompatibilityLevel`
+ a| 
+`*vserver cifs security modify -lm-compatibility-level*`
+
+
+
+ a| 
+`cifs.audit.autosave.file.extension`
+ a| 
+Não suportado
+
+
+
+ a| 
+`cifs.audit.autosave.file.limit`
+ a| 
+`*vserver audit modify -rotate-limit*`
+
+
+
+ a| 
+`cifs.audit.autosave.onsize.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`cifs.audit.autosave.onsize.threshold`
+ a| 
+Não suportado
+
+
+
+ a| 
+`cifs.audit.autosave.ontime.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`cifs.audit.autosave.ontime.interval`
+ a| 
+Não suportado
+
+
+
+ a| 
+`cifs.audit.enable`
+ a| 
+`*vserver audit*`
+
+
+
+ a| 
+`cifs.audit.file_access_events.enable`
+ a| 
+`*vserver audit modify -events*`
+
+
+
+ a| 
+`cifs.audit.nfs.filter.filename`
+ a| 
+Não suportado
+
+
+
+ a| 
+`cifs.audit.logon_events.enable`
+ a| 
+`*vserver audit modify -events cifs-logon-logoff*`
+
+
+
+ a| 
+`cifs.audit.logsize`
+ a| 
+Não suportado
+
+
+
+ a| 
+`cifs.audit.nfs.enable`
+ a| 
+`*vserver audit modify -events file-ops*`
+
+
+
+ a| 
+`cifs.audit.nfs.filter.filename`
+ a| 
+Não suportado
+
+
+
+ a| 
+`cifs.audit.saveas`
+ a| 
+`*vserver audit modify -destination*`
+
+
+
+ a| 
+`cifs.bypass_traverse_checking`
+ a| 
+`*vserver cifs users-and-groups privilege*`
+
+
+
+ a| 
+`cifs.comment`
+ a| 
+`*vserver cifs create -comment*`
+
+
+
+ a| 
+`cifs.enable_share_browsing`
+ a| 
+`vserver cifs share`
+
+
+
+ a| 
+`cifs.gpo.enable`
+ a| 
+`*vserver cifs group-policy*`
+
+
+
+ a| 
+`cifs.gpo.trace.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`cifs.grant_implicit_exe_perms`
+ a| 
+`*vserver cifs options modify -read-grant-exec*`
+
+
+
+ a| 
+`cifs.guest_account`
+ a| 
+Não suportado
+
+
+
+ a| 
+`cifs.home_dir_namestyle`
+ a| 
+`*vserver cifs share create*`
+
+
+
+ a| 
+`cifs.home_dirs_public`
+ a| 
+`*vserver cifs home-directory modify -is-home-dirs-access-for-public-enabled {true|false}*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`cifs.home_dirs_public_for_admin`
+ a| 
+`*vserver cifs home-directory modify -is-home-dirs-access-for-public-enabled{true|false}*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`cifs.idle_timeout`
+ a| 
+`*vserver cifs options modify -client-session-timeout*`
+
+
+
+ a| 
+`cifs.ipv6.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`cifs.max_mpx`
+ a| 
+`*vserver cifs options modify -max-mpx*`
+
+
+
+ a| 
+`cifs.ms_snapshot_mode`
+ a| 
+Não suportado
+
+
+
+ a| 
+`cifs.mapped_null_user_extra_group`
+ a| 
+`_vserver cifs options modify -win-name-for-null-user_`
+
+
+
+ a| 
+`cifs.netbios_over_tcp.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`cifs.nfs_root_ignore_acl`
+ a| 
+`*vserver nfs modify -ignore-nt-acl-for-root*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`cifs.ntfs_ignore_unix_security_ops`
+ a| 
+`*vserver nfs modify -ntfs-unix-security-ops*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`cifs.oplocks.enable`
+ a| 
+`vserver cifs share properties add -share-properties`
+
+
+
+ a| 
+`cifs.oplocks.opendelta*`
+ a| 
+Não suportado
+
+
+
+ a| 
+`cifs.perm_check_ro_del_ok`
+ a| 
+`*vserver cifs options modify -is-read-only-delete-enabled*`
+
+
+
+ a| 
+`cifs.perm_check_use_gid`
+ a| 
+Não suportado
+
+
+
+ a| 
+`cifs.restrict_anonymous`
+ a| 
+`*vserver cifs options modify -restrict-anonymous*`
+
+
+
+ a| 
+`cifs.save_case`
+ a| 
+Não suportado
+
+
+
+ a| 
+`cifs.scopeid`
+ a| 
+Não suportado
+
+
+
+ a| 
+`cifs.search_domains`
+ a| 
+`*vserver cifs domain name-mapping-search*`
+
+
+
+ a| 
+`cifs.show_dotfiles`
+ a| 
+`is-hide-dotfiles-enabled`
+
+
+
+ a| 
+`cifs.show_snapshot`
+ a| 
+`*vserver cifs share properties add -share-properties*`
+
+
+
+ a| 
+`cifs.shutdown_msg_level`
+ a| 
+Não suportado
+
+
+
+ a| 
+`cifs.signing.enable`
+ a| 
+`*vserver cifs security modify -is-signing-required*`
+
+
+
+ a| 
+`cifs.smb2.client.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`cifs.smb2.durable_handle.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`cifs.smb2.durable_handle.timeout`
+ a| 
+Não suportado
+
+
+
+ a| 
+`cifs.smb2.enable`
+ a| 
+`*vserver cifs options modify -smb2-enabled*`
+
+
+
+ a| 
+`cifs.smb2.signing.required`
+ a| 
+`*vserver cifs security modify -is-signing-required*`
+
+
+
+ a| 
+`cifs.smb2_1.branch_cache.enable`
+ a| 
+`*vserver cifs share properties*`
+
+
+
+ a| 
+`cifs.smb2_1.branch_cache.hash_time_out`
+ a| 
+Não suportado
+
+
+
+ a| 
+`cifs.snapshot_file_folding.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`cifs.symlinks.cycleguard`
+ a| 
+Não suportado
+
+
+
+ a| 
+`cifs.symlinks.enable`
+ a| 
+`*vserver cifs share modify -symlink-properties*`
+
+
+
+ a| 
+`cifs.universal_nested_groups.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`cifs.W2K_password_change`
+ a| 
+`*vserver cifs domain password change*`
+
+
+
+ a| 
+`cifs.W2K_password_change_interval`
+ a| 
+`*vserver cifs domain password change schedule*`
+
+
+
+ a| 
+`cifs.W2K_password_change_within`
+ a| 
+`*vserver cifs domain password change schedule*`
+
+
+
+ a| 
+`cifs.widelink.ttl`
+ a| 
+Não suportado
+
+
+
+ a| 
+`console.encoding`
+ a| 
+Não suportado
+
+
+
+ a| 
+`coredump.dump.attempts`
+ a| 
+`*system node coredump config modify -coredump-attempts*`
+
+
+
+ a| 
+`coredump.metadata_only`
+ a| 
+`*system node coredump config modify -sparsecore-enabled true*`
+
+|===
+[role="lead"]
+*D*
+
+|===
+| Opção de 7 modos | Clustered Data ONTAP - comando 
+
+
+ a| 
+`disk.asup_on_mp_loss`
+ a| 
+`*system node autosupport trigger modify dsk.redun.fault*`
+
+
+
+ a| 
+`disk.auto_assign`
+ a| 
+`*storage disk option modify -autoassign*`
+
+
+
+ a| 
+`disk.auto_assign_shelf`
+ a| 
+`*storage disk option modify -autoassign-shelf*`
+
+
+
+ a| 
+`disk.maint_center.allowed_entries`
+ a| 
+Não suportado
+
+
+
+ a| 
+`disk.maint_center.enable`
+ a| 
+`*system node run -node {nodename|local} options disk.maint_center.enable*`
+
+
+
+ a| 
+`disk.maint_center.max_disks`
+ a| 
+`*system node run -node {nodename|local} options disk.maint_center.max_disks*`
+
+
+
+ a| 
+`disk.maint_center.rec_allowed_entries`
+ a| 
+`*system node run -node {nodename|local} options disk.maint_center.rec_allowed_entries*`
+
+
+
+ a| 
+`disk.maint_center.spares_check`
+ a| 
+`*system node run -node {nodename|local} options disk.maint_center.spares_check*`
+
+
+
+ a| 
+`disk.powercycle.enable`
+ a| 
+`*system node run -node {nodename|local} options disk.powercycle.enable*`
+
+
+
+ a| 
+`disk.recovery_needed.count`
+ a| 
+Não suportado
+
+
+
+ a| 
+`disk.target_port.cmd_queue_depth`
+ a| 
+`*storage array modify -name _array_name_ -max-queue-depth*`
+
+
+
+ a| 
+`dns.cache.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`dns.domainname`
+ a| 
+`*vserver services name-service dns modify -domains*`
+
+
+
+ a| 
+`dns.enable`
+ a| 
+`*vserver services name-service dns modify -state*`
+
+
+
+ a| 
+`dns.update.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`dns.update.ttl`
+ a| 
+Não suportado
+
+|===
+[role="lead"]
+*E*
+
+|===
+| Opção de 7 modos | Clustered Data ONTAP - comando 
+
+
+ a| 
+`ems.autosuppress.enable`
+ a| 
+`*event config modify -suppression {_on|off_}*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+|===
+
+
+== F-K
+
+[role="lead"]
+*F*
+
+|===
+| Opção de 7 modos | Clustered Data ONTAP - comando 
+
+
+ a| 
+`fcp.enable`
+ a| 
+`*fcp start*`
+
+
+
+ a| 
+`flexcache.access`
+ a| 
+Não suportado
+
+
+
+ a| 
+`flexcache.deleg.high_water`
+ a| 
+Não suportado
+
+
+
+ a| 
+`flexcache.deleg.low_water`
+ a| 
+Não suportado
+
+
+
+ a| 
+`flexcache.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`flexcache.per_client_stats`
+ a| 
+Não suportado
+
+
+
+ a| 
+`flexscale.enable`
+ a| 
+`*system node run -node _node_name_|local} options flexscale.enable*`
+
+
+
+ a| 
+`flexscale.lopri_blocks`
+ a| 
+`*system node run -node _node_name_|local} options flexscale.lopri_blocks*`
+
+
+
+ a| 
+`flexscale.normal_data_blocks`
+ a| 
+`*system node run -node _node_name_|local} options flexscale.normal_data_blocks*`
+
+
+
+ a| 
+`flexscale.pcs_high_res`
+ a| 
+`*system node run -node _node_name_|local} options flexscale.pcs_high_res*`
+
+
+
+ a| 
+`flexscale.pcs_size`
+ a| 
+`*system node run -node _node_name_|local} options flexscale.pcs_size*`
+
+
+
+ a| 
+`flexscale.rewarm`
+ a| 
+`*system node run -node _node_name_|local} options flexscale.rewarm*`
+
+
+
+ a| 
+`fpolicy.enable`
+ a| 
+`*vserver fpolicy enable*`
+
+
+
+ a| 
+`fpolicy.i2p_ems_interval`
+ a| 
+Não suportado
+
+
+
+ a| 
+`fpolicy.multiple_pipes`
+ a| 
+Não suportado
+
+
+
+ a| 
+`ftpd.3way.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`ftpd.anonymous.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`ftpd.anonymous.home_dir`
+ a| 
+Não suportado
+
+
+
+ a| 
+`ftpd.anonymous.name`
+ a| 
+Não suportado
+
+
+
+ a| 
+`ftpd.auth_style`
+ a| 
+Não suportado
+
+
+
+ a| 
+`ftpd.bypass_traverse_checking`
+ a| 
+Não suportado
+
+
+
+ a| 
+`ftpd.dir.override`
+ a| 
+Não suportado
+
+
+
+ a| 
+`ftpd.dir.restriction`
+ a| 
+Não suportado
+
+
+
+ a| 
+`ftpd.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`ftpd.explicit.allow_secure_data_conn`
+ a| 
+Não suportado
+
+
+
+ a| 
+`ftpd.explicit.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`ftpd.idle_timeout`
+ a| 
+Não suportado
+
+
+
+ a| 
+`ftpd.implicit.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`ftpd.ipv6.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`ftpd.locking`
+ a| 
+Não suportado
+
+
+
+ a| 
+`ftpd.log.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`ftpd.log.filesize`
+ a| 
+Não suportado
+
+
+
+ a| 
+`ftpd.log.nfiles`
+ a| 
+Não suportado
+
+
+
+ a| 
+`ftpd.max_connections`
+ a| 
+Não suportado
+
+
+
+ a| 
+`ftpd.max_connections_threshold`
+ a| 
+Não suportado
+
+
+
+ a| 
+`ftpd.tcp_window_size`
+ a| 
+Não suportado
+
+|===
+[role="lead"]
+*H*
+
+|===
+| Opção de 7 modos | Clustered Data ONTAP - comando 
+
+
+ a| 
+`httpd.access`
+ a| 
+`Not supported`
+
+
+
+ a| 
+`httpd.admin.access`
+ a| 
+Não suportado
+
+
+
+ a| 
+`httpd.admin.enable`
+ a| 
+`*vserver services web modify -enabled{true|false}*`
+
+
+
+ a| 
+`httpd.admin.hostsequiv.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`httpd.admin.max_connections`
+ a| 
+Não suportado
+
+
+
+ a| 
+`httpd.admin.ssl.enable`
+ a| 
+`*security ssl*`
+
+
+
+ a| 
+`httpd.admin.top-page.authentication`
+ a| 
+Não suportado
+
+
+
+ a| 
+`httpd.bypass_traverse_checking`
+ a| 
+Não suportado
+
+
+
+ a| 
+`httpd.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`httpd.ipv6.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`httpd.log.format`
+ a| 
+Não suportado
+
+
+
+ a| 
+`httpd.method.trace.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`httpd.rootdir`
+ a| 
+Não suportado
+
+
+
+ a| 
+`httpd.timeout`
+ a| 
+Não suportado
+
+
+
+ a| 
+`httpd.timewait.enable`
+ a| 
+Não suportado
+
+|===
+[role="lead"]
+*I*
+
+|===
+| Opção de 7 modos | Clustered Data ONTAP - comando 
+
+
+ a| 
+`ifgrp.failover.link_degraded`
+ a| 
+Não suportado
+
+
+
+ a| 
+`interface.blocked.cifs`
+ a| 
+`*network interface create -data-protocol*`
+
+
+
+ a| 
+`interface.blocked.iscsi`
+ a| 
+`*network interface create -data-protocol*`
+
+
+
+ a| 
+`interface.blocked.mgmt_data_traffic`
+ a| 
+`*network interface create -role*`
+
+
+
+ a| 
+`interface.blocked.ndmp`
+ a| 
+`*system services firewall policy modify -policy _policy_name_ -service ndmp*`
+
+
+
+ a| 
+`interface.blocked.nfs`
+ a| 
+`*network interface create -data-protocol*`
+
+
+
+ a| 
+`interface.blocked.snapmirror`
+ a| 
+`*network interface create -role*`
+
+
+
+ a| 
+`ip.fastpath.enable`
+ a| 
+`*system node run -node _node_name_|local} options ip.fastpath.enable*`
+
+
+NOTE: A partir do ONTAP 9.2, o fastpath não é mais suportado.
+
+
+
+ a| 
+`ip.ipsec.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`ip.match_any_ifaddr`
+ a| 
+Não suportado
+
+
+
+ a| 
+`ip.path_mtu_discovery.enable`
+ a| 
+`*system node run -node__node_name__|local} options ip.path_mtu_discovery.enable*`
+
+
+
+ a| 
+`ip.ping_throttle.alarm_interval`
+ a| 
+`*system node run -node__node_name__ |local} options ip.ping_throttle.alarm___node_name__interval*`
+
+
+
+ a| 
+`ip.ping_throttle.drop_level`
+ a| 
+`*system node run -node|local} options ip.ping_throttle.drop.level*`
+
+
+
+ a| 
+`ip.tcp.abc.enable`
+ a| 
+`*system node run -node__node_name__|local} options ip.tcp.abc.enable*`
+
+
+
+ a| 
+`ip.tcp.abc.l_limit`
+ a| 
+`*system node run -node__node_name__|local} options ip.tcp.abc.l_limit*`
+
+
+
+ a| 
+`ip.tcp.batching.enable`
+ a| 
+`*system node run -node__node_name__|local} options ip.tcp.batching.enable*`
+
+
+
+ a| 
+`ip.tcp.newreno.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`ip.tcp.rfc3390.enable`
+ a| 
+`*system node run -node__node_name__|local} options ip.tcp.rfc3390.enable*`
+
+
+
+ a| 
+`ip.tcp.sack.enable`
+ a| 
+`*system node run -node__node_name__|local} options ip.tcp.sack.enable*`
+
+
+
+ a| 
+`ip.v6.enable`
+ a| 
+`*network options ipv6 modify*`
+
+
+
+ a| 
+`ip.v6.ra_enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`iscsi.auth.radius.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`iscsi.enable`
+ a| 
+`*iscsi start*`
+
+
+
+ a| 
+`iscsi.max_connections_per_session`
+ a| 
+`*iscsi modify -max -conn-per-session*`
+
+
+
+ a| 
+`iscsi.max_error_recovery_level`
+ a| 
+`*iscsi modify -max-error-recovery-level*`
+
+|===
+[role="lead"]
+*K*
+
+|===
+| Opção de 7 modos | Clustered Data ONTAP - comando 
+
+
+ a| 
+`kerberos.file_keytab.principal`
+ a| 
+Não suportado
+
+
+
+ a| 
+`kerberos.file_keytab.realmipal`
+ a| 
+Não suportado
+
+|===
+
+
+== O-Q
+
+[role="lead"]
+*L*
+
+|===
+| Opção de 7 modos | Clustered Data ONTAP - comando 
+
+
+ a| 
+`ldap.ADdomain`
+ a| 
+`*vserver services name-service ldap client modify -ad-domain*`
+
+
+
+ a| 
+`ldap.base`
+ a| 
+`*vserver services name-service ldap client modify -base-dn*`
+
+
+
+ a| 
+`ldap.base.group`
+ a| 
+`*ldap client modify -group-dn ldap DN-group-scope*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`ldap.base.netgroup`
+ a| 
+`*ldap client modify -netgroup-dn ldap DN-netgroup-scope*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`ldap.base.passwd`
+ a| 
+`*vserver services ldap client modify -user-dn*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`ldap.enable`
+ a| 
+`*vserver services name-service ldap modify*`
+
+
+
+ a| 
+`ldap.minimum_bind_level`
+ a| 
+`*vserver services name-service ldap client modify -min-bind-level*`
+
+
+
+ a| 
+`ldap.name`
+ a| 
+`*vserver services name-service ldap client modify -bind-dn*`
+
+
+
+ a| 
+`ldap.nssmap.attribute.gecos`
+ a| 
+`*ldap client schema modify -gecos-attribute*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`ldap.nssmap.attribute.gidNumber`
+ a| 
+`*ldap client schema modify -gid-number-attribute*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`ldap.nssmap.attribute.groupname`
+ a| 
+`*ldap client schema modify -cn-group-attribute*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`ldap.nssmap.attribute.homeDirectory`
+ a| 
+`*ldap client schema modify -home-directory-attribute*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`ldap.nssmap.attribute.loginShell`
+ a| 
+`*ldap client schema modify -login-shell-attribute*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`ldap.nssmap.attribute.memberNisNetgroup`
+ a| 
+`*ldap client schema modify -member-nis-netgroup-attribute*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`ldap.nssmap.attribute.memberUid`
+ a| 
+`*ldap client schema modify -member-uid-attribute*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`ldap.nssmap.attribute.netgroupname`
+ a| 
+`*ldap client schema modify -cn-netgroup-attribute*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`ldap.nssmap.attribute.nisNetgroupTriple`
+ a| 
+esquema do cliente ldap modificar -nis-netgroup-triple-attribute
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`ldap.nssmap.attribute.uid`
+ a| 
+`*ldap client schema modify -uid-attribute*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`ldap.nssmap.attribute.uidNumber`
+ a| 
+`*ldap client schema modify -uid-number-attribute*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`ldap.nssmap.attribute.userPassword`
+ a| 
+`*ldap client schema modify -user-password-attribute*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`ldap.nssmap.objectClass.nisNetgroup`
+ a| 
+`*ldap client schema modify -nis-netgroup-object-class*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`ldap.nssmap.objectClass.posixAccount`
+ a| 
+`*ldap client schema modify -posix-account-object-class*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`ldap.nssmap.objectClass.posixGroup`
+ a| 
+`*ldap client schema modify -posix-group-object-class*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`ldap.passwd`
+ a| 
+`*vserver services name-service ldap client modify-bind-password*`
+
+
+
+ a| 
+`ldap.port`
+ a| 
+`*vserver services name-service ldap client modify -port*`
+
+
+
+ a| 
+`ldap.servers`
+ a| 
+`*vserver services name-service ldap client modify -servers*`
+
+
+
+ a| 
+`ldap.servers.preferred`
+ a| 
+`*vserver services name-service ldap client modify -preferred-ad-servers*`
+
+
+
+ a| 
+`ldap.ssl.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`ldap.timeout`
+ a| 
+`*vserver services name-service ldap client modify -query-timeout*`
+
+
+
+ a| 
+`ldap.usermap.attribute.windowsaccount`
+ a| 
+`*ldap client schema modify -windows-account-attribute*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`ldap.usermap.base`
+ a| 
+`*ldap client modify -user-dnldap DN-user-scope*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`ldap.usermap.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`licensed_feature.fcp.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`licensed_feature.flex_clone.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`licensed_feature.flexcache_nfs.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`licensed_feature.iscsi.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`licensed_feature.multistore.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`licensed_feature.nearstore_option.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`licensed_feature.vld.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`locking.grace_lease_seconds`
+ a| 
+`*vserver nfs modify -v4-grace-seconds*`
+
+
+
+ a| 
+`lun.clone_restore`
+ a| 
+Não suportado
+
+
+
+ a| 
+`lun.partner_unreachable.linux.asc`
+ a| 
+Não suportado
+
+
+
+ a| 
+`lun.partner_unreachable.linux.ascq`
+ a| 
+Não suportado
+
+
+
+ a| 
+`lun.partner_unreachable.linux.behavior`
+ a| 
+Não suportado
+
+
+
+ a| 
+`lun.partner_unreachable.linux.hold_time`
+ a| 
+Não suportado
+
+
+
+ a| 
+`lun.partner_unreachable.linux.scsi_status`
+ a| 
+Não suportado
+
+
+
+ a| 
+`lun.partner_unreachable.linux.skey`
+ a| 
+Não suportado
+
+
+
+ a| 
+`lun.partner_unreachable.vmware.behavior`
+ a| 
+Não suportado
+
+
+
+ a| 
+`lun.partner_unreachable.vmware.hold_time`
+ a| 
+Não suportado
+
+|===
+[role="lead"]
+*N*
+
+|===
+| Opção de 7 modos | Clustered Data ONTAP - comando 
+
+
+ a| 
+`ndmpd.abort_on_disk_error`
+ a| 
+`*options ndmpd.abort_on_disk_error*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`ndmpd.access`
+ a| 
+`*system services firewall policy modify -policy * -service ndmp -allow-list*`
+
+
+
+ a| 
+`ndmpd.authtype`
+ a| 
+`*system services ndmpd modify -clear-text*`
+
+
+
+ a| 
+`ndmpd.connectlog.enabled`
+ a| 
+Não suportado
+
+
+
+ a| 
+`ndmpd.data_port_range`
+ a| 
+`Not supported`
+
+
+
+ a| 
+`ndmpd.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`ndmpd.ignore_ctime.enabled`
+ a| 
+Não suportado
+
+
+
+ a| 
+`ndmpd.maxversion`
+ a| 
+Não suportado
+
+
+
+ a| 
+`ndmpd.offset_map.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`ndmpd.password_length`
+ a| 
+Não suportado
+
+
+
+ a| 
+`ndmpd.preferred_interface`
+ a| 
+Não suportado
+
+
+
+ a| 
+`ndmpd.tcpnodelay.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`ndmpd.tcpwinsize`
+ a| 
+Não suportado
+
+
+
+ a| 
+`nfs.assist.queue.limit`
+ a| 
+Não suportado
+
+
+
+ a| 
+`nfs.authsys.extended_groups_ns.enable`
+ a| 
+`_vserver nfs modify -auth-sys-extended-groups_`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`nfs.export.allow_provisional_access`
+ a| 
+Não suportado
+
+
+
+ a| 
+`nfs.export.auto-update`
+ a| 
+Não suportado
+
+
+
+ a| 
+`nfs.export.exportfs_comment_on_delete`
+ a| 
+Não suportado
+
+
+
+ a| 
+`nfs.export.harvest.timeout`
+ a| 
+Não suportado
+
+
+
+ a| 
+`nfs.export.neg.timeout`
+ a| 
+Não suportado
+
+
+
+ a| 
+`nfs.kerberos.enable`
+ a| 
+`*vserver nfs kerberos realm create*`
+
+
+
+ a| 
+`nfs.kerberos.file_keytab.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`nfs.kerberos.file_keytab.principal`
+ a| 
+`*vserver nfs kerberos realm create*`
+
+
+
+ a| 
+`nfs.kerberos.file_keytab.realm`
+ a| 
+`*vserver nfs kerberos realm create*`
+
+
+
+ a| 
+`nfs.max_num_aux_groups`
+ a| 
+`*vserver nfs \{ show | modify \} -extended-groups-limit*`
+
+
+
+ a| 
+`nfs.mount_rootonly`
+ a| 
+`*vserver nfs modify -mount-rootonly*`
+
+
+
+ a| 
+`nfs.netgroup.strict`
+ a| 
+Não suportado
+
+
+
+ a| 
+`nfs.nfs_rootonly`
+ a| 
+`*vserver nfs modify -nfs-rootonly*`
+
+
+
+ a| 
+`nfs.per_client_stats.enable`
+ a| 
+`*statistics settings modify -client stats*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`nfs.require_valid_mapped_uid`
+ a| 
+`*vserver name-mapping create*`
+
+
+
+ a| 
+`nfs.response.trace`
+ a| 
+`*vserver nfs modify -trace-enabled*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`nfs.response.trigger`
+ a| 
+`*vserver nfs modify -trigger*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`nfs.rpcsec.ctx.high`
+ a| 
+`*nfs modify -rpcsec-ctx-high*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`nfs.rpcsec.ctx.idle`
+ a| 
+`*nfs modify -rpcsec-ctx-idle*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`nfs.tcp.enable`
+ a| 
+`*vserver nfs modify -tcp*`
+
+
+
+ a| 
+`nfs.thin_prov.ejuke`
+ a| 
+`*vserver nfs modify -enable-ejukebox*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`nfs.udp.enable`
+ a| 
+`*vserver nfs modify -udp*`
+
+
+
+ a| 
+`nfs.udp.xfersize`
+ a| 
+`*vserver nfs modify -udp-max-xfer-size*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`nfs.v2.df_2gb_lim`
+ a| 
+"Não suportado
+
+
+
+ a| 
+`nfs.v2.enable`
+ a| 
+"Não suportado
+
+
+
+ a| 
+`nfs.v3.enable`
+ a| 
+`*vserver nfs modify -v3*`
+
+
+
+ a| 
+`nfs.v4.acl.enable`
+ a| 
+`*vserver nfs modify -v4.0-ac*l`
+
+
+
+ a| 
+`nfs.v4.enable`
+ a| 
+`*vserver nfs modify -v4.0*`
+
+
+
+ a| 
+`nfs.v4.id.allow_numerics`
+ a| 
+`*vserver nfs modify -v4-numeric-ids*`
+
+
+
+ a| 
+`nfs.v4.id.domain`
+ a| 
+`*vserver nfs modify -v4-id-domain*`
+
+
+
+ a| 
+`nfs.v4.read_delegation`
+ a| 
+`*vserver nfs modify -v4.0-read-delegation*`
+
+
+
+ a| 
+`nfs.v4.write_delegation`
+ a| 
+`*vserver nfs modify -v4.0-write-delegation*`
+
+
+
+ a| 
+`nfs.vstorage.enable`
+ a| 
+`*vserver nfs modify -vstorage*`
+
+
+
+ a| 
+`nfs.webnfs.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`nfs.webnfs.rootdir`
+ a| 
+Não suportado
+
+
+
+ a| 
+`nfs.webnfs.rootdir.set`
+ a| 
+Não suportado
+
+
+
+ a| 
+`nis.domainname`
+ a| 
+`*vserver services name-service nis-domain modify -domain*`
+
+
+
+ a| 
+`nis.enable`
+ a| 
+`*vserver services name-service nis-domain modify -active*`
+
+
+
+ a| 
+`nis.group_update.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`nis.group_update_schedule`
+ a| 
+Não suportado
+
+
+
+ a| 
+`nis.netgroup.domain_search.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`nis.servers`
+ a| 
+`*vserver services name-service nis-domain modify -servers*`
+
+
+
+ a| 
+`nis.slave.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`nlm.cleanup.timeout`
+ a| 
+Não suportado
+
+|===
+[role="lead"]
+*P*
+
+|===
+| Opção de 7 modos | Clustered Data ONTAP - comando 
+
+
+ a| 
+`pcnfsd.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`pcnfsd.umask`
+ a| 
+Não suportado
+
+|===
+[role="lead"]
+*Q*
+
+|===
+| Opção de 7 modos | Clustered Data ONTAP - comando 
+
+
+ a| 
+`qos.classify.count_all_matches`
+ a| 
+Não suportado
+
+|===
+[role="lead"]
+*R*
+
+
+NOTE: Todas as opções RAID têm atalhos nodeshell compatíveis com o modo 7 do formulário `options _option_name_`.
+
+|===
+| Opção de 7 modos | Clustered Data ONTAP - comando 
+
+
+ a| 
+`raid`
+ a| 
+`*storage raid-options \{ modify | show\}*`
+
+
+
+ a| 
+`raid.background_disk_fw_update.enable`
+ a| 
+`*storage disk option modify -bkg-firmware-update*`
+
+
+
+ a| 
+`raid.disk.copy.auto.enable`
+ a| 
+`*storage raid-options modify -raid.disk.copy.auto.enable*`
+
+
+
+ a| 
+`raid.disk.timeout.enable`
+ a| 
+`*system node run -node {_node_name_|local} options raid.disk.timeout.enable*`
+
+
+
+ a| 
+`raid.disktype.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`raid.disktype.enable`
+ a| 
+`*raid-options modify raid.lost_write.enable*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`raid.lost_write.enable`
+ a| 
+`*storage raid-options \{ modify | show \} -name raid.media_scrub.enable*`
+
+
+
+ a| 
+`raid.media_scrub.rate`
+ a| 
+`*storage raid-options \{ modify | show \}-name raid.media_scrub.rate*`
+
+
+
+ a| 
+`raid.min_spare_count`
+ a| 
+`*storage raid-options \{ modify | show \}-name raid.min_spare_count*`
+
+
+
+ a| 
+`raid.mix.hdd.disktype.capacity`
+ a| 
+`*storage raid-options \{ modify | show \}-name raid.mix.hdd.disktype.capacity*`
+
+
+
+ a| 
+`raid.mix.hdd.disktype.performance`
+ a| 
+`*storage raid-options \{ modify | show \}-name raid.mix.hdd.disktype.performance*`
+
+
+
+ a| 
+`raid.mix.hdd.rpm.capacity`
+ a| 
+`*storage raid-options \{ modify | show \} -name raid.mix.hdd.rpm.capacity*`
+
+
+
+ a| 
+`raid.mix.hdd.rpm.performance`
+ a| 
+`*storage raid-options \{ modify | show \} -name raid.mix.hdd.rpm.performance*`
+
+
+
+ a| 
+`raid.mirror_read_plex_pref`
+ a| 
+`*storage raid-options \{ modify | show \}-name raid.mirror_read_plex_pref*`
+
+
+
+ a| 
+`raid.reconstruct.perf_impact`
+ a| 
+`*storage raid-options \{ modify | show \}-name raid.reconstruct.perf_impact*`
+
+
+
+ a| 
+`raid.resync.perf_impact`
+ a| 
+`*storage raid-options \{ modify | show \}-name raid.resync.perf_impact*`
+
+
+
+ a| 
+`raid.rpm.ata.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`raid.rpm.fcal.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`raid.scrub.duration`
+ a| 
+`*storage raid-options \{ modify | show \}-name raid.scrub.duration*`
+
+
+
+ a| 
+`raid.scrub.perf_impact`
+ a| 
+`*storage raid-options \{ modify | show \}-name raid.scrub.perf_impact*`
+
+
+
+ a| 
+`raid.scrub.schedule`
+ a| 
+`*storage raid-options \{ modify | show \}-name raid.scrub.schedule*`
+
+
+
+ a| 
+`raid.timeout`
+ a| 
+`*storage raid-options \{ modify | show \}-name raid.timeout*`
+
+
+
+ a| 
+`raid.verify.perf_impact`
+ a| 
+`*storage raid-options\{ modify | show \}-name raid.verify.perf_impact*`
+
+
+
+ a| 
+`replication.logical.reserved_transfers`
+ a| 
+`*snapmirror set-options -xdp-source-xfer-reserve-pct*`
+
+
+
+ a| 
+`replication.throttle.enable`
+ a| 
+`*snapmirror modify -throttle*`
+
+
+
+ a| 
+`replication.volume.reserved_transfers`
+ a| 
+`*snapmirror set-options -dp-source-xfer-reserve-pct*`
+
+
+
+ a| 
+`replication.volume.use_auto_resync`
+ a| 
+Não suportado
+
+
+
+ a| 
+`rpc.mountd.tcp.port`
+ a| 
+`*vserver nfs modify -mountd-port*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`rpc.mountd.udp.port`
+ a| 
+`*vserver nfs modify -mountd-port*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`rpc.nlm.tcp.port`
+ a| 
+`*vserver nfs modify -nlm-port*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`rpc.nlm.udp.port`
+ a| 
+`*vserver nfs modify -nlm-port*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`rpc.nsm.tcp.port`
+ a| 
+`*vserver nfs modify -nsm-port*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`rpc.nsm.udp.port`
+ a| 
+`*vserver nfs modify -nsm-port*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`rpc.pcnfsd.tcp.port`
+ a| 
+Não suportado
+
+
+
+ a| 
+`rpc.pcnfsd.udp.port`
+ a| 
+Não suportado
+
+
+
+ a| 
+`rpc.rquotad.udp.port`
+ a| 
+`*vserver nfs modify -rquotad-port*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`rquotad.enable`
+ a| 
+`*vserver nfs modify -rquota*`
+
+
+
+ a| 
+`rsh.access`
+ a| 
+`*system services firewall policy create -policy mgmt -service rsh -allow-list*`
+
+
+
+ a| 
+`rsh.enable`
+ a| 
+`*system services firewall policy create -policy mgmt -service rsh -allow-list*`
+
+|===
+
+
+== S-Z
+
+[role="lead"]
+*S*
+
+|===
+| Opção de 7 modos | Clustered Data ONTAP - comando 
+
+
+ a| 
+`security.admin.authentication`
+ a| 
+`*security login modify*`
+
+
+
+ a| 
+`security.admin.nsswitchgroup`
+ a| 
+`*vserver modify*`
+
+
+
+ a| 
+`security.passwd.firstlogin.enable`
+ a| 
+`*security login role config modify*`
+
+
+
+ a| 
+`security.passwd.lockout.numtries`
+ a| 
+`*security login role config modify*`
+
+
+
+ a| 
+`security.passwd.rootaccess.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`security.passwd.rules.enable`
+ a| 
+`*security login role config modify*`
+
+
+
+ a| 
+`security.passwd.rules.everyone`
+ a| 
+`*security login role config modify*`
+
+
+
+ a| 
+`security.passwd.rules.history`
+ a| 
+`*security login role config modify*`
+
+
+
+ a| 
+`security.passwd.rules.maximum`
+ a| 
+`*security login role config modify*`
+
+
+
+ a| 
+`security.passwd.rules.minimum`
+ a| 
+`*security login role config modify*`
+
+
+
+ a| 
+`security.passwd.rules.minimum.alphabetic`
+ a| 
+Não suportado
+
+
+
+ a| 
+`security.passwd.rules.minimum.digit`
+ a| 
+`*security login role config modify*`
+
+
+
+ a| 
+`security.passwd.rules.minimum.symbol`
+ a| 
+Não suportado
+
+
+
+ a| 
+`sftp.auth_style`
+ a| 
+Não suportado
+
+
+
+ a| 
+`sftp.dir_override`
+ a| 
+Não suportado
+
+
+
+ a| 
+`sftp.dir_restriction`
+ a| 
+Não suportado
+
+
+
+ a| 
+`sftp.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`sftp.idle_timeout`
+ a| 
+Não suportado
+
+
+
+ a| 
+`sftp.locking`
+ a| 
+Não suportado
+
+
+
+ a| 
+`sftp.log_enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`sftp.log_filesize`
+ a| 
+Não suportado
+
+
+
+ a| 
+`sftp.log_nfiles`
+ a| 
+Não suportado
+
+
+
+ a| 
+`sftp.max_connections`
+ a| 
+Não suportado
+
+
+
+ a| 
+`sftp.max_connections_threshold`
+ a| 
+Não suportado
+
+
+
+ a| 
+`sftp.override_client_permissions`
+ a| 
+Não suportado
+
+
+
+ a| 
+`sis.max_vfiler_active_ops`
+ a| 
+Não suportado
+
+
+
+ a| 
+`snaplock.autocommit_period`
+ a| 
+Não suportado
+
+
+
+ a| 
+`snaplock.compliance.write_verify`
+ a| 
+Não suportado
+
+
+
+ a| 
+`snaplock.log.default_retention`
+ a| 
+Não suportado
+
+
+
+ a| 
+`snaplock.log.maximum_size`
+ a| 
+Não suportado
+
+
+
+ a| 
+`snapmirror.access`
+ a| 
+`*snapmirror create*`
+
+
+
+ a| 
+`snapmirror.checkip.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`snapmirror.cmode.suspend`
+ a| 
+`*snapmirror quiesce*`
+
+
+
+ a| 
+`snapmirror.delayed_acks.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`snapmirror.vsm.volread.smtape_enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`snapvalidator.version`
+ a| 
+Não suportado
+
+
+
+ a| 
+`snapvault.access`
+ a| 
+`*vserver peer*`
+
+
+
+ a| 
+`snapvault.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`snapvault.lockvault_log_volume`
+ a| 
+Não suportado
+
+
+
+ a| 
+`snapvault.preservesnap`
+ a| 
+`snapmirror policy`
+
+
+
+ a| 
+`snapvault.snapshot_for_dr_backup`
+ a| 
+Não suportado
+
+
+
+ a| 
+`snmp.access`
+ a| 
+`*system services firewall policy modify -policy __policy_name__-service snmp -allow-list*`
+
+
+
+ a| 
+`snmp.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`ssh.access`
+ a| 
+`*system services firewall policy modify -policy __policy_name_-service ssh -allow-list*`
+
+
+
+ a| 
+`ssh.enable`
+ a| 
+`*system services firewall policy modify -policy __policy_name__-service ssh -allow-list*`
+
+
+
+ a| 
+`ssh.idle.timeout`
+ a| 
+Não suportado
+
+
+
+ a| 
+`ssh.passwd_auth.enable`
+ a| 
+`*security login \{ show | create | delete \}-user-or-group-name _user_name_ -application ssh -authmethod publickey -role _role_name_ -vserver _vserver_name_*`
+
+
+
+ a| 
+`ssh.pubkey_auth.enable`
+ a| 
+`*security login modify -authmethod publickey*`
+
+
+
+ a| 
+`ssh1.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`ssh2.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+ssl.enable
+ a| 
+`*security ssl modify -server -enabled*`
+
+
+
+ a| 
+`ssl.v2.enable`
+ a| 
+`*system services web modify -sslv2-enabled*`
+
+
+
+ a| 
+`ssl.v3.enable`
+ a| 
+`*system services web modify -sslv3-enabled*`
+
+
+
+ a| 
+`stats.archive.frequency_config`
+ a| 
+Não suportado
+
+|===
+[role="lead"]
+*T*
+
+|===
+| Opção de 7 modos | Clustered Data ONTAP - comando 
+
+
+ a| 
+`tape.reservations`
+ a| 
+`*options tape.reservations*`
+
+
+
+ a| 
+`telnet.access`
+ a| 
+`*system services firewall policy create -policy mgmt -service telnet -allow-list*`
+
+
+
+ a| 
+`telnet.distinct.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`telnet.enable`
+ a| 
+`*system services firewall policy create -policy mgmt -service telnet -allow-list*`
+
+
+
+ a| 
+`tftpd.enable`
+ a| 
+Não suportado
+
+
+
+ a| 
+`tftpd.logging`
+ a| 
+Não suportado
+
+
+
+ a| 
+`tftpd.max_connections`
+ a| 
+Não suportado
+
+
+
+ a| 
+`tftpd.rootdir`
+ a| 
+Não suportado
+
+
+
+ a| 
+`timed.enable`
+ a| 
+`*system services ntp config modify -enabled*`
+
+
+
+ a| 
+`timed.log`
+ a| 
+Não suportado
+
+
+
+ a| 
+`timed.max_skew`
+ a| 
+Não suportado
+
+
+
+ a| 
+`timed.min_skew`
+ a| 
+Não suportado
+
+
+
+ a| 
+`timed.proto`
+ a| 
+Não suportado
+
+
+
+ a| 
+`timed.sched`
+ a| 
+Não suportado
+
+
+
+ a| 
+`timed.servers`
+ a| 
+`_cluster time-service ntp server_`
+
+
+
+ a| 
+`timed.window`
+ a| 
+Não suportado
+
+
+
+ a| 
+`trusted.hosts`
+ a| 
+Não suportado
+
+|===
+[role="lead"]
+*V*
+
+|===
+| Opção de 7 modos | Clustered Data ONTAP - comando 
+
+
+ a| 
+`vol.move.cutover.cpu.busy.limit`
+ a| 
+Não suportado
+
+
+
+ a| 
+`vol.move.cutover.disk.busy.limit`
+ a| 
+Não suportado
+
+
+
+ a| 
+`vsm.smtape.concurrent.cascade.support`
+ a| 
+Não suportado
+
+
+
+ a| 
+ a| 
+
+|===
+[role="lead"]
+*W*
+
+|===
+| Opção de 7 modos | Clustered Data ONTAP - comando 
+
+
+ a| 
+`wafl.default_nt_user`
+ a| 
+`*vserver nfs modify -default-win-user*`
+
+
+
+ a| 
+`wafl.default_unix_user`
+ a| 
+`*vserver cifs options modify -default-unix-user*`
+
+
+
+ a| 
+`wafl.inconsistent.asup_frequency.blks`
+ a| 
+`*system node run -node{_node_name_|local} options wafl.inconsistent.asup_frequency.blks*`
+
+
+
+ a| 
+`wafl.inconsistent.asup_frequency.time`
+ a| 
+`*system node run -node{_node_name_|local} options wafl.inconsistent.asup_frequency.time*`
+
+
+
+ a| 
+`wafl.inconsistent.ems_suppress`
+ a| 
+`*system node run -node{_node_name_|local} options wafl.inconsistent.ems_suppress*`
+
+
+
+ a| 
+`wafl.maxdirsize`
+ a| 
+`*vol create -maxdir-size*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`wafl.nt_admin_priv_map_to_root`
+ a| 
+`*vserver name-mapping create*`
+
+
+
+ a| 
+`wafl.root_only_chown`
+ a| 
+`*vserver nfs modify -chown-mode*`
+
+
+NOTE: Disponível no nível de privilégio avançado.
+
+
+
+ a| 
+`wafl.wcc_minutes_valid`
+ a| 
+Não suportado
+
+
+
+ a| 
+`webdav.enable`
+ a| 
+Não suportado
+
+|===

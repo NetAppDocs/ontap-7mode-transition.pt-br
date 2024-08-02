@@ -1,0 +1,107 @@
+---
+permalink: copy-free/concept_aggregate_space_considerations_during_transition.html 
+sidebar: sidebar 
+keywords: transition, copy, free, aggregate, space, requirements 
+summary: Antes da transição, você deve garantir que os agregados do modo 7 tenham espaço livre adequado. A ferramenta de transição de 7 modos realiza várias verificações de espaço nos agregados com base no espaço físico, no espaço lógico, no espaço ocupado pelas cópias Snapshot e nas configurações de garantia de espaço. Você também precisa estar ciente das considerações de espaço com agregados Flash Pool. 
+---
+= Agregar requisitos de espaço para a transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes da transição, você deve garantir que os agregados do modo 7 tenham espaço livre adequado. A ferramenta de transição de 7 modos realiza várias verificações de espaço nos agregados com base no espaço físico, no espaço lógico, no espaço ocupado pelas cópias Snapshot e nas configurações de garantia de espaço. Você também precisa estar ciente das considerações de espaço com agregados Flash Pool.
+
+
+
+== Espaço físico nos agregados
+
+A transição é bloqueada se o espaço livre for inferior a 5% do espaço físico nos agregados do modo 7D. A melhor prática é ter pelo menos 20% de espaço livre nos agregados 7-Mode antes da transição.
+
+O espaço adicional é necessário nos agregados pelas seguintes razões:
+
+* Criação da cópia Snapshot de nível agregado para cada agregado de 7 modos durante a fase de exportação
+* Testando a carga de trabalho nos agregados transicionados com novos dados na fase de teste de pré-produção
+
+
+Se não tiver espaço adicional, pode adicionar discos aos sistemas 7-Mode antes da transição. Se a adição de discos não for viável ou se você puder garantir que apenas uma quantidade limitada de dados seja gravada nos volumes transferidos durante a fase de pré-produção, a ferramenta de transição de 7 modos permite que você reconheça esse erro e continue com a transição. No entanto, você precisa continuar monitorando o espaço agregado durante a transição e garantir que os agregados não aumentem na fase de teste de pré-produção.
+
+
+
+== Espaço lógico nos agregados
+
+Se o espaço lógico nos agregados do modo 7 estiver mais de 97% cheio, a ferramenta de transição de modo 7D lança um erro de bloqueio durante a pré-verificação. Você pode ignorar esse erro durante a fase de Planejamento e continuar com a transição. No entanto, você deve garantir que o espaço lógico usado seja inferior a 97% antes da operação de exportação e parada, reduzindo o tamanho dos volumes em tais agregados ou adicionando mais discos aos agregados. Você não pode ignorar esse erro na fase de exportação e parada.
+
+
+
+== Derramamento de Snapshot
+
+Se as cópias Snapshot nos agregados 7-Mode ocuparem mais espaço do que o espaço alocado para a reserva de cópias Snapshot, a criação de cópias Snapshot no nível de agregado na operação de exportação e parada poderá falhar. 7-Mode Transition Tool lança um erro de bloqueio durante a pré-verificação para esta condição. Nessas condições, você precisa excluir todas as cópias Snapshot de nível agregado existentes durante a fase de Planejamento.
+
+Se você não quiser excluir as cópias Snapshot existentes, ignore esse erro durante a fase de Planejamento e continue com a transição. No entanto, certifique-se de que a porcentagem de capacidade de cópia Snapshot usada seja inferior a 100% antes da operação de exportação e parada.
+
+
+
+== Configurações de garantia de espaço
+
+7-Mode Transition Tool lança um erro de bloqueio durante a pré-verificação se os controladores 7-Mode têm volumes com as seguintes configurações de garantia de espaço:
+
+* Volumes garantidos por volume com garantia desativada
+* Volumes garantidos para arquivos
+* *Volumes garantidos por volume com garantia desativada*
++
+Em alguns casos, a garantia de espaço é desativada para o volume garantido volumes devido à falta de espaço nos agregados.
+
++
+Você deve criar espaço livre suficiente nos agregados do modo 7 e, em seguida, ativar a garantia de espaço para esses volumes do modo 7 usando o seguinte comando 7-Mode:
+
++
+`*vol options _volume_name_ guarantee volume*`
+
++
+Se não pretender efetuar quaisquer acões correctivas no modo 7D, pode ignorar este erro. Após a transição, examine os volumes para os quais a garantia está desativada e ative a garantia manualmente usando o seguinte comando:
+
++
+`*volume modify -vserver -volume -space-guarantee volume*`
+
+* *Volumes garantidos por ficheiros*
++
+A garantia de arquivo não é suportada no ONTAP.
+
++
+Se você tiver volumes garantidos por arquivos, execute uma das seguintes ações:
+
++
+** Se os volumes 7D-Mode contiverem LUNs ou arquivos reservados ao espaço, altere o tipo de garantia de espaço dos volumes para volume usando o comando 7D-Mode
+`*vol options _volume_name_ guarantee volume*`
++
+Você deve garantir que há espaço livre suficiente nos agregados do modo 7 antes de executar este comando.
+
+** Se os volumes do modo 7 não contiverem LUNs ou arquivos reservados ao espaço, altere a garantia de espaço dos volumes para nenhum usando o seguinte comando 7-Mode:
+`*vol options _volume_name_ guarantee none*` Se você não quiser executar nenhuma ação corretiva no modo 7, você pode ignorar esse erro e continuar com a transição.
+
+
++
+Durante a transição, se esses volumes contiverem LUNs ou arquivos reservados ao espaço, sua garantia de espaço será automaticamente convertida para `volume`, mas a garantia de espaço será desativada inicialmente. Você deve criar espaço livre suficiente nos agregados e, em seguida, ativar manualmente a garantia usando o seguinte comando:
+
++
+E
+`*volume modify -vserver -volume -space-guarantee volume*`
+
++
+Se os volumes não contiverem LUNs ou arquivos reservados ao espaço, sua garantia de espaço será automaticamente convertida para nenhum durante a transição.
+
+
+
+
+
+== Consideração adicional para agregados de Flash Pool
+
+A transição não é suportada se o espaço livre nos SSDs de agregados Flash Pool for inferior a 5% do espaço total em disco dos SSDs. Você deve desativar o cache SSD ou adicionar mais SSDs para continuar com a transição.
+
+*Informações relacionadas*
+
+xref:reference_ignorable_errors_during_transition.adoc[Erros Ignoráveis durante a transição]
+
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-psmg/home.html["Gerenciamento de disco e agregado"]

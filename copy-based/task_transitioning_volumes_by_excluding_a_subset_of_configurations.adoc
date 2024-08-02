@@ -1,0 +1,63 @@
+---
+permalink: copy-based/task_transitioning_volumes_by_excluding_a_subset_of_configurations.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, customize, cli 
+summary: Por padrão, todas as configurações do modo 7 são transferidas para o ONTAP. Você pode optar por excluir da transição algumas ou todas as configurações de volume, NFS, CIFS, SAN e serviços de nomes usando a CLI da ferramenta de transição de 7 modos. Você também pode optar por consolidar as regras de exportação e os horários de Snapshot do 7-Mode NFS e reutilizar uma política de exportação de NFS e uma política de Snapshot existentes no SVM de destino. 
+---
+= Personalizar a transição das configurações do modo 7 usando a CLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Por padrão, todas as configurações do modo 7 são transferidas para o ONTAP. Você pode optar por excluir da transição algumas ou todas as configurações de volume, NFS, CIFS, SAN e serviços de nomes usando a CLI da ferramenta de transição de 7 modos. Você também pode optar por consolidar as regras de exportação e os horários de Snapshot do 7-Mode NFS e reutilizar uma política de exportação de NFS e uma política de Snapshot existentes no SVM de destino.
+
+Você deve executar esta tarefa antes que a configuração seja aplicada, após a qual qualquer modificação será ignorada.
+
+A ferramenta de transição de 7 modos não executa pré-verificações para a configuração excluída.
+
+Por padrão, todas as configurações de 7 modos são selecionadas para transição.
+
+É uma prática recomendada executar as pré-verificações com todas as configurações primeiro e, em seguida, excluir uma ou mais configurações na execução subsequente das pré-verificações. Isso ajuda você a entender quais configurações são excluídas da transição e quais pré-verificações são ignoradas posteriormente.
+
+.Passos
+* Excluir e verificar as configurações:
++
+.. Excluir as configurações
+`*transition cbt property-set -p _project_name_ -n _config_property_name_ -v true*`
++
+`_config_property_name_` é a configuração que você deseja excluir.
+
++
+xref:reference_configurations_that_can_be_excluded.adoc[Configurações que podem ser excluídas da transição]
+
+.. Verifique o valor da propriedade definida para excluir a configuração:
++
+`*transition cbt property-get -p _project_name_ -n _config_property_name_*`
+
+
+
+* Consolide as regras de exportação de NFS para a transição:
++
+** Consolide regras de exportação de NFS de modo 7D semelhantes a uma única política de exportação no Clustered Data ONTAP, que pode ser aplicada ao volume ou a qtree transicionado
+`*transition cbt property-set -p _project_name_ -n _nfs-consolidate-similiar-7mode-exports_ -v true*`
++
+Se a `nfs-consolidate-similiar-7mode-exports` propriedade estiver definida como `false`, a ferramenta de transição de 7 modos criará uma nova política de exportação de NFS no ONTAP para cada regra de exportação de NFS de 7 modos.
+
+** Reutilize uma política de exportação NFS existente na SVM que corresponda à política de exportação que será criada pela ferramenta, que pode ser aplicada aos volumes ou qtrees transicionados
+`*transition cbt property-set -p _project_name_ -n _nfs-reuse-matching-svm-export-policies_ -v true*`
+
+
+* Consolide programações de instantâneos para transição:
++
+** Consolide programações de snapshot de 7 modos semelhantes a uma única política de snapshot no ONTAP, que pode ser aplicada ao volume transicionado
+`*transition cbt property-set -p _project_name_ -n _consolidate-similar-7mode-snapshot-policies_ -v true*`
++
+Se a `consolidate-similar-7mode-snapshot-policies` propriedade estiver definida como false, a ferramenta de transição de 7 modos criará uma nova política de snapshot no ONTAP para cada agendamento de snapshot.
+
+** Reutilize uma política de Snapshot existente no SVM que corresponda à política de snapshot que será criada pela ferramenta, que pode ser aplicada aos volumes transferidos: Mais
+`*transition cbt property-set -p _project_name_ -n _reuse-matching-svm-snapshot-policies_ -v true*`
+
+
+

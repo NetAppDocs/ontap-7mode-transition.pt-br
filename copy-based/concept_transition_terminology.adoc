@@ -1,0 +1,61 @@
+---
+permalink: copy-based/concept_transition_terminology.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, terminology 
+summary: Entender a terminologia de transição relacionada à ferramenta de transição de 7 modos ajuda você a entender o processo de transição. 
+---
+= Terminologia de transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Entender a terminologia de transição relacionada à ferramenta de transição de 7 modos ajuda você a entender o processo de transição.
+
+* * Coletar e avaliar*
++
+Antes de fazer a transição de dados e configurações para o ONTAP, você deve coletar informações sobre o ambiente de storage que inclui sistemas de storage, hosts e aplicativos. Em seguida, você deve avaliar as caraterísticas e funcionalidades desses sistemas e identificar como esses recursos e funcionalidades funcionam na versão do ONTAP selecionada para transição.
+
+* *Migrar*
++
+Refere-se à transição de dados e configurações dos volumes de 7 modos para o ONTAP. A migração deve ser realizada após a avaliação dos controladores 7-Mode.
+
+* *Projeto*
++
+Na ferramenta de transição de 7 modos, um projeto permite configurar e gerenciar a transição de um grupo de volumes.
+
++
+Os projetos de transição são de três tipos: Independentes, primários e secundários.
+
++
+** * Projeto autônomo*
++
+Os volumes neste projeto não estão em nenhuma relação da SnapMirror com volumes em outros sistemas de storage ou você deseja fazer a transição desses volumes sem manter as relações da SnapMirror.
+
+** * Projeto primário*
++
+Volumes neste projeto são os volumes de origem de um relacionamento SnapMirror.
+
+** *Projeto secundário*
++
+Volumes neste projeto são os volumes de destino de uma relação SnapMirror.
+
+
+
+* * Grupo de projeto*
++
+Na ferramenta de transição de 7 modos, um grupo de projetos é um contentor lógico que você pode usar para manter projetos de migração relacionados. Há sempre um grupo padrão com o nome default_Group que existe no sistema.
+
+* * Relação entre pares de transição*
++
+O relacionamento entre pares de transição é um mecanismo de autorização que permite que o SnapMirror estabeleça relações entre um sistema de storage 7-Mode e um SVM no cluster para copiar dados dos volumes 7-Mode para os volumes ONTAP para a transição. Um relacionamento de pares de transição só pode ser criado por um administrador de cluster e é iniciado a partir do cluster.
+
+* * Relação de proteção de dados de transição*
++
+As relações de proteção de dados de transição (TDP) são relações de volume SnapMirror estabelecidas entre um sistema de 7 modos e um sistema ONTAP.
+
++
+A proteção de dados de transição é compatível apenas para a transição. Você não deve manter esse relacionamento por longos períodos de tempo porque não é possível ressincronizar dados de um volume ONTAP de volta para um volume do modo 7D.
+
+

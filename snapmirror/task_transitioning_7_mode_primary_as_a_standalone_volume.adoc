@@ -1,0 +1,247 @@
+---
+permalink: snapmirror/task_transitioning_7_mode_primary_as_a_standalone_volume.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, transition, snapmirror, primary, stand, alone, volume 
+summary: Depois que o volume primário do modo 7D voltar a estar online após um desastre, é necessário fazer a transição do volume primário do modo 7D. Como todas as relações do SnapMirror com o volume primário do modo 7 são quebradas e excluídas nesta fase, você pode fazer a transição de um volume autônomo para esse tipo de transição. 
+---
+= Fazendo a transição do primário do modo 7D como um volume autônomo
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Depois que o volume primário do modo 7D voltar a estar online após um desastre, é necessário fazer a transição do volume primário do modo 7D. Como todas as relações do SnapMirror com o volume primário do modo 7 são quebradas e excluídas nesta fase, você pode fazer a transição de um volume autônomo para esse tipo de transição.
+
+.Passos
+. Copiar dados do volume do modo 7D para o volume Data ONTAP em cluster:
++
+.. Se você quiser configurar o tamanho da janela TCP para a relação SnapMirror entre o sistema de 7 modos e o SVM, crie uma política de tipo SnapMirror `async-mirror` com a `window-size-for-tdp-mirror` opção.
++
+Em seguida, você deve aplicar essa política ao relacionamento do TDP SnapMirror entre o sistema 7-Mode e o SVM.
+
++
+Você pode configurar o tamanho da janela TCP no intervalo de 256 KB a 7 MB para melhorar o throughput de transferência SnapMirror para que as operações de cópia de transição sejam concluídas mais rapidamente. O valor padrão do tamanho da janela TCP é 2 MB.
+
++
+[listing]
+----
+cluster1::> snapmirror policy create -vserver vs1 –policy tdp_policy -window-size-for-tdp-mirror 5MB -type async-mirror
+----
+.. Use o `snapmirror create` comando com o tipo de relação como TDP para criar uma relação SnapMirror entre o sistema de 7 modos e o SVM.
++
+Se você tiver criado uma diretiva SnapMirror para configurar o tamanho da janela TCP, deverá aplicar a diretiva a essa relação do SnapMirror.
+
++
+[listing]
+----
+cluster1::> snapmirror create -source-path system7mode:dataVol20 -destination-path vs1:dst_vol -type TDP -policy tdp_policy
+Operation succeeded: snapmirror create the relationship with destination vs1:dst_vol.
+----
+.. Use o `snapmirror initialize` comando para iniciar a transferência da linha de base.
++
+[listing]
+----
+cluster1::> snapmirror initialize -destination-path vs1:dst_vol
+Operation is queued: snapmirror initialize of destination vs1:dst_vol.
+----
+.. Use o `snapmirror show` comando para monitorar o status.
++
+[listing]
+----
+cluster1::>snapmirror show -destination-path vs1:dst_vol
+
+                            Source Path: system7mode:dataVol20
+                       Destination Path: vs1:dst_vol
+                      Relationship Type: TDP
+                Relationship Group Type: none
+                    SnapMirror Schedule: -
+                 SnapMirror Policy Type: async-mirror
+                      SnapMirror Policy: DPDefault
+                            Tries Limit: -
+                      Throttle (KB/sec): unlimited
+                           **Mirror State: Snapmirrored**
+                    Relationship Status: Idle
+                File Restore File Count: -
+                 File Restore File List: -
+                      Transfer Snapshot: -
+                      Snapshot Progress: -
+                         Total Progress: -
+              Network Compression Ratio: -
+                    Snapshot Checkpoint: -
+                        Newest Snapshot: vs1(4080431166)_dst_vol.1
+              Newest Snapshot Timestamp: 10/16 02:49:03
+                      Exported Snapshot: vs1(4080431166)_dst_vol.1
+            Exported Snapshot Timestamp: 10/16 02:49:03
+                                Healthy: true
+                       Unhealthy Reason: -
+               Constituent Relationship: false
+                Destination Volume Node: cluster1-01
+                        Relationship ID: 97b205a1-54ff-11e4-9f30-005056a68289
+                   Current Operation ID: -
+                          Transfer Type: -
+                         Transfer Error: -
+                       Current Throttle: -
+              Current Transfer Priority: -
+                     Last Transfer Type: initialize
+                    Last Transfer Error: -
+                     Last Transfer Size: 152KB
+Last Transfer Network Compression Ratio: 1:1
+                 Last Transfer Duration: 0:0:6
+                     Last Transfer From: system7mode:dataVol20
+            Last Transfer End Timestamp: 10/16 02:43:53
+                  Progress Last Updated: -
+                Relationship Capability: 8.2 and above
+                               Lag Time: -
+           Number of Successful Updates: 0
+               Number of Failed Updates: 0
+           Number of Successful Resyncs: 0
+               Number of Failed Resyncs: 0
+            Number of Successful Breaks: 0
+                Number of Failed Breaks: 0
+                   Total Transfer Bytes: 155648
+         Total Transfer Time in Seconds: 6
+----
+.. Dependendo se você deseja atualizar o volume do Data ONTAP em cluster manualmente ou configurando uma programação do SnapMirror, execute a ação apropriada:
++
+|===
+| Se você quiser... | Então... 
+
+
+ a| 
+Atualizar transferências manualmente
+ a| 
+... Use o `snapmirror update` comando.
++
+[listing]
+----
+cluster1::> snapmirror update -destination-path vs1:dst_vol
+----
+... Use o `snapmirror show` comando para monitorar o status da cópia de dados.
++
+[listing]
+----
+cluster1::> snapmirror show -destination-path vs1:dst_vol
+                            Source Path: system7mode:dataVol20
+                       Destination Path: vs1:dst_vol
+                      Relationship Type: TDP
+                Relationship Group Type: none
+                    SnapMirror Schedule: -
+                 SnapMirror Policy Type: async-mirror
+                      SnapMirror Policy: DPDefault
+                            Tries Limit: -
+                      Throttle (KB/sec): unlimited
+                           Mirror State: Snapmirrored
+ ...
+               Number of Failed Updates: 0
+           Number of Successful Resyncs: 0
+               Number of Failed Resyncs: 0
+            Number of Successful Breaks: 0
+                Number of Failed Breaks: 0
+                   Total Transfer Bytes: 278528
+         Total Transfer Time in Seconds: 11
+----
+... Vá para link:task_transitioning_a_stand_alone_volume.html["passo 3"].
+
+
+
+
+ a| 
+Realizar transferências de atualização agendadas
+ a| 
+... Use o `job schedule cron create` comando para criar uma agenda para transferências de atualizações.
++
+[listing]
+----
+cluster1::> job schedule cron create -name 15_minute_sched -minute 15
+----
+... Use o `snapmirror modify` comando para aplicar a programação ao relacionamento do SnapMirror.
++
+[listing]
+----
+cluster1::> snapmirror modify -destination-path vs1:dst_vol -schedule 15_minute_sched
+----
+... Use o `snapmirror show` comando para monitorar o status da cópia de dados.
++
+[listing]
+----
+cluster1::> snapmirror show -destination-path vs1:dst_vol
+                            Source Path: system7mode:dataVol20
+                       Destination Path: vs1:dst_vol
+                      Relationship Type: TDP
+                Relationship Group Type: none
+                    SnapMirror Schedule: 15_minute_sched
+                 SnapMirror Policy Type: async-mirror
+                      SnapMirror Policy: DPDefault
+                            Tries Limit: -
+                      Throttle (KB/sec): unlimited
+                           Mirror State: Snapmirrored
+ ...
+               Number of Failed Updates: 0
+           Number of Successful Resyncs: 0
+               Number of Failed Resyncs: 0
+            Number of Successful Breaks: 0
+                Number of Failed Breaks: 0
+                   Total Transfer Bytes: 278528
+         Total Transfer Time in Seconds: 11
+----
+
+
+|===
+
+
+. Se você tiver um agendamento para transferências incrementais, execute as seguintes etapas quando estiver pronto para realizar a transição:
++
+.. Use o `snapmirror quiesce` comando para desativar todas as futuras transferências de atualizações.
++
+[listing]
+----
+cluster1::> snapmirror quiesce -destination-path vs1:dst_vol
+----
+.. Use o `snapmirror modify` comando para excluir a programação do SnapMirror.
++
+[listing]
+----
+cluster1::> snapmirror modify -destination-path vs1:dst_vol -schedule ""
+----
+.. Se você desativou as transferências do SnapMirror mais cedo, use o `snapmirror resume` comando para ativar as transferências do SnapMirror.
++
+[listing]
+----
+cluster1::> snapmirror resume -destination-path vs1:dst_vol
+----
+
+
+. Aguarde que as transferências contínuas entre os volumes do modo 7 e os volumes do Data ONTAP em cluster sejam concluídas e, em seguida, desconete o acesso do cliente dos volumes do modo 7 para iniciar a transição.
+. Use o `snapmirror update` comando para executar uma atualização final de dados para o volume Data ONTAP em cluster.
++
+[listing]
+----
+cluster1::> snapmirror update -destination-path vs1:dst_vol
+Operation is queued: snapmirror update of destination vs1:dst_vol.
+----
+. Use o `snapmirror show` comando para verificar se a última transferência foi bem-sucedida.
+. Use o `snapmirror break` comando para quebrar a relação SnapMirror entre o volume do modo 7 e o volume Data ONTAP em cluster.
++
+[listing]
+----
+cluster1::> snapmirror break -destination-path vs1:dst_vol
+[Job 60] Job succeeded: SnapMirror Break Succeeded
+----
+. Se seus volumes tiverem LUNs configurados, no nível avançado de privilégio, use o `lun transition 7-mode show` comando para verificar se os LUNs foram transferidos.
++
+Você também pode usar o `lun show` comando no volume Data ONTAP em cluster para exibir todos os LUNs que foram transferidos com êxito.
+
+. Use o `snapmirror delete` comando para excluir a relação do SnapMirror entre o volume do modo 7 e o volume do Data ONTAP em cluster.
++
+[listing]
+----
+cluster1::> snapmirror delete -destination-path vs1:dst_vol
+----
+. Use o `snapmirror release` comando para remover as informações de relacionamento do SnapMirror do sistema de 7 modos.
++
+[listing]
+----
+system7mode> snapmirror release dataVol20 vs1:dst_vol
+----
+

@@ -1,0 +1,62 @@
+---
+permalink: copy-free/task_selecting_lifs_to_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, select, lif 
+summary: Opcionalmente, você pode especificar os LIFs que deseja configurar nas SVMs após a transição. Esses LIFs podem ser endereços IP existentes nos sistemas 7-Mode ou podem ser novos LIFs. Apenas as LIFs nas são transicionadas. Os LIFs FC e iSCSI devem ser configurados manualmente antes da fase de provisionamento da SVM. 
+---
+= Selecionar LIFs para transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Opcionalmente, você pode especificar os LIFs que deseja configurar nas SVMs após a transição. Esses LIFs podem ser endereços IP existentes nos sistemas 7-Mode ou podem ser novos LIFs. Apenas as LIFs nas são transicionadas. Os LIFs FC e iSCSI devem ser configurados manualmente antes da fase de provisionamento da SVM.
+
+As LIFs selecionadas para transição são configuradas nas SVMs durante a fase de provisionamento da SVM das seguintes maneiras:
+
+* Os endereços IP 7-Mode existentes que são selecionados para transição são criados no estado administrativo inativo.
++
+Esses endereços IP podem continuar fornecendo dados no modo 7 até que a transição comece. Durante a fase de importação, esses endereços IP são configurados no estado administrativo up.
+
+* Novos endereços IP são criados no estado administrativo up.
++
+Você pode usar esses LIFs para testar a conectividade das SVMs com os servidores de nomes após a fase de provisionamento da SVM.
+
+
+
+.Passos
+. Na guia de configuração do LIF, escolha uma das seguintes opções:
++
+|===
+| Se você quiser fazer a transição... | Então... 
+
+
+ a| 
+Um endereço IP existente no sistema 7-Mode
+ a| 
+.. Clique em *Select 7-Mode LIF*.
+.. Selecione o endereço IP que você deseja fazer a transição e especifique o SVM de destino e outros parâmetros de rede.
+.. Clique em *Salvar*.
+
+
+
+
+ a| 
+Um novo endereço IP
+ a| 
+.. Clique em *Adicionar novo LIF*.
+.. Especifique o endereço IP que você deseja configurar, o SVM de destino e outros parâmetros de rede.
+.. Clique em *Salvar*.
+
+
+|===
++
+
+NOTE: As portas de destino devem estar no mesmo espaço de IPspace que o SVM de destino.
+
+. Clique em *seguinte*.
++
+É apresentado o separador Plan Configuration (Configuração do plano).
+
+

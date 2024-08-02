@@ -1,0 +1,116 @@
+---
+permalink: san-host/task_making_san_boot_lun_primary_boot_lun_for_hp_ux_qlogic_hbas_after_transition.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, boot, lun, primary, hp, ux, logic, hbas 
+summary: Se o seu Data ONTAP operando no host HP-UX de 7 modos foi inicializado pela SAN, você deve fazer do LUN de inicialização SAN o LUN de inicialização principal após a transição para o Data ONTAP em cluster. 
+---
+= Fazendo um LUN de inicialização SAN o LUN de inicialização principal para HBAs QLogic HP-UX após a transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Se o seu Data ONTAP operando no host HP-UX de 7 modos foi inicializado pela SAN, você deve fazer do LUN de inicialização SAN o LUN de inicialização principal após a transição para o Data ONTAP em cluster.
+
+* Sua migração de dados deve estar concluída.
+* Seu LUN de inicialização deve ser mapeado para seu host a partir do nó do cluster do Data ONTAP.
+
+
+A inicialização SAN é suportada para HP-UX 11,3x em sistemas HP 9000 usando o menu BCH e em servidores HP Integrity usando o HP-UX Loader (EFI).
+
+Para transições baseadas em cópia, execute estas etapas após concluir a operação de transferência de armazenamento na ferramenta de transição de 7 modos. Transições sem cópia não são suportadas em hosts HP-UX.
+
+.Passos
+. Abra o prompt do shell:
++
+`*Ctrl B*`
+
+. Inicialize no shell EFI.
++
+O shell EFI está disponível apenas em sistemas HP Integrity.
+
+. Use um console serial para acessar o login no processador de serviço (MP).
+. Acesse a lista de console: `CO`
++
+Isso abre o menu Gerenciador de Inicialização EFI.
+
+. No menu Gerenciador de Inicialização EFI, selecione a opção de menu shell EFI para acessar o ambiente de shell EFI.
+. Identifique os números do controlador QLogic:
++
+`*drivers*`
+
++
+Os números do driver estão localizados na coluna DRV.
+
+. Identifique o número correspondente do controlador para cada condutor:
++
+`*drvcfg _driver_number_*`
+
++
+No exemplo a seguir `27`, é o número do controlador correspondente para o driver `23` e `26` é o número do controlador correspondente para o driver `24`:
+
++
+[listing]
+----
+Shell> drvcfg 23
+Configurable Components
+		Drv[23]		Ctrl[27]			Lang[eng]
+
+Shell> drvcfg 24
+Configurable Components
+		Drv[24]		Ctrl[26]			Lang[eng]
+----
+. Abra o BIOS do driver:
++
+`*drvcfg _drv_number ctrl_number_ -s*`
+
+. Digite `*4*` para selecionar *4. Editar configurações de inicialização*.
+. Em Edit Boot Settings (Editar definições de arranque), introduza `6` para selecionar *6. EFI Variable EFIFCScanLevel*.
+. Digite `*1*` para alterar o valor de EFI Variable EFIFCScanLevel de 0 para 1.
+. Digite `*7*` para selecionar *7. Ativar o Início de sessão Mundial*.
+. Introduza `*y*` para ativar o início de sessão mundial.
+.  `*0*`Aceda para aceder ao menu anterior.
+. No menu principal, introduza `*11*` para guardar as alterações.
+. Introduza `*12*` para sair.
+. No prompt do shell, refaça a varredura de seus dispositivos:
++
+`*reconnect -r*`
+
+. Exiba o LUN para obter o caminho do LUN a partir do qual deseja inicializar:
++
+`*map -r*`
+
++
+Os caminhos LUN são listados na coluna dispositivo. O disco SAN inicializável é exibido sob a coluna da tabela de mapeamento e tem "'WWN'" e "'parte 1'" na cadeia de carateres de saída.
+
+. Introduza o caminho LUN do LUN de arranque SAN.
++
+Um exemplo de um caminho LUN é fs0.
+
+. Saia do shell EFI:
++
+`*cd efi*`
+
+. Introduza o diretório HPUX:
++
+`*cd hpux*`
+
+. Faça do novo LUN de inicialização Data ONTAP SAN em cluster o LUN de inicialização principal:
++
+`*bcfg boot add 1 hpux.efi "HP-UX-Primary Boot"*`
+
+. Atualize manualmente o BIOS HBA fazendo uma entrada no EFI para o LUN de inicialização SAN.
+. Crie um caminho de inicialização alternativo:
++
+`*bcfg boot add 2 hpux.efi “HPUX alternate boot”*`
+
+. Crie um terceiro caminho de inicialização:
++
+`*bcfg boot add 2 hpux.efi “HPUX third boot”*`
+
+. Crie um quarto caminho de inicialização:
++
+`*bcfg boot add 2 hpux.efi “HPUX fourth boot”*`
+
+

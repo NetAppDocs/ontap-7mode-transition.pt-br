@@ -1,0 +1,90 @@
+---
+permalink: inventory-collect/reference_syntax_and_options.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, transition, syntax, option, ict, inventory, collection, tool 
+summary: 'Os comandos ICT (Inventory Collection Tool) coletam informações de configuração e inventário de controladores e hosts que são especificados na interface de linha de comando (CLI) ou em um arquivo de texto que contém detalhes do sistema. Você pode usar sintaxe e opções com os comandos ICT.' 
+---
+= Sintaxe e opções
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Os comandos ICT (Inventory Collection Tool) coletam informações de configuração e inventário de controladores e hosts que são especificados na interface de linha de comando (CLI) ou em um arquivo de texto que contém detalhes do sistema. Você pode usar sintaxe e opções com os comandos ICT.
+
+
+
+== Sintaxe
+
+* `*ict --cmd collect [--output <inventory.xml>] <uri> [<uri> ...]*`
+* `*ict --cmd collect [--output <inventory.xml>] --input <credential_file.txt>*`
+* `*ict --cmd generate-fc-zones --source-filers <filer-ip>[,<filer-ip>] --dest-svm <cluster-name:svm-name> --fc-switches <switch-ip>[:<vsan-id>][,<switch-ip>[:<vsan-id>] ... ] <inventory_xml> [<inventory_xml> ...]*`
+* `*ict --cmd generate-fc-zones --source-filers <filer-ip>[<filer-ip>] --dest-svm <cluster-name:svm-name> --fc-switches <switch-ip>[:<vsan-id>][,<switch-ip>[:<vsan-id>] ... ] --fc-switches-target <switch-ip>[:<vsan-id>][,<switch-ip>[:<vsan-id>] ... ] <inventory_xml> [<inventory_xml> ...]*`
+* `*ict --help*`
+* `*ict --version*`
+
+
+
+
+== Opções
+
+O arquivo de texto deve conter detalhes do sistema de cada sistema em uma linha separada:
+
+* uri1
+* uri2
+* uri3
+
+
+Se uma senha for `*` omitida ou no arquivo de texto ou CLI, o usuário será solicitado a inserir uma senha na CLI. As seguintes opções estão disponíveis para executar as TIC:
+
+* `--help`
++
+Mostra a mensagem de ajuda e as saídas.
+
+* `--version`
++
+Imprime a versão e as saídas da ferramenta.
+
+* `--cmd [collect|generate-fc-zones]`
++
+Coletar: Coleta informações de configuração e inventário de controladores e hosts.
+
++
+Generate-fc-Zones: Gera documento do planejador de zona FC em um determinado inventário.
+
+* `--output <filename[.xml[.gz]]>`
++
+Especifica o local onde os arquivos são gerados. Se o nome do ficheiro for sufixo com "'.gz" , o ficheiro é comprimido. Esta opção gera dois arquivos (relatórios): Relatório de inventário e Relatório de inventário Workbook.
+
+* `--input <credentials_file.txt>`
++
+Especifica o local onde o arquivo com credenciais do sistema é salvo. Esta opção não é utilizada em `--cmd generate-fc-` zonas.
+
++
+
+NOTE: Apenas é suportado um ficheiro de texto codificado em ASCII.
+
+* formato uri(`ontap|windows|vmware|linux|cisco|brocade)://[(<user>|<domain_user>)[:(<password>|*)]@](<hostname>|<ip>` )
++
+Especifica o tipo de sistema, o endereço IP e as credenciais do controlador ou host. Se a senha fornecida for `*`, ou se nenhuma senha for fornecida, o usuário será solicitado a digitar uma senha na linha de comando.
+
+* `--source-filers`
++
+Especifica o endereço IP separado por vírgulas dos controladores de origem a serem usados na geração do Plano de zona FC.
+
+* `--dest-svm`
++
+Especifica o SVM Data ONTAP agrupado de destino formatado como `_cluster-name:svm-name_` a ser usado na geração do Plano de zona FC.
+
+* `--fc-switches`
++
+Lista os switches FC para os quais o plano de zona FC tem de ser gerado. É uma lista separada por vírgulas de identificadores de switch. Para Cisco, os switches FC devem ser formatados como `_switch-ip:vsan-id_` e para Brocade, os switches FC devem ser formatados como `_switch-ip_`. Por exemplo, 10.61.187.6:200,10.61.187.7:200 (Cisco) ou 10.61.187.4,10.61.187.5 (Brocade)
+
+* `--fc-switches-target`
++
+Especifica a lista de switches FC (conetados ao cluster) para os quais o plano de zona FC deve ser gerado. É uma lista separada por vírgulas de identificadores de switch alvo que são listados na mesma sequência que os switches Origin FC (--fc-switches). O script de zoneamento FC é gerado para cada switch de origem adicionado à lista de parâmetros dos switches fc. Este é um parâmetro opcional.
+
+
+
+Para o planejador de zona FC, os XMLs de inventário de entrada são dados como argumentos sem nome.

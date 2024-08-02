@@ -1,0 +1,44 @@
+---
+permalink: copy-free/concept_considerations_for_transitioning_dns_and_ldap_configurations.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, dns, nis, ldap, configurations 
+summary: Você deve estar ciente de como as configurações DNS, NIS e LDAP no Data ONTAP operando no modo 7 são transferidas e aplicadas no ONTAP. 
+---
+= Considerações para a transição de configurações DNS, NIS e LDAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você deve estar ciente de como as configurações DNS, NIS e LDAP no Data ONTAP operando no modo 7 são transferidas e aplicadas no ONTAP.
+
+
+
+== Considerações para a transição de DNS
+
+Para configurações de DNS, no máximo seis nomes de domínio e três servidores de nomes por SVM são compatíveis com o ONTAP. Se o número exclusivo de nomes de domínio ou servidores de nomes em sistemas 7-Mode e o SVM de destino exceder o limite suportado, a ferramenta de transição 7-Mode relata um erro de bloqueio. Para continuar com a transição, você deve ignorar a transição da configuração DNS da ferramenta.
+
+
+NOTE: Se você ignorar a transição da configuração DNS, deverá configurar manualmente o DNS no SVM de destino.
+
+
+
+== Considerações para a transição NIS
+
+* O comprimento do nome de domínio NIS no sistema de 7 modos não deve exceder 64 carateres.
+* Para fazer a transição para versões de cluster de destino que executam o ONTAP 9.1 ou anterior, a `nis.servers` opção no sistema de modo 7 deve ser configurada somente com endereços IP e não com um nome de domínio totalmente qualificado (FQDN).
++
+Você deve configurar a `nis.servers` opção no sistema de 7 modos com endereços IP antes da transição se estiver migrando para um cluster que executa o ONTAP 9.1 ou anterior. A transição é suportada se você tiver a `nis.servers` opção no sistema de 7 modos configurada com um FQDN e estiver migrando para um cluster executando qualquer versão do ONTAP entre 9,2 e 9,5.
+
+
+
+
+
+== Considerações para a transição LDAP
+
+* Se forem especificados valores base e valores de escopo separados para mapeamento de usuários (`ldap.usermap.base`) e (`ldap.base.passwd`busca de senha de usuário ) no sistema 7-Mode, os valores base e os valores de escopo somente para a senha de usuário serão transferidos.
++
+Os valores base e os valores de escopo são usados para mapeamento de usuários e pesquisas de senha de usuário no ONTAP, o que pode causar problemas de segurança. Você deve adicionar manualmente os valores base e os valores de escopo do mapeamento de usuário à opção Nome distinto do usuário (DN) no ONTAP após a transição, se necessário.
+
+

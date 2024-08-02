@@ -1,0 +1,46 @@
+---
+permalink: copy-based/concept_prerequisites_to_transition_nfs_configurations.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, prerequisites, nfs, configurations 
+summary: As configurações NFS são transferidas pela ferramenta de transição de 7 modos somente quando certos pré-requisitos são atendidos no sistema de 7 modos e no cluster. Se alguma das condições não for cumprida, a ferramenta não faz a transição da configuração. 
+---
+= Pré-requisitos para a transição de configurações NFS
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+As configurações NFS são transferidas pela ferramenta de transição de 7 modos somente quando certos pré-requisitos são atendidos no sistema de 7 modos e no cluster. Se alguma das condições não for cumprida, a ferramenta não faz a transição da configuração.
+
+
+
+== Pré-requisitos do 7-Mode
+
+* O NFS deve ser licenciado.
+* Se o MultiStore for licenciado, o NFS deve estar habilitado na unidade do vFiler que possui os volumes em transição.
+* Para fazer a transição de um servidor Kerberos baseado no Microsoft ative Directory (AD) para um novo SVM, uma entrada DNS deve existir para o domínio AD.
++
+
+NOTE: Para fazer a transição da configuração Kerberos, pelo menos um LIF deve ser transferido como parte do projeto e o LIF deve ser resolvido para um nome de host.
+
+* Se você quiser fazer a transição de regras de exportação na memória, você deve adicioná-las ao `/etc/exports` arquivo antes da transição.
++
+A ferramenta de transição de 7 modos faz a transição apenas das regras de exportação persistentes definidas no `/etc/exports` arquivo.
+
+
+
+
+
+== Pré-requisitos do cluster
+
+* O NFS deve ser licenciado.
+* Para fazer a transição de um servidor Kerberos baseado no Microsoft AD para um SVM existente com DNS configurado, uma entrada DNS deve existir para o domínio AD.
+* O desvio do relógio entre o centro de distribuição de chaves Kerberos (KDC) e o sistema ONTAP deve ser menor ou igual a 5 minutos.
+
+
+*Informações relacionadas*
+
+xref:concept_how_nfs_exports_are_transitioned.adoc[Como as exportações de NFS são transferidas]
+
+http://docs.netapp.com/ontap-9/index.jsp["Documentação do NetApp: ONTAP 9"]

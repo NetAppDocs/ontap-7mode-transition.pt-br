@@ -1,0 +1,26 @@
+---
+permalink: copy-based/task_editing_a_subproject.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, edit, project 
+summary: Você pode editar um projeto para adicionar ou remover volumes e modificar as configurações de transição. 
+---
+= Editando um projeto
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode editar um projeto para adicionar ou remover volumes e modificar as configurações de transição.
+
+* Você deve ter criado um projeto.
+* Você não deve ter iniciado o projeto que deseja editar.
+
+
+Você pode editar um projeto para alterar os volumes selecionados para a transição. Você também pode editar um projeto para alterar o mapeamento SVM, o mapeamento de volume e o mapeamento de interface, bem como a programação de cópia de dados. Não é possível alterar o tipo de projeto ou a unidade do vFiler ao editar um projeto.
+
+.Passos
+. Na janela *Dashboard*, selecione o projeto que deseja editar.
+. Clique em *Editar projeto* e selecione a etapa necessária na lista suspensa.
+. Conclua o assistente para editar o projeto.
+

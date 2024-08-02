@@ -1,0 +1,68 @@
+---
+permalink: install-admin/concept_comparison_of_copy_free_transition_and_copy_based_transition.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, install, copy, free, transition, based 
+summary: Você pode usar a ferramenta de transição de modo 7D para migrar seus dados e configurações do modo 7D para o ONTAP usando a transição baseada em cópia ou a transição livre de cópias. É importante entender as diferenças entre os dois métodos antes da transição. 
+---
+= Comparação da transição livre de cópia e transição baseada em cópia
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode usar a ferramenta de transição de modo 7D para migrar seus dados e configurações do modo 7D para o ONTAP usando a transição baseada em cópia ou a transição livre de cópias. É importante entender as diferenças entre os dois métodos antes da transição.
+
+|===
+| Parâmetro | Transição livre de cópias | Transição baseada em cópia 
+
+
+ a| 
+Unidade de transição
+ a| 
+Par de HA
+ a| 
+Grupo de volumes
+
+
+
+ a| 
+Requisito de hardware
+ a| 
+As gavetas de disco são reutilizadas
+ a| 
+Novos compartimentos de discos e discos para hospedar os volumes transferidos
+
+
+
+ a| 
+Requisito da plataforma
+ a| 
+Compatível apenas em plataformas de nível médio e alto https://mysupport.netapp.com/matrix["Ferramenta de Matriz de interoperabilidade do NetApp"]
+ a| 
+Compatível com todas as plataformas
+
+
+
+ a| 
+Duração da transição
+ a| 
+Geral, duração de transição mais curta (nenhuma cópia de dados necessária)
+ a| 
+Duração mais longa (a linha de base inicial e o tempo de transferência de atualização variam de acordo com a carga de trabalho, a largura de banda da rede e a capacidade de dados que estão sendo migrados)
+
+
+
+ a| 
+Interrupção do acesso aos dados
+ a| 
+No intervalo de horas
+
+
+IMPORTANT: Na maioria dos casos, o tempo de transferência de storage pode ser de 3 a 8 horas. O tempo de transição inclui o tempo gasto pela ferramenta para executar duas operações automatizadas - a operação de exportação e parada e a operação de importação -, bem como o tempo gasto para fazer o cabeamento manual dos compartimentos de disco para as novas controladoras. A operação de exportação e parada e a operação de importação juntos podem levar até 2 horas. O cabeamento das gavetas de disco pode levar de 1 hora a 6 horas.
+
+Essa orientação de tempo de transição não inclui o tempo necessário para os testes de pré-produção necessários e assume uma transição sem erros sem falhas inesperadas, como uma falha de disco.
+ a| 
+No intervalo de minutos
+
+|===

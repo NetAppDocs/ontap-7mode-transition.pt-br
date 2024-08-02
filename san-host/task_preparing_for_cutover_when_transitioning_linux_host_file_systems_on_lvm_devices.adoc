@@ -1,0 +1,68 @@
+---
+permalink: san-host/task_preparing_for_cutover_when_transitioning_linux_host_file_systems_on_lvm_devices.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, cutover, phase, host, lvm, device 
+summary: 'Se você estiver fazendo a transição de um sistema de arquivos host Linux em um dispositivo Logical volume Manager (LVM), há etapas que você deve executar antes da fase de transição.' 
+---
+= Preparando-se para a fase de transição ao fazer a transição de sistemas de arquivos host Linux em dispositivos LVM
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Se você estiver fazendo a transição de um sistema de arquivos host Linux em um dispositivo LVM (Logical volume Manager), há etapas que devem ser executadas antes da fase de transição.
+
+* Para configurações de FC, você precisa ter conectividade de malha e zoneamento para controladores Data ONTAP em cluster.
+* Para configurações iSCSI, suas sessões iSCSI devem ser descobertas e conetadas aos controladores Data ONTAP em cluster.
+* Você deve ter as seguintes informações de pré-transição coletadas do _Inventory Assessment Workbook_:
++
+** Os nomes de dispositivos DMMP usados pela LVM
+** O nome do grupo de volume
+** O nome do volume lógico
+** O sistema de arquivos configurado no dispositivo de volume lógico
+** O diretório no qual os volumes lógicos são montados
+
+
+* Para transições baseadas em cópia, execute estas etapas antes de iniciar a operação de transferência de armazenamento na ferramenta de transição de 7 modos (7MTT).
+* Para transições sem cópia, execute estas etapas antes de iniciar a operação Export & Halt 7-Mode no 7MTT.
+
+
+.Passos
+. Pare os pontos de montagem de e/S para LV.
+. Encerre os aplicativos que acessam os LUNs de acordo com as recomendações do fornecedor do aplicativo.
+. Desmonte o ponto de montagem LV:
++
+`*umount _dir_name_*`
+
+. Desativar o volume lógico:
++
+`*vgchange -an _vg_name_*`
+
+. Verifique o status do volume lógico:
++
+`*lvdisplay _dir_name_*`
+
++
+O estado LV deve indicar "'NÃO disponível'".
+
+. Exportar o grupo de volumes:
++
+`*vgexport _vg_name_*`
+
+. Verifique o status de VG:
++
+`*vgdisplay _vg_name_*`
+
++
+O estado VG deve indicar ""exportado"".
+
+. Lave as IDs de dispositivo DDMP de 7 modos:
++
+`*multipath -f _device_name_*`
+
+
+
+*Informações relacionadas*
+
+xref:task_gathering_pretransition_information_from_inventory_assessment_workbook.adoc[Recolha de informações de pré-transição do livro de trabalho de avaliação de inventário]

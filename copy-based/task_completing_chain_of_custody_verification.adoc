@@ -1,0 +1,35 @@
+---
+permalink: copy-based/task_completing_chain_of_custody_verification.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, complete, chain, custody, verification 
+summary: Se um ou mais volumes SnapLock forem selecionados para verificação da Cadeia de Custódia, você deverá executar a operação Cadeia de Custódia para gerar um relatório Cadeia de Custódia. 
+---
+= Concluir a verificação da Cadeia de Custódia
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Se um ou mais volumes SnapLock forem selecionados para verificação da Cadeia de Custódia, você deverá executar a operação Cadeia de Custódia para gerar um relatório Cadeia de Custódia.
+
+Você deve ter concluído a transição do projeto.
+
+A operação da Cadeia de Custódia SnapLock é suportada para volumes com arquivos que têm nomes de arquivos com apenas carateres ASCII.
+
+. No Painel de migração, clique em *Start Chain of Custody*.
++
+Se quiser manter os volumes SnapLock de 7 modos online após a verificação da Cadeia de Custódia, desmarque a caixa de seleção *Take 7-Mode SnapLock volumes selecionados para verificação da Cadeia de Custódia offline após a conclusão da operação de verificação da Cadeia de Custódia*.
+
+. Clique em *continuar*.
++
+A operação de verificação da Cadeia de Custódia é iniciada. Essa operação pode levar um tempo significativo com base no número de arquivos nos volumes do SnapLock. Você pode clicar em *Executar em segundo plano* para executar a operação em segundo plano.
+
++
+Você pode acompanhar o andamento da operação de verificação da Cadeia de Custódia clicando na guia Cadeia de Custódia SnapLock na janela Painel de migração. Este separador apresenta o progresso por volume da operação Cadeia de Custódia.
+
+. Após a conclusão da operação de Cadeia de Custódia, clique em *Download Report* na guia Cadeia de Custódia SnapLock para fazer o download do relatório de verificação de Cadeia de Custódia.
++
+O relatório de verificação da Cadeia de Custódia contém detalhes sobre se a verificação da Cadeia de Custódia SnapLock foi bem-sucedida. O relatório mostra a contagem total de arquivos e o número de arquivos não WORM em cada um dos volumes SnapLock de 7 modos selecionados para a operação Cadeia de Custódia. Você também pode verificar o número de arquivos para os quais as impressões digitais corresponderam e não corresponderam. O relatório também mostra o número de arquivos WORM para os quais a verificação da Cadeia de Custódia falhou e o motivo da falha.
+
+

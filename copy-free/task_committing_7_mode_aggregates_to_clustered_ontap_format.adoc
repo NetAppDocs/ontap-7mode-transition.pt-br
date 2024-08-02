@@ -1,0 +1,25 @@
+---
+permalink: copy-free/task_committing_7_mode_aggregates_to_clustered_ontap_format.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, commit, project 
+summary: O passo final na transição é comprometer o projeto de transição livre de cópias. Depois de confirmar os agregados, você não pode executar uma reversão para o modo 7D. 
+---
+= Comprometendo o projeto de transição livre de cópias
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O passo final na transição é comprometer o projeto de transição livre de cópias. Depois de confirmar os agregados, você não pode executar uma reversão para o modo 7D.
+
+Você precisa ter verificado manualmente os dados e configurações transferidos, além de workloads e aplicações testados.
+
+Todas as cópias Snapshot de nível agregado criadas na fase de exportação são excluídas.
+
+.Passos
+. Clique em *Commit*.
+. Na mensagem de aviso exibida, clique em *Yes*.
+
+
+Todas as restrições de fase de teste de pré-produção são removidas e os volumes transferidos podem servir dados de produção, se não forem feitos na fase de teste de pré-produção.

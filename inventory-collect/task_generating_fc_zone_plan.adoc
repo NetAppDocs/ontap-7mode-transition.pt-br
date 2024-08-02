@@ -1,0 +1,48 @@
+---
+permalink: inventory-collect/task_generating_fc_zone_plan.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, generate, fc, zone, plan, transition 
+summary: Depois de coletar informações sobre os sistemas Data ONTAP, hosts e switches FC, você pode gerar o plano de zona FC, que é usado para configurar os switches no cluster após a migração. 
+---
+= Gerando o plano de zona FC
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Depois de coletar informações sobre os sistemas Data ONTAP, hosts e switches FC, você pode gerar o plano de zona FC, que é usado para configurar os switches no cluster após a migração.
+
+* Os sistemas de 7 modos, os hosts e o cluster devem estar conetados ao switch.
+* Informações sobre o cluster, SVMs, FCP LIFs e switches devem ser coletadas.
++
+O cluster pode ser conetado ao mesmo switch que o sistema de 7 modos ou a um novo switch na mesma malha.
+
++
+xref:concept_supported_configurations_for_generating_an_fc_zone_plan.adoc[Configurações compatíveis para gerar um plano de zona FC]
+
+
+
+.Passos
+. Na CLI, navegue até o diretório ICT.
+. Na CLI, gere o plano de zona FC:
++
+`*ict --cmd generate-fc-zones --source-filers _7-mode-ip1,7mode-ip2_ --dest-svm _cluster-name:vserver-name_ --fc-switches _switch-name:vsan-id1,vsan-id2_ 7mode_cdot_switch_inventory.xml*`
+
++
+Tem de introduzir a ID VSAN para os comutadores Cisco.
+
++
+[listing]
+----
+...bin\ict>ict --cmd generate-fc-zones --source-filers system1,system2 --dest-svm vs1:fc_zone1
+ --fc-switches brocade-1,brocade-2 7mode_cdot_switch_inventory.xml
+----
++
+O plano de zona FC contém zonas criadas de acordo com as configurações do igrop nos sistemas 7-Mode. Cada zona contém um único iniciador WWPN e vários WWPNs de destino SVM.
+
+
+
+Em uma transição baseada em cópia, você pode usar o plano de zona FC para configurar as zonas durante o modo de leitura/gravação do precutover para verificar a configuração do cluster usando os hosts de teste ou após a fase de transição para fornecer acesso aos dados aos hosts do iniciador do cluster.
+
+Em uma transição sem cópia, você deve usar o plano de zona FC para configurar as zonas para agrupar os hosts e destinos do iniciador para fornecer acesso a dados do cluster durante a fase de configuração aplicar.

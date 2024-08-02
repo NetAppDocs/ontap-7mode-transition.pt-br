@@ -1,0 +1,20 @@
+---
+permalink: san-host/concept_vmware_esxi_host_remediation.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, esxi, host, remediation 
+summary: 'Se você estiver usando a ferramenta de transição de 7 modos (7MTT) para passar do Data ONTAP operando no modo 7 para o Data ONTAP em cluster em um ambiente SAN, você deverá executar uma série de etapas em seus hosts VMware ESXi antes da transição do Data ONTAP. Você deve desligar seus hosts antes da transição e executar outra série de etapas após a transição antes de começar a fornecer dados.' 
+---
+= Correção do host VMware ESXi
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Se você estiver usando a ferramenta de transição de 7 modos (7MTT) para passar do Data ONTAP operando no modo 7 para o Data ONTAP em cluster em um ambiente SAN, execute uma série de etapas nos hosts do VMware ESXi antes da transição do Data ONTAP. Você deve desligar seus hosts antes da transição e executar outra série de etapas após a transição antes de começar a fornecer dados.
+
+*Informações relacionadas*
+
+xref:task_testing_transitioned_luns_and_esxi_host_applications_before_cutover.adoc[Teste de LUNs transicionados e aplicativos host ESXi antes da fase de transição das transições baseadas em cópia]
+
+xref:concept_post_transition_requirements_for_esxi_hosts.adoc[Requisitos de remediação pós-transição para hosts ESXi]

@@ -1,0 +1,21 @@
+---
+permalink: copy-based/task_deleting_a_project.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, delete, project 
+summary: Se você não quiser um projeto, você pode excluí-lo do Dashboard. 
+---
+= Excluindo um projeto
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Se você não quiser um projeto, você pode excluí-lo do Dashboard.
+
+. No painel grupos DashboardProjects, clique no grupo de projetos ao qual o projeto pertence.
+. No painel Resumo do grupo, clique em *Modificar* e, em seguida, clique em *Excluir*.
++
+Não é possível excluir um projeto se o projeto tiver falhado durante a fase de transição.
+
+

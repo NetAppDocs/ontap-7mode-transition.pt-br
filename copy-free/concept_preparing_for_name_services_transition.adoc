@@ -1,0 +1,14 @@
+---
+permalink: copy-free/concept_preparing_for_name_services_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, name, services, prepare 
+summary: As configurações do serviço de nomes que incluem DNS, LDAP, NIS, hosts, switch de serviços de nome, usuários e grupos UNIX e configurações de netgroups são transicionadas pela ferramenta de transição de 7 modos. Você deve estar ciente de algumas considerações antes de fazer a transição das configurações dos serviços de nome. 
+---
+= Preparando-se para a transição de serviços de nomes
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+As configurações do serviço de nomes que incluem DNS, LDAP, NIS, hosts, switch de serviços de nome, usuários e grupos UNIX e configurações de netgroups são transicionadas pela ferramenta de transição de 7 modos. Você deve estar ciente de algumas considerações antes de fazer a transição das configurações dos serviços de nome.

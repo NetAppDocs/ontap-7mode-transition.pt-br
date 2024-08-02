@@ -1,0 +1,84 @@
+---
+permalink: copy-based/task_finding_and_removing_32_bit_data_from_source_volumes_and_snapshot_copies.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, find, remove, 32, volume, snapshot, copy 
+summary: Mesmo que você tenha expandido todos os agregados para o formato de 64 bits, alguns FlexVol volumes ou cópias Snapshot de 32 bits ou de formato misto podem permanecer. Esses volumes e cópias Snapshot precisam ser removidos antes que os dados possam ser acessados por um cluster que executa o Data ONTAP 8.3 ou posterior. 
+---
+= Localizar e remover volumes de 32 bits e cópias Snapshot
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mesmo que você tenha expandido todos os agregados para o formato de 64 bits, alguns FlexVol volumes ou cópias Snapshot de 32 bits ou de formato misto podem permanecer. Esses volumes e cópias Snapshot precisam ser removidos antes que os dados possam ser acessados por um cluster que executa o Data ONTAP 8.3 ou posterior.
+
+* Você deve ter expandido todos os agregados de 32 bits no sistema para o formato de 64 bits.
+
+
+Você deve repetir as etapas nesta tarefa para cada agregado que contenha volumes de 32 bits e cópias Snapshot.
+
+.Passos
+. Entrar no modo avançado:
++
+`*priv set advanced*`
+
+. Exibir o formato de todos os volumes no agregado:
++
+`*aggr 64bit-upgrade status _aggr_name_ -all*`
+
++
+Cada volume no agregado é exibido com seu formato.
+
+. Para cada volume de 32 bits ou formato misto, determine o motivo pelo qual o volume não foi expandido para o formato de 64 bits e, em seguida, tome a ação apropriada.
++
+Se você não conseguir determinar o motivo pelo qual o volume não foi expandido, tente novamente a expansão agregada.
+
++
+|===
+| Se o volume... | Então... 
+
+
+ a| 
+É o destino de uma relação SnapMirror
+ a| 
+Expanda o agregado que contém o volume de origem para o formato de 64 bits.
+
+
+
+ a| 
+É um volume somente leitura (mas não um destino SnapMirror)
+ a| 
+Torne o volume gravável e tente novamente a expansão ou destrua o volume.
+
+
+
+ a| 
+Não se expandiu por causa de espaço livre insuficiente no volume ou agregado
+ a| 
+Aumente o espaço livre no volume ou agregado e tente novamente a expansão.
+
+|===
++
+Todos os volumes de 32 bits e de formato misto no agregado agora são de 64 bits. Você pode confirmar isso repetindo o passo anterior.
+
+. Exibir o formato de todas as cópias Snapshot no sistema:
++
+`*snap list -fs-block-format*`
+
+. Remova as cópias Snapshot de 32 bits usando o `snap delete` comando.
++
+
+IMPORTANT: Esta ação exclui os dados nas cópias Snapshot. Você precisa ter certeza de que não precisa reter as cópias Snapshot antes de excluí-las. Como alternativa, você pode esperar que as cópias Snapshot de 32 bits sejam envelhecidas. O tempo necessário depende da programação da cópia Snapshot.
+
++
+Se uma cópia Snapshot for a cópia Snapshot base de um volume FlexClone, você deverá dividir o volume FlexClone de seu pai antes de remover a cópia Snapshot.
+
++
+Todas as cópias Snapshot de 32 bits são removidas. Você pode confirmar isso repetindo o passo anterior.
+
+. Voltar ao nível de privilégio administrativo:
++
+`*priv set admin*`
+
+

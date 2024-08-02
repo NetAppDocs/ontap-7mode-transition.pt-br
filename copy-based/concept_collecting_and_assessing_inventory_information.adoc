@@ -1,0 +1,24 @@
+---
+permalink: copy-based/concept_collecting_and_assessing_inventory_information.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, collect, assess, inventory, information 
+summary: Você pode coletar informações de inventário de controladores, hosts e switches FC. Em seguida, você pode avaliar os recursos e funcionalidades desses sistemas e identificar como esses recursos e funcionalidades funcionam na versão do ONTAP selecionada para transição. 
+---
+= Recolha e avaliação das informações de inventário
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode coletar informações de inventário de controladores, hosts e switches FC. Em seguida, você pode avaliar os recursos e funcionalidades desses sistemas e identificar como esses recursos e funcionalidades funcionam na versão do ONTAP selecionada para transição.
+
+Você pode coletar informações de inventário de duas maneiras:
+
+* Se a segurança do seu ambiente o permitir, você pode instalar a ferramenta de transição de 7 modos e usá-la para coletar as informações de inventário.
+* Você pode importar o relatório XML de inventário gerado pela ferramenta de coleta de inventário e, em seguida, executar a avaliação.
+
+
+Em ambos os casos, você deve usar o Inventory Collect Tool 3,3 para coletar o inventário.
+
+image::../media/cbt_assessment_workflow.gif[fluxo de trabalho de avaliação cbt]

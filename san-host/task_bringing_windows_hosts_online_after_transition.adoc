@@ -1,0 +1,79 @@
+---
+permalink: san-host/task_bringing_windows_hosts_online_after_transition.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, windows, host, online 
+summary: 'Depois de fazer a transição dos LUNs usando a ferramenta de transição de 7 modos (7MTT) para hosts do Windows, você deve concluir várias etapas para colocar o host on-line e começar a prestar serviços de dados novamente.' 
+---
+= Colocar os hosts do Windows online após a transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Depois de fazer a transição dos LUNs usando a ferramenta de transição de 7 modos (7MTT) para hosts Windows, você deve concluir várias etapas para colocar o host on-line e começar a prestar serviços de dados novamente.
+
+Se estiver a efetuar uma transição livre de cópias (CFT), os procedimentos para `vol rehost` têm de estar concluídos. Consulte link:https://docs.netapp.com/us-en/ontap-7mode-transition/copy-free/index.html["7-Mode Transition Tool Copy-Free Transition Guide (Guia de transição sem cópia)"]para obter detalhes.
+
+* Para transições baseadas em cópia (CBTs), execute estas etapas após concluir a operação de transferência de armazenamento na ferramenta de transição de 7 modos (7MTT).
+* Para CFTs, execute estas etapas depois de concluir a operação Import & Data Configuration (Configuração de importação e dados) no 7MTT.
++
+.. Gere o ficheiro de mapeamento de LUN de modo 7D para ONTAP:
++
+*** Para transições baseadas em cópia, execute o seguinte comando a partir do host onde o 7MTT está instalado
+`*transition cbt export lunmap -p _project-name_ -o _file_path_*`
++
+Por exemplo:
+
++
+`*transition cbt export lunmap -p SanWorkLoad -o c:/Libraires/Documents/7-to-C-LUN-MAPPING.csv*`
+
+*** Para transições sem cópia, execute o seguinte comando a partir do sistema onde o 7MTT está instalado
+`*transition cft export lunmap -p _project-name_ -s _svm-name_ -o _output-file_*`
++
+
+NOTE: Você deve executar este comando para cada uma das suas máquinas virtuais de armazenamento (SVMs).
+
++
+Por exemplo:
+
++
+`*transition cft export lunmap -p SANWorkLoad -s svml -o c:/Libraries/Documents/7-to-C-LUN-MAPPING-svml.csv*`
+
+
+
+.. Se o host do Windows for inicializado por SAN e o LUN de inicialização tiver sido transferido, ligue o host.
+.. Atualize o BIOS FC para permitir que o sistema inicialize a partir do LUN no controlador Data ONTAP em cluster.
++
+Consulte a documentação do HBA para obter mais informações.
+
+.. No host do Windows, faça a varredura novamente dos discos do Gerenciador de disco.
+.. Obtenha os números de série do LUN, as IDs de LUN e os números de disco físico do Windows correspondentes dos LUNs mapeados para o host.
++
+*** Para sistemas que executam o Data ONTAP ONTAPDSM: Use o snap-in extensão de gerenciamento de dados ONTAPDSM ou o cmdlet Get-sandisk Windows PowerShell.
+*** Para sistemas que executam MSDSM: Use a ferramenta de coleta de inventário (ICT).
++
+O ID LUN, o número de série LUN e o número de série correspondente são capturados na guia SAN Host LUNs.
+
+
+
+.. Use os números de série LUN, IDs LUN e os números de disco físico do Windows correspondentes dos LUNs, juntamente com a saída do mapa LUN e os dados coletados no estado de pré-transição, para determinar se os LUNs fizeram a transição com êxito.
+.. Observe se os números de disco físico dos LUNs transicionados foram alterados.
+.. Coloque os seus discos online.
++
+*** Use o Gerenciador de disco do Windows para trazer discos on-line que não fazem parte do failover de cluster.
+*** Use o Gerenciador de Cluster de failover para trazer discos on-line que fazem parte do failover de cluster.
+
+
+.. Se o host em transição estiver executando o Windows Server 2003 e você tiver migrado o dispositivo de quorum, inicie os serviços de cluster em todos os nós de cluster.
+.. Se o Hyper-V estiver ativado no host e os dispositivos de passagem estiverem configurados para as VMs, modifique as configurações do Gerenciador do Hyper-V.
++
+O número de disco físico do LUN correspondente ao dispositivo de passagem pode ter sido alterado como resultado da transição.
+
+
+
+
+
+*Informações relacionadas*
+
+xref:concept_what_the_inventory_collect_tool_is.adoc[O que é a ferramenta de coleta de inventário]

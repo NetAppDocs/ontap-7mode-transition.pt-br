@@ -1,0 +1,49 @@
+---
+permalink: san-host/task_preparing_for_cutover_when_transitioning_hp_ux_host_data_luns_with_file_systems.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, cutover, phase, hp, ux, host, data, lun, file, system 
+summary: Se você estiver migrando um LUN de dados do host HP com um sistema de arquivos do Data ONTAP operando no modo 7 para o Data ONTAP em cluster, execute determinadas etapas antes de entrar na fase de transição. 
+---
+= Preparação para a fase de transição ao fazer a transição de LUNs de dados de host HP-UX com sistemas de arquivos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Se você estiver migrando um LUN de dados do host HP com um sistema de arquivos do Data ONTAP operando no modo 7 para o Data ONTAP em cluster, execute determinadas etapas antes de entrar na fase de transição.
+
+Se você estiver usando uma configuração FC, a conectividade de malha e o zoneamento para os nós de Data ONTAP em cluster devem ser estabelecidos.
+
+Se estiver a utilizar uma configuração iSCSI, as sessões iSCSI para os nós Data ONTAP em cluster devem ser descobertas e iniciar sessão.
+
+Para transições baseadas em cópia, execute estas etapas após concluir a operação de transferência de armazenamento na ferramenta de transição de 7 modos (7MTT). Transições sem cópia não são suportadas para hosts HP-UX.
+
+.Passos
+. Parar e/S em todos os pontos de montagem.
+. Encerre cada aplicativo acessando os LUNs de acordo com as recomendações do fornecedor da aplicação.
+. Desmonte todos os pontos de montagem:
++
+`*umount _mount_point_*`
+
+. Exporte seu grupo de volumes e escreva o VGID e os volumes lógicos do grupo de volumes para um arquivo de mapa:
++
+`*vgexport -p -s -m /tmp/mapfile.vg01 vg01*`
+
+. Faça uma cópia de segurança do ficheiro mapfile.vg01 para uma fonte externa.
+. Desativar o grupo de volumes:
++
+`*vgchange -a n _vg_name_*`
+
+. Exportar o grupo de volumes:
++
+`*vgexport _vg_name_*`
+
+. Verifique se o grupo de volumes foi exportado:
++
+`*vgdisplay*`
+
++
+As informações do grupo de volumes exportados não devem ser exibidas na saída.
+
+

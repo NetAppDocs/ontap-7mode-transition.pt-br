@@ -1,0 +1,37 @@
+---
+permalink: san-host/task_remounting_vmfs_volumes_after_transition_using_vsphere_client.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, remount, vmfs, volumes, vshpere, client 
+summary: 'Após a transição, você deve remontar seus volumes VMFS para levar seus armazenamentos de dados e máquinas virtuais (VMs) para seus estados de pré-transição. Se você não estiver familiarizado com a CLI do ESXi ou for mais conveniente no seu ambiente, use o vSphere Client para remontar seus volumes.' 
+---
+= Remontando volumes VMFS após a transição usando o vSphere Client
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Após a transição, você precisa remontar seus volumes VMFS para levar os armazenamentos de dados e as máquinas virtuais (VMs) aos estados de pré-transição. Se você não estiver familiarizado com a CLI do ESXi ou for mais conveniente no seu ambiente, use o vSphere Client para remontar seus volumes.
+
+Essas etapas se aplicam a volumes e volumes estendidos.
+
+.Passos
+. Faça login no host ESXi ou no vCenter Server que gerencia o host ESXi.
+. Em *hosts e clusters*, selecione o host ESXi.
+. Navegue até *Configuração* > *hardware* > *armazenamento*.
+. No canto superior direito, clique em *Adicionar armazenamento*.
+. Selecione *Disk/LUN*.
+. Clique em *seguinte*.
+. Na lista de LUNs, localize a coluna *VMFS_label* exibindo o nome do datastore.
+. Selecione o LUN para concluir a operação de remontagem.
++
+Se você estiver remontando um volume VMFS estendido, o primeiro LUN no intervalo será marcado como "'cabeça'". Você deve selecionar o LUN "'cabeça'" para concluir a operação de remontagem.
+
+. Clique em *seguinte*.
+. Na janela Selecionar opções de montagem VMFS, selecione *manter a assinatura existente*.
+. Conclua o assistente.
+. Repita essas etapas para todos os LUNs que exibem o nome do datastore na coluna VMFS_label.
++
+Armazenamentos de dados são remontados e as VMs estão ativas.
+
+

@@ -1,0 +1,18 @@
+---
+permalink: snapmirror/concept_licensing_requirements_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, license, requirements, transition, snapmirror, clusters, volume 
+summary: Antes de fazer a transição de um volume do modo 7 para o Clustered Data ONTAP, você deve garantir que o SnapMirror seja licenciado no sistema de storage 7-Mode. Se você estiver fazendo a transição de uma relação de SnapMirror de volume de 7 modos, as licenças do SnapMirror também serão necessárias nos clusters de origem e destino. 
+---
+= Requisitos de licença para transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de fazer a transição de um volume do modo 7 para o Clustered Data ONTAP, você deve garantir que o SnapMirror seja licenciado no sistema de storage 7-Mode. Se você estiver fazendo a transição de uma relação de SnapMirror de volume de 7 modos, as licenças do SnapMirror também serão necessárias nos clusters de origem e destino.
+
+Se o SnapMirror já estiver licenciado no seu sistema de 7 modos, você poderá usar a mesma licença para transição. Se você não tiver a licença SnapMirror de 7 modos, poderá obter uma licença SnapMirror temporária para transição do seu representante de vendas.
+
+As licenças de recurso que estão habilitadas no sistema 7-Mode devem ser adicionadas ao cluster. Para obter informações sobre como obter licenças de recursos no cluster, consulte link:https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sag/home.html["Referência de administração do sistema"].

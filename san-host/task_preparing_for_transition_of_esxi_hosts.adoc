@@ -1,0 +1,52 @@
+---
+permalink: san-host/task_preparing_for_transition_of_esxi_hosts.html 
+sidebar: sidebar 
+keywords: transition, esxi, host, initiator, hba driver, collect assess feature 
+summary: Tarefas a serem concluídas antes de fazer a transição dos hosts ESXi do Data ONTAP 
+---
+= Preparando-se para a transição de hosts ESXi
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você deve concluir várias tarefas pré-requisitos antes de usar a ferramenta de transição de 7 modos (7MTT) para fazer a transição de seus hosts ESXi do Data ONTAP operando no modo 7 para o ONTAP.
+
+.Passos
+. Configure o Clustered Data ONTAP conforme descrito na link:http://docs.netapp.com/us-en/ontap-7mode-transition/copy-based/index.html["7-Mode Transition Tool Guia de transição baseado em cópia"]ou link:https://docs.netapp.com/us-en/ontap-7mode-transition/copy-free/index.html["7-Mode Transition Tool Copy-Free Transition Guide (Guia de transição sem cópia)"]com base no tipo de transição que você está executando.
+. Reúna as seguintes informações para os hosts ESXi que você está fazendo a transição:
++
+** Endereço IP
+** Nome do host
+** Detalhes de autenticação
+
+
+. Conclua o zoneamento entre hosts FC ou FCoE e novos nós de Data ONTAP em cluster.
++
+Você pode usar o recurso coletar e avaliar para gerar o plano de zoneamento.
+
+. Use o link:https://mysupport.netapp.com/matrix["Ferramenta de Matriz de interoperabilidade do NetApp"] para verificar se as seguintes opções são suportadas para a transição para o Clustered Data ONTAP:
++
+** A sua versão do Data ONTAP a funcionar no modo 7D.
++
+Em alguns casos, você pode ter que atualizar sua versão do Data ONTAP operando no modo 7 para uma versão compatível com SAN 7MTT. Por exemplo, o Data ONTAP 7.3.7 operando no modo 7 não é compatível para transições usando o 7MTT. Se você estiver executando esta versão, você deve atualizá-la antes de iniciar a transição.
+
+** Sua configuração de host ESXi
+** O seu controlador e firmware HBA
++
+Para iSCSI, apenas são suportados iniciadores de software. Para FC e FCoE, apenas os iniciadores QLogic e Emulex são suportados. Se o iniciador ESXi FC ou FCoE não for suportado, você deverá atualizar para uma versão compatível com o Clustered Data ONTAP, conforme descrito na Matriz de interoperabilidade.
+
+
+
+. Se configurado, desative o VMware High Availability (HA) e o DRS (Distributed Resource Scheduler).
++
+O VMware HA e o DRS não são suportados durante a transição.
+
+
+
+*Informações relacionadas*
+
+http://kb.vmware.com/kb/2032893["Retenção de pools de recursos ao desabilitar clusters do VMware DRS no vSphere Web Client"]
+
+http://kb.vmware.com/kb/1008025["Desativação do VMware High Availability (HA)"]

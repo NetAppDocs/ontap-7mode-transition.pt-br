@@ -1,0 +1,58 @@
+---
+permalink: copy-free/concept_supported_and_unsupported_data_protection_relationships.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, data, protection, supported, unsupported, configurations 
+summary: Você pode fazer a transição de um volume que faça parte de um relacionamento do SnapMirror. No entanto, algumas configurações de proteção de dados e recuperação de desastres não são suportadas para transição e, portanto, você precisa executar algumas etapas manuais para a transição dessas configurações. 
+---
+= Transição de proteção de dados: Configurações com suporte e sem suporte
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode fazer a transição de um volume que faça parte de um relacionamento do SnapMirror. No entanto, algumas configurações de proteção de dados e recuperação de desastres não são suportadas para transição e, portanto, você precisa executar algumas etapas manuais para a transição dessas configurações.
+
+
+
+== Configurações compatíveis
+
+Você pode fazer a transição de relações de volume SnapMirror usando a ferramenta de transição de 7 modos. É possível realizar uma transição sem cópia de pares de HA primário e secundário. Em seguida, você deve configurar manualmente as relações SnapMirror de volume após a transição.
+
+xref:task_transitioning_a_snapmirror_relationship.adoc[Fazendo a transição de uma relação SnapMirror]
+
+
+
+== Configurações não suportadas
+
+* Relacionamentos com SnapVault
++
+Os volumes que são a origem de um relacionamento SnapVault podem ser migrados; no entanto, o relacionamento SnapVault não é transicionado. Um volume que é o destino de uma relação do SnapVault só pode ser migrado depois que os backups do SnapVault forem interrompidos.
+
++
+https://www.netapp.com/pdf.html?item=/media/19510-tr-4052.pdf["Relatório técnico da NetApp 4052: Transição com êxito para o Clustered Data ONTAP (Data ONTAP 8.2.x e 8,3)"^]
+
+* Relacionamentos do Qtree SnapMirror
++
+Volumes com qtrees que são a fonte de uma relação de qtree SnapMirror podem ser transferidos, mas a relação de qtree SnapMirror não é transicionada. Um volume com uma qtree que seja o destino de uma relação de qtree SnapMirror só pode ser migrado depois que a relação de qtree SnapMirror for interrompida.
+
+* Unidade do vFiler de recuperação de desastres
++
+Os volumes que são a fonte de uma unidade do vFiler de recuperação de desastres podem ser migrados; no entanto, a unidade do vFiler de recuperação de desastres não é transicionada. Um volume que é o destino de uma unidade do vFiler de recuperação de desastres só pode ser migrado depois que o relacionamento de recuperação de desastres for excluído.
+
+* Configuração NDMP
++
+Após a conclusão da transição, você deverá configurar manualmente políticas de backup para os volumes transferidos no ONTAP.
+
++
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-ptbrg/home.html["Proteção de dados usando backup em fita"]
+
+* Relacionamentos de SnapMirror síncronos
++
+Esse recurso não é suportado no ONTAP; no entanto, os volumes que fazem parte do relacionamento podem ser transferidos.
+
+
+
+*Informações relacionadas*
+
+xref:task_customizing_configurations_for_transition.adoc[Personalizar a transição das configurações do modo 7D.]

@@ -1,0 +1,16 @@
+---
+permalink: install-admin/reference_windows_compatibility_assistant_notification_displayed_while_installing.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, install, windows, assistant, notification, compatibility 
+summary: Às vezes, ao instalar a ferramenta, você recebe a notificação do Assistente de Compatibilidade de programas do Windows de que o programa pode não ter instalado corretamente. Esta notificação não indica necessariamente que o programa não foi instalado corretamente. 
+---
+= Notificação do Assistente de Compatibilidade de programas do Windows exibida durante a instalação da ferramenta
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Às vezes, ao instalar a ferramenta, você recebe a notificação do Assistente de Compatibilidade de programas do Windows de que o programa pode não ter instalado corretamente. Esta notificação não indica necessariamente que o programa não foi instalado corretamente.
+
+Você pode ignorar esta notificação clicando em *este programa foi instalado corretamente*.

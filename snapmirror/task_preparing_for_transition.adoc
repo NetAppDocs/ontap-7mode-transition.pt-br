@@ -1,0 +1,14 @@
+---
+permalink: snapmirror/task_preparing_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, transition, prepare, storage, system, cluster 
+summary: 'Antes de iniciar a transição, você deve preparar o sistema de storage e o cluster de 7 modos antes de migrar volumes de 7 modos para o Clustered Data ONTAP. Você também deve criar uma relação de transição entre o sistema 7-Mode e a máquina virtual de armazenamento (SVM).' 
+---
+= Preparando-se para a transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de iniciar a transição, você deve preparar o sistema de storage e o cluster de 7 modos antes de migrar volumes de 7 modos para o Clustered Data ONTAP. Você também precisa criar um relacionamento de transição entre o sistema 7-Mode e a máquina virtual de storage (SVM).

@@ -1,0 +1,30 @@
+---
+permalink: copy-free/reference_required_tools_and_documentation.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, tools, documentation, required 
+summary: O Config Advisor é a ferramenta necessária para a transição livre de cópias. Você deve usar o Config Advisor para verificar o cabeamento das gavetas de disco. Documentação adicional também está disponível para correção de host SAN. 
+---
+= Ferramentas e documentação necessárias para a transição livre de cópias
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O Config Advisor é a ferramenta necessária para a transição livre de cópias. Você deve usar o Config Advisor para verificar o cabeamento das gavetas de disco. Documentação adicional também está disponível para correção de host SAN.
+
+
+
+== Config Advisor
+
+Você deve usar o perfil de execução ""transição"" no Config Advisor para verificar o cabeamento depois que as gavetas de disco de 7 modos forem conetadas aos nós do cluster de destino.
+
+https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["NetApp Downloads: Config Advisor"]
+
+
+
+== Documentação
+
+Descreve as etapas de pré-transição e pós-transição que devem ser executadas em hosts SAN ao fazer a transição usando a transição livre de cópia.
+
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-7mtt-sanspl/home.html["Transição e remediação DE host SAN"]

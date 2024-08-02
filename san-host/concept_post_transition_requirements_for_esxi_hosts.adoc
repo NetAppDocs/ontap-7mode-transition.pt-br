@@ -1,0 +1,32 @@
+---
+permalink: san-host/concept_post_transition_requirements_for_esxi_hosts.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, post, remediation, esxi, host 
+summary: 'Depois de fazer a transição de LUNs para hosts ESXi do Data ONTAP operando no modo 7 para Data ONTAP em cluster usando a ferramenta de transição de 7 modos (7MTT), você deve executar uma série de tarefas de correção para colocar seus LUNs on-line e começar a prestar serviços de dados.' 
+---
+= Requisitos de remediação pós-transição para hosts ESXi
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Depois de migrar LUNs para hosts ESXi do Data ONTAP operando no modo 7 para Data ONTAP em cluster usando a ferramenta de transição de 7 modos (7MTT), você deve executar uma série de tarefas de correção para colocar seus LUNs on-line e começar a fornecer dados.
+
+*Informações relacionadas*
+
+xref:task_preparing_for_post_transition_esxi_host_remediation.adoc[Preparando-se para a remediação do host ESXi pós-transição]
+
+xref:task_reregistering_vms_after_transition_on_non_san_boot_esxi_host_using_vsphere_client.adoc[Reregistrando VMs após a transição em hosts ESXi que não sejam SAN inicializam usando o vSphere Client]
+
+xref:task_setting_up_esxi_hosts_configured_for_san_boot_after_transition.adoc[Configurando hosts ESXi configurados para inicialização SAN após a transição]
+
+xref:task_determining_whether_vmfs_volumes_need_to_be_remounted_after_transition.adoc[Determinar se os volumes VMFS precisam ser remontados após a transição]
+
+xref:task_reattaching_rdm_luns_to_vms.adoc[Reanexando LUNs RDM a VMs]
+
+xref:task_enabling_caw_on_a_datastore_using_esxi_cli.adoc[Habilitando o CAW em um datastore usando a CLI ESXi]
+
+xref:concept_post_transition_remediation_for_linux_and_windows_guest_operating_systems.adoc[Remediação pós-transição para sistemas operacionais convidados Linux e Windows]
+
+xref:concept_configure_recommended_settings_for_esxi_hosts.adoc[Configurações recomendadas para hosts ESXi após a correção da transição]

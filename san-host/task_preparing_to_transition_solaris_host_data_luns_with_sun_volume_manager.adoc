@@ -1,0 +1,102 @@
+---
+permalink: san-host/task_preparing_to_transition_solaris_host_data_luns_with_sun_volume_manager.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, transition, solaris, host, lun, sun, volume, manager 
+summary: Antes de fazer a transição dos LUNs de dados do host Solaris com o Gerenciador de volumes Sun do ONTAP operando no modo 7 para o ONTAP em cluster, você deve reunir as informações necessárias para o processo de transição. 
+---
+= Preparando-se para a transição de LUNs host Solaris com o Sun volume Manager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de fazer a transição dos LUNs de dados do host Solaris com o Gerenciador de volumes Sun do ONTAP operando no modo 7 para o ONTAP em cluster, você deve reunir as informações necessárias para o processo de transição.
+
+Esta tarefa aplica-se a transições baseadas em cópia e transições sem cópia.
+
+.Passos
+. Exiba os LUNs para identificar o nome dos LUNs a serem transferidos:
++
+`*lun show*`
+
++
+[listing]
+----
+ fas8040-shu01> lun show
+        /vol/ufs/ufs1                  5g (5368709120)    (r/w, online, mapped)
+        /vol/ufs/ufs2                  5g (5368709120)    (r/w, online, mapped)
+        /vol/zfs/zfs1                  6g (6442450944)    (r/w, online, mapped)
+        /vol/zfs/zfs2                  6g (6442450944)    (r/w, online, mapped)
+----
+. No host, localize o nome do arquivo do dispositivo para o LUN:
++
+`*#sanlun lun show*`
+
++
+O nome do arquivo do dispositivo é listado `device filename` na coluna.
+
++
+[listing]
+----
+# sanlun lun show
+controller(7mode)/                    device                                            host                  lun
+vserver(Cmode)       lun-pathname     filename                                          adapter    protocol   size    mode
+--------------------------------------------------------------------------------------------------------------------------
+fas8040-shu01        /vol/zfs/zfs2    /dev/rdsk/c0t60A98000383035356C2447384D396550d0s2 scsi_vhci0 FCP        6g      7
+fas8040-shu01        /vol/zfs/zfs1    /dev/rdsk/c0t60A98000383035356C2447384D39654Ed0s2 scsi_vhci0 FCP        6g      7
+fas8040-shu01        /vol/ufs/ufs2    /dev/rdsk/c0t60A98000383035356C2447384D39654Ad0s2 scsi_vhci0 FCP        5g      7
+fas8040-shu01        /vol/ufs/ufs1    /dev/rdsk/c0t60A98000383035356C2447384D396548d0s2 scsi_vhci0 FCP        5g
+----
+. Liste e Registre o SVM e, em seguida, obtenha os discos associados ao SVM:
++
+`*metaset*`
+
++
+`*metaset -s _set-name_*`
+
++
+[listing]
+----
+# metaset
+Set name = svm, Set number = 1
+Host                Owner
+  Solarisx2-shu04        Yes
+Drive                                            Dbase
+/dev/dsk/c0t60A98000383035356C2447384D39654Ad0   Yes
+/dev/dsk/c0t60A98000383035356C2447384D396548d0   Yes
+----
++
+[listing]
+----
+# metastat -s svm
+svm/d2: Concat/Stripe
+    Size: 10452992 blocks (5.0 GB)
+    Stripe 0:
+        Device                                             Start Block  Dbase   Reloc
+        /dev/dsk/c0t60A98000383035356C2447384D396548d0s0          0     No      Yes
+
+svm/d1: Concat/Stripe
+    Size: 10452992 blocks (5.0 GB)
+    Stripe 0:
+        Device                                             Start Block  Dbase   Reloc
+        /dev/dsk/c0t60A98000383035356C2447384D39654Ad0s0          0     No      Yes
+
+Device Relocation Information:
+Device                                           Reloc  Device ID
+/dev/dsk/c0t60A98000383035356C2447384D396548d0   Yes    id1,sd@n60a98000383035356c2447384d396548
+/dev/dsk/c0t60A98000383035356C2447384D39654Ad0   Yes    id1,sd@n60a98000383035356c2447384d39654a
+----
+. Liste e registe os pontos de montagem:
++
+`*df –ah*`
+
++
+[listing]
+----
+# df -ah
+Filesystem             size   used  avail capacity  Mounted on
+/dev/md/svm/dsk/d1     4.9G   1.5G   3.4G    31%    /d1
+/dev/md/svm/dsk/d2     4.9G   991M   3.9G    20%    /d2
+----
+

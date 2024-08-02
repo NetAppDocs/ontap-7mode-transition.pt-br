@@ -1,0 +1,26 @@
+---
+permalink: copy-free/task_assessing_controllers_and_hosts.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, assess, controllers, hosts 
+summary: Você pode coletar e avaliar informações sobre os controladores e hosts usando a ferramenta de transição de 7 modos ou a ferramenta de coleta de inventário, dependendo dos regulamentos de segurança em seu ambiente. 
+---
+= Avaliando controladores e hosts
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode coletar e avaliar informações sobre os controladores e hosts usando a ferramenta de transição de 7 modos ou a ferramenta de coleta de inventário, dependendo dos regulamentos de segurança em seu ambiente.
+
+* A ferramenta de transição de 7 modos coleta informações de inventário sobre o controlador e os hosts adicionando os sistemas ou usando o relatório de inventário gerado pela ferramenta de coleta de inventário.
++
+A ferramenta de transição de 7 modos avalia as informações de inventário e cria o relatório de avaliação de transição.
+
+* Você deve estar ciente das seguintes considerações ao executar a avaliação de transição:
++
+** Você não deve executar as operações de avaliação e migração simultaneamente em um controlador.
+** Você deve evitar a realização de operações de avaliação em controladores de storage ativos durante o horário de pico.
+
+
+

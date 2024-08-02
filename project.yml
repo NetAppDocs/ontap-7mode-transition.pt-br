@@ -1,0 +1,28 @@
+---
+settings:
+  name: ONTAP 7-Mode Transition
+  platform: ''
+  internal:
+    pdf_enabled: true
+  prod:
+    pdf_enabled: true
+    harmony_enabled: false
+  langs: pt-br,us-en,ja-jp,ko-kr,zh-cn,zh-tw,de-de,es-es,fr-fr,it-it
+sidebar:
+  entries:
+  - title: Transição de 7 modos
+    url: "/index.html"
+  - title: Notas de versão
+    url: "/releasenotes.html"
+  - section: command-map
+  - section: install-admin
+  - section: copy-based
+  - section: copy-free
+  - section: inventory-collect
+  - section: snapmirror
+  - section: san-host
+  - title: Avisos legais
+    url: "/reference_legal_notices.html"
+product-family:
+  name: ONTAP
+  repo: ontap-family

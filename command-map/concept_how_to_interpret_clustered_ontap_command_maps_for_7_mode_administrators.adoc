@@ -1,0 +1,106 @@
+---
+permalink: command-map/concept_how_to_interpret_clustered_ontap_command_maps_for_7_mode_administrators.html 
+sidebar: sidebar 
+keywords: ontap, command, map, transition, clustered, commands, options, configuration, file, maps, interpret 
+summary: Se você estiver migrando do Data ONTAP em execução no modo 7 para o Data ONTAP em cluster, talvez seja útil consultar os mapas de comandos, que mostram os equivalentes Data ONTAP em cluster de comandos, opções e arquivos de configuração do modo 7. 
+---
+= Como interpretar os mapas de comandos, opções e arquivos de configuração do Data ONTAP em cluster para administradores do modo 7
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Se você estiver migrando do Data ONTAP em execução no modo 7 para o Data ONTAP em cluster, talvez seja útil consultar os mapas de comandos, que mostram os equivalentes Data ONTAP em cluster de comandos, opções e arquivos de configuração do modo 7.
+
+
+
+== Quais informações de mapeamento estão incluídas
+
+O mapa de comando para Administradores de 7 modos inclui os seguintes mapeamentos de comandos, opções e arquivos de configuração de 7 modos para seus equivalentes de Data ONTAP em cluster:
+
+* xref:reference_how_7_mode_commands_map_to_clustered_ontap_commands.adoc[Como os comandos do modo 7D mapeiam para os comandos do Data ONTAP em cluster]
+* xref:reference_how_7_mode_options_map_to_clustered_ontap_commands.adoc[Como as opções do modo 7 são mapeadas para os comandos do Data ONTAP em cluster]
+* xref:reference_how_7_mode_configuration_files_map_to_clustered_ontap_commands.adoc[Como os arquivos de configuração do modo 7 são mapeados para os comandos do Data ONTAP em cluster]
+
+
+
+
+== Como interpretar comandos de atalho compatíveis com o modo 7
+
+Embora a interface de linha de comando (CLI) do Data ONTAP seja significativamente reorganizada para operações de cluster, muitos dos comandos têm versões de atalho compatíveis com o modo 7 que não exigem alterações em scripts ou outras tarefas automatizadas. Essas versões de atalho são listadas primeiro e em *negrito* nas tabelas aqui. As versões de atalho que não são compatíveis com o modo 7 são listadas a seguir, seguidas da versão completa e de forma longa dos comandos:
+
+|===
+| Comando 7-Mode | Clustered Data ONTAP - comando 
+
+
+ a| 
+`aggr add`
+ a| 
+`*aggr add*`
+
+`aggr add-disks`
+
+`storage aggregate add-disks`
+
+|===
+Se nenhum atalho *Bold* estiver listado, uma versão compatível com o modo 7 não estará disponível. Nem todas as formas dos comandos são mostradas na tabela. A CLI é extremamente flexível, permitindo vários formulários abreviados.
+
+
+
+== Entendendo os diferentes shells de cluster Data ONTAP para comandos CLI
+
+Um cluster tem três shells diferentes para comandos CLI:
+
+* O _clustershell_ é o shell nativo, iniciado automaticamente quando você faz login no cluster.
++
+Ele fornece todos os comandos que você precisa para configurar e gerenciar o cluster.
+
+* O _nodeshell_ é um shell especial que permite executar um subconjunto de comandos do 7-Mode.
++
+Esses comandos só entram em vigor no nível do nó. Você pode alternar do clustershell para uma sessão nodeshell para executar comandos nodeshell interativamente, ou você pode executar um único comando nodeshell a partir do clustershell. Você pode reconhecer um comando como um comando nodeshell se ele tiver a forma (longa) `system node run -node {_nodename_|local} commandname` .
+
+* O _systemshell_ é um shell de baixo nível usado apenas para fins de diagnóstico e solução de problemas.
++
+Não se destina a fins administrativos gerais. Acesse o systemshell apenas com orientação do suporte técnico.
+
+
+
+
+
+== Mudando para nodeshell
+
+Quando você vê uma versão de atalho compatível com o modo 7 de um comando nodeshell, supõe-se que você está executando o comando do nodeshell. Para mudar para o nodeshell, digite o seguinte:
+
+`*system node run -node {_nodename_|local}*`
+
+Outras formas `nodeshell` do comando devem ser executadas a partir do clustershell.
+
+
+
+== Onde ir para mais informações
+
+|===
+| Se você quiser... | Para mais informações... 
+
+
+ a| 
+Use comandos clustershell
+ a| 
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-cmpr/GUID-5CB10C70-AC11-41C0-8C16-B4D0DF916E9B.html["Comandos ONTAP 9"]
+
+
+
+ a| 
+Use comandos nodeshell
+ a| 
+https://library.netapp.com/ecm/ecm_download_file/ECMP1511537["Data ONTAP 8. Comandos 2D: Referência de página manual para o modo 7D, volume 1D."]
+
+
+
+ a| 
+Execute comandos CLI, navegue pelos diretórios de comando CLI, defina valores na CLI e use consultas, padrões e curingas
+ a| 
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sag/home.html["Administração do sistema"]
+
+|===

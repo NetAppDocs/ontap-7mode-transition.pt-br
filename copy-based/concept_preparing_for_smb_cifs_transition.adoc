@@ -1,0 +1,16 @@
+---
+permalink: copy-based/concept_preparing_for_smb_cifs_transition.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, prepare, smb, cifs 
+summary: Se o serviço SMB/CIFS estiver licenciado e o serviço SMB/CIFS estiver em execução nos sistemas 7-Mode, você deverá executar manualmente algumas tarefas, como adicionar a licença SMB/CIFS e criar um servidor SMB/CIFS, no cluster de destino e SVM para realizar a transição de configurações SMB/CIFS. 
+---
+= Preparando-se para a transição SMB/CIFS
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Se o serviço SMB/CIFS estiver licenciado e o serviço SMB/CIFS estiver em execução nos sistemas 7-Mode, você deverá executar manualmente algumas tarefas, como adicionar a licença SMB/CIFS e criar um servidor SMB/CIFS, no cluster de destino e SVM para realizar a transição de configurações SMB/CIFS.
+
+Você também deve estar ciente de quais configurações são transferidas. Algumas configurações SMB/CIFS operando no modo 7 não são suportadas no ONTAP. Algumas configurações não são transicionadas pela ferramenta de transição de 7 modos e devem ser aplicadas manualmente ao SVM.

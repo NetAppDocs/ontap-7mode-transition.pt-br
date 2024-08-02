@@ -1,0 +1,20 @@
+---
+permalink: copy-based/concept_impact_of_takeover_and_giveback_on_transition.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, impact, takeover, giveback 
+summary: Operações de transição, como preparação, início, pausa, retorno ou conclusão da transição, falham durante uma takeover ou giveback de controladora. 
+---
+= Impacto da aquisição e da giveback na transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Operações de transição, como preparação, início, pausa, retorno ou conclusão da transição, falham durante uma takeover ou giveback de controladora.
+
+Se uma operação de transição falhar devido a uma aquisição, você deve esperar que o giveback termine e, em seguida, executar a operação de transição novamente.
+
+Se uma tomada de controle ocorrer durante uma transferência de linha de base, a transferência falhará. Para retomar a transferência de linha de base a partir do ponto em que foi abortada, tem de esperar que a giveback termine.
+
+A cópia de dados é retomada com base na programação configurada.

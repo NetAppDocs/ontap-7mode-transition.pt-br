@@ -1,0 +1,36 @@
+---
+permalink: copy-free/task_selecting_target_cluster_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, select, target, cluster, nodes 
+summary: Você pode selecionar o par de HA do cluster de destino e mapear cada controlador de 7 modos no par de HA para um nó de cluster de destino correspondente. O nó mapeado especifica o nó de cluster ao qual devem ser conetadas as gavetas de disco do controlador 7-Mode correspondente. 
+---
+= Seleção dos nós de cluster de destino para transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode selecionar o par de HA do cluster de destino e mapear cada controlador de 7 modos no par de HA para um nó de cluster de destino correspondente. O nó mapeado especifica o nó de cluster ao qual devem ser conetadas as gavetas de disco do controlador 7-Mode correspondente.
+
+O cluster de destino deve estar executando o Data ONTAP 8.3,2 ou posterior.
+
+É possível fazer a transição das gavetas de disco 7-Mode para um par de HA de destino que tenha agregados e volumes de dados pré-existentes.
+
+Para um cluster de dois nós, você precisa ter um agregado de dados para hospedar os volumes raiz das SVMs de destino. Para um cluster com quatro ou mais nós, os volumes raiz das SVMs podem ser hospedados nos nós de destino da transição ou em outros nós no cluster.
+
+.Passos
+. Selecione o par de HA de destino ao qual os compartimentos de disco de 7 modos devem ser conectados.
++
+A ferramenta mapeia automaticamente cada sistema de armazenamento de 7 modos para um nó de cluster de destino.
+
++
+
+NOTE: A propriedade de disco e agregado de cada controlador de 7 modos é transferida para o nó de cluster de destino mapeado correspondente durante a fase de importação.
+
+. Clique em *Swap Node Mapping* para alterar a atribuição automática do mapeamento de nó de origem para destino.
+. Clique em *Salvar e continuar*.
++
+É apresentado o ecrã SVM and volume Mapping (SVM e mapeamento de volume).
+
+

@@ -1,0 +1,60 @@
+---
+permalink: copy-based/concept_preparing_for_metrocluster_configuration_transition.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, prepare, metrocluster, configuration 
+summary: Antes de fazer a transição para uma configuração do MetroCluster, você deve entender os requisitos e considerações para a transição de volumes de 7 modos para uma configuração do MetroCluster no ONTAP. 
+---
+= Preparando-se para a transição de configuração do MetroCluster
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de fazer a transição para uma configuração do MetroCluster, você deve entender os requisitos e considerações para a transição de volumes de 7 modos para uma configuração do MetroCluster no ONTAP.
+
+
+
+== Pré-requisitos
+
+* A configuração do MetroCluster no ONTAP já deve estar configurada.
+* O tipo de SVM deve ser `sync-source`.
+* Os controladores do modo 7 não devem estar em um estado assumido ou aguardando um giveback.
+* Os nós na configuração MetroCluster no ONTAP não devem ser comutados ou aguardando um switchback.
+
+
+
+
+== Considerações
+
+* A transição de volumes do SnapLock Compliance não é suportada se o cluster de destino estiver em uma configuração do MetroCluster.
+* É possível fazer a transição de volumes de um controlador de 7 modos, configuração de HA ou configuração de MetroCluster para uma configuração MetroCluster no ONTAP como volumes autônomos.
+* Se uma configuração do MetroCluster de 7 modos tiver volumes que estão em relacionamentos do volume SnapMirror com volumes em outro controlador de 7 modos, você poderá fazer a transição das relações do SnapMirror como relacionamentos primário e secundário.
++
+Você deve instalar a ferramenta de transição de 7 modos em cada site do MetroCluster e fazer a transição dos volumes de cada site.
+
+* As sub-redes diferentes configuradas para uma configuração do MetroCluster de malha de 7 modos não podem ser configuradas na configuração do MetroCluster no ONTAP.
+* A porta preferida configurada em uma configuração de MetroCluster de malha de 7 modos não pode ser configurada para as configurações de MetroCluster no ONTAP.
+* Se a configuração do MetroCluster de malha de 7 modos estiver usando os switches Brocade 6510, você poderá compartilhar as malhas de switches existentes com a nova configuração do MetroCluster no ONTAP.
++
+É melhor compartilhar os tecidos de troca apenas durante a transição.
+
++
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-mcc-inst-cnfg-fabric/home.html["Instalação e configuração do MetroCluster conectado à malha, ONTAP 9.8 ou anterior"]
+
++
+https://docs.netapp.com/us-en/ontap-metrocluster/install-fc/index.html["Instalação e configuração do MetroCluster conetado à malha, ONTAP 9.9,1"]
+
+* Os cronogramas de trabalho do cron criados durante a transição não são replicados para o local remoto e, portanto, o switchover negociado falha após a transição.
++
+Você deve criar manualmente as agendas de tarefas do cron no local remoto após a transição.
+
+
+
+*Informações relacionadas*
+
+xref:task_post_transition_task_for_a_metrocluster_configuration.adoc[Configurando cronogramas de tarefas do cron no site remoto após a transição de uma configuração do MetroCluster]
+
+xref:concept_impact_of_takeover_and_giveback_on_transition.adoc[Impacto da aquisição e da giveback na transição]
+
+xref:task_transitioning_a_metrocluster_configuration_if_a_switchover_or_switchback_event_occurs.adoc[Transição de uma configuração do MetroCluster que falhou devido ao switchover ou switchback]

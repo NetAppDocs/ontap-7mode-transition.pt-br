@@ -1,0 +1,24 @@
+---
+permalink: inventory-collect/concept_supported_configurations_for_generating_an_fc_zone_plan.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, supported, configuration, fc, zone, plan 
+summary: Para gerar o plano de zona FC, você precisa estar ciente das configurações compatíveis de sistemas 7-Mode, hosts, switches FC e o cluster. Você deve usar o plano para configurar zonas para o cluster após a migração. 
+---
+= Configurações compatíveis para gerar um plano de zona FC
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Para gerar o plano de zona FC, você precisa estar ciente das configurações compatíveis de sistemas 7-Mode, hosts, switches FC e o cluster. Você deve usar o plano para configurar zonas para o cluster após a migração.
+
+Os sistemas 7-Mode (controlador único ou um par de HA), os hosts e o cluster podem ser conectados aos switches na mesma malha ou em malhas diferentes, dependendo dos requisitos do data center.
+
+A figura a seguir ilustra uma configuração na qual os sistemas, hosts e cluster 7-Mode estão conetados aos switches na mesma malha:
+
+image::../media/delete_me2_fc_zone_config1.gif[A figura a seguir ilustra uma configuração na qual os sistemas 7-Mode,hosts,and cluster are connected to the switches in the same fabric]
+
+A figura a seguir ilustra uma configuração na qual os sistemas 7-Mode e o cluster são conetados a switches em diferentes malhas:
+
+image::../media/delete_me2_fc_zone_config2.gif[A figura a seguir ilustra uma configuração na qual os sistemas 7-Mode e o cluster são conetados a switches em uma malha diferente]

@@ -1,0 +1,66 @@
+---
+permalink: copy-free/task_importing_7_mode_data_to_clustered_ontap.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, import, data 
+summary: Depois de verificar o cabeamento e resolver quaisquer problemas, você pode executar a operação de importação. Nessa fase, a propriedade do disco é atribuída aos nós de cluster mapeados e os agregados, volumes e LUNs do modo 7 são convertidos para o formato ONTAP. Todas as configurações de nível de volume e nível de LUN também são aplicadas. 
+---
+= Importar dados do modo 7D para o ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Depois de verificar o cabeamento e resolver quaisquer problemas, você pode executar a operação de importação. Nessa fase, a propriedade do disco é atribuída aos nós de cluster mapeados e os agregados, volumes e LUNs do modo 7 são convertidos para o formato ONTAP. Todas as configurações de nível de volume e nível de LUN também são aplicadas.
+
+As seguintes operações são efetuadas pela ferramenta nesta fase:
+
+* Os discos de 7 modos são atribuídos aos nós de cluster de destino mapeados.
+* Todos os agregados, volumes e LUNs do modo 7D são convertidos para o formato ONTAP.
+* Os endereços IP de 7 modos que foram selecionados para transição são configurados nos SVMs no estado administrativo up.
+* As seguintes configurações são aplicadas:
++
+** Regras de exportação de NFS
+** Compartilhamentos CIFS
+** Configuração das ACLs CIFS
+** Configuração do diretório base CIFS
+** Links simbólicos CIFS
+** Configuração de cota
+** Agendas de cópias instantâneas
+** Mapas e grupos LUN
+
+
+
+
+.Passos
+. Clique em *Importar*.
++
+*Solução de problemas:* se houver discos em falta em um agregado, o agregado se degradará e a operação de importação falhará. Se o número de discos ausentes estiver dentro de um limite permitido, você poderá continuar a transição com os agregados degradados executando o seguinte comando da CLI da ferramenta de transição de 7 modos:
+
++
+`*transition cft aggregate degraded-transition -p _project-name_ -n _7-mode-host-name_ -a _7-mode-aggregate-name_ -i acknowledge*`
+
++
+Em seguida, você pode executar novamente a operação de verificação de cabeamento e continuar com a transição. Você deve garantir que haja discos sobressalentes suficientes no nó do cluster de destino para reconstruir esses grupos RAID depois que os agregados forem transferidos.
+
++
+É apresentada uma mensagem de aviso, listando as considerações importantes para esta operação.
+
+. Clique em *Yes* para continuar.
++
+Os resultados da operação são apresentados.
+
+. Aguarde até que a operação seja concluída e faça o seguinte:
++
+.. Clique em *Salvar como CSV* para salvar os resultados da operação em um arquivo.
+.. Clique em *Collect Tool Logs* para fazer um backup de todos os arquivos de log de transição.
++
+É uma prática recomendada salvar os arquivos de log após cada operação de transição.
+
+.. Clique em *Fechar* para fechar a janela resultados da operação.
+
+
++
+Se a operação demorar muito tempo a ser concluída, você pode clicar em *Executar em segundo plano* para sair da janela de resultados da operação. Você não deve editar o projeto ou executar qualquer outra tarefa quando a operação estiver em execução em segundo plano. Em seguida, pode visualizar os resultados das operações a partir do separador Operation History (Histórico de operações).
+
+

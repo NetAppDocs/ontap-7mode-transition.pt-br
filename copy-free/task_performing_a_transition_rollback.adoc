@@ -1,0 +1,88 @@
+---
+permalink: copy-free/task_performing_a_transition_rollback.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, roll, back, project 
+summary: Você pode reverter uma transição se quiser reverter para o modo 7D em qualquer estágio da transição sem cópia antes que os agregados transferidos sejam confirmados. A reversão é uma operação manual. Você pode usar a ferramenta de transição de 7 modos para gerar as etapas manuais que você precisa executar para uma reversão. 
+---
+= Reverter um projeto de transição livre de cópias
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode reverter uma transição se quiser reverter para o modo 7D em qualquer estágio da transição sem cópia antes que os agregados transferidos sejam confirmados. A reversão é uma operação manual. Você pode usar a ferramenta de transição de 7 modos para gerar as etapas manuais que você precisa executar para uma reversão.
+
+* Você deve garantir que nenhuma operação de transição de volume ou agregado esteja sendo executada no cluster.
++
+Você pode usar o `job show -jobtype transition` comando.
+
+* Nenhum dos agregados do modo 7 deve ser comprometido.
++
+
+NOTE: Você não pode executar a reversão se mesmo um agregado de 7 modos estiver comprometido.
+
+* Os nós do cluster de destino não devem estar no modo de aquisição.
+
+
+.Passos
+. Clique em *Rollback Prechecks* para verificar se o projeto é elegível para uma reversão.
++
+Se o pré-check relatar problemas, você deve corrigi-los manualmente e executar novamente a operação de pré-verificação. Por exemplo, se você criou novos volumes ou LUNs durante os testes de pré-produção, exclua-os manualmente.
+
+. Clique em *Generate Rollback Steps* (gerar etapas de reversão) para gerar a lista de etapas manuais que você precisa executar para uma reversão bem-sucedida.
+. Clique em *Salvar como CSV* para salvar as etapas manuais em um arquivo.
++
+Você pode copiar os comandos de reversão do arquivo e executá-los.
+
+. Dependendo da fase de transição a partir da qual você decide reverter, execute as etapas manuais necessárias:
++
+** *Fase de testes de importação ou pré-produção*
++
+... Execute os comandos rollback no cluster e clique em *Confirm*.
+... Conete as gavetas de disco de 7 modos às controladoras de 7 modos, verifique o cabeamento manualmente e clique em *confirmar*.
+... Execute os comandos rollback nos controladores 7-Mode e clique em *Confirm*.
+... Visualize as configurações que são aplicadas nas SVMs a partir da guia Histórico de operações.
+... Remova manualmente todas as configurações que foram aplicadas pela ferramenta dos SVMs.
+
+
+** *Fase de cabeamento*
++
+... Conete as gavetas de disco de 7 modos às controladoras de 7 modos, verifique o cabeamento manualmente e clique em *confirmar*.
++
+Você deve garantir que o cabeamento de 7 modos corresponda à maneira como era no início do projeto.
+
++
+
+NOTE: Você deve usar o Config Advisor para verificar o cabeamento.
+
+... Execute os comandos rollback nos controladores 7-Mode e clique em *Confirm*.
+... Remova manualmente todas as configurações que foram aplicadas pela ferramenta dos SVMs.
++
+Você pode exibir as configurações que são aplicadas nas SVMs a partir da guia Histórico de operações.
+
+
+
+** *Fase de exportação*
++
+... Execute os comandos rollback nos controladores 7-Mode e clique em *Confirm*.
+... Remova manualmente todas as configurações que foram aplicadas pela ferramenta dos SVMs.
++
+Você pode exibir as configurações que são aplicadas nas SVMs a partir da guia Histórico de operações.
+
+
+
+** *Fase de provisionamento da SVM*
++
+Remova manualmente todas as configurações que foram aplicadas pela ferramenta dos SVMs.
+
++
+Você pode exibir as configurações que são aplicadas nas SVMs a partir da guia Histórico de operações.
+
+
+
++
+xref:task_running_manual_steps_for_rolling_back_transition.adoc[Etapas manuais para reverter a transição]
+
+. Depois de concluir todas as etapas manuais, clique em *Verify-Mode* (verificar modo 7) na ferramenta de transição de 7 modos para verificar se os controladores de 7 modos estão prontos para servir dados.
+

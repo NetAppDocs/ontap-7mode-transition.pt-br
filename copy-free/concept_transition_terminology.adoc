@@ -1,0 +1,32 @@
+---
+permalink: copy-free/concept_transition_terminology.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, terminology 
+summary: Entender a terminologia de transição relacionada à ferramenta de transição de 7 modos ajuda você a entender o processo de transição. 
+---
+= Terminologia de transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Entender a terminologia de transição relacionada à ferramenta de transição de 7 modos ajuda você a entender o processo de transição.
+
+* * Coletar e avaliar*
++
+Antes de fazer a transição de dados e configurações para o ONTAP, você deve coletar informações sobre o ambiente de storage que inclui sistemas de storage, hosts e aplicativos. Em seguida, você deve avaliar as caraterísticas e funcionalidades desses sistemas e identificar como esses recursos e funcionalidades funcionam na versão do ONTAP selecionada para transição.
+
+* *Migrar*
++
+Refere-se à transição de dados e configurações dos volumes de 7 modos para o ONTAP. A migração deve ser realizada após a avaliação dos controladores 7-Mode.
+
+* *Projeto*
++
+Na ferramenta de transição de 7 modos, um projeto permite configurar e gerenciar a transição de um grupo de volumes.
+
+* * Grupo de projeto*
++
+Na ferramenta de transição de 7 modos, um grupo de projetos é um contentor lógico que você pode usar para manter projetos de migração relacionados. Há sempre um grupo padrão com o nome default_Group que existe no sistema.
+
+

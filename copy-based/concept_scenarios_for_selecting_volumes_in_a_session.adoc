@@ -1,0 +1,40 @@
+---
+permalink: copy-based/concept_scenarios_for_selecting_volumes_in_a_session.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, scenarios, selecting, volumes, project 
+summary: Planejar uma composição de projeto e decidir quais volumes de 7 modos para transição em uma única operação de transição pode ajudar a reduzir o tempo de inatividade para aplicativos. Entender alguns cenários de exemplo pode ajudá-lo ao criar projetos em seu ambiente. 
+---
+= Cenários para selecionar volumes em um projeto
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Planejar uma composição de projeto e decidir quais volumes de 7 modos para transição em uma única operação de transição pode ajudar a reduzir o tempo de inatividade para aplicativos. Entender alguns cenários de exemplo pode ajudá-lo ao criar projetos em seu ambiente.
+
+
+
+== Relação de SnapMirror bidirecional
+
+Para fazer a transição de um relacionamento SnapMirror bidirecional, você precisa criar projetos de transição diferentes para cada volume.
+
+Por exemplo, como mostrado na ilustração abaixo, considere uma relação de volume SnapMirror que existe entre VF1:vol1 (primário) em system1 e VF2:vol1 (secundário) em system2. Da mesma forma, existe outra relação de volume SnapMirror entre VF2:vol2 (primário) em system2 e VF1:vol2 (secundário) em system1.
+
+image::../media/transition_bidirectional.gif[transição bidirecional]
+
+Não é possível combinar os volumes VF1:vol1 e VF1:vol2 num projeto de transição. Da mesma forma, você não pode combinar os volumes VF2:vol1 e VF2:vol2 em um projeto de transição. Você precisa criar projetos de transição separados para cada volume para fazer a transição do relacionamento do volume SnapMirror.
+
+
+
+== Volumes com configuração CIFS
+
+É necessário agrupar volumes que tenham configuração CIFS em um projeto para que toda a configuração relacionada a CIFS seja completamente transferida para o SVM.
+
+Por exemplo, se os volumes 10 em um sistema de 7 modos ou uma unidade do vFiler tiverem compartilhamentos CIFS associados, caminho de pesquisa de diretório base e configuração de auditoria, esses volumes 10 devem ser transferidos em um projeto . Isso garante que todos os volumes e a configuração CIFS sejam totalmente aplicados na SVM após a transição.
+
+
+
+== Relação do SnapMirror entre um volume primário e vários volumes secundários
+
+Se existir uma relação SnapMirror entre um volume primário e vários volumes secundários e se todos os volumes secundários estiverem no mesmo controlador de modo 7, você poderá criar um projeto secundário para agrupar todos os volumes secundários e concluir a transição de todos os volumes secundários nesse projeto. Em seguida, você pode criar um projeto principal para fazer a transição do volume primário e concluir a transição do SnapMirror.

@@ -1,0 +1,27 @@
+---
+permalink: copy-free/task_collecting_tool_logs.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, download, log, files 
+summary: A ferramenta de transição de 7 modos cria arquivos de log que fornecem detalhes de processamento da avaliação de transição e das operações de migração executadas em seu sistema. 
+---
+= A transferir ficheiros de registo de transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A ferramenta de transição de 7 modos cria arquivos de log que fornecem detalhes de processamento da avaliação de transição e das operações de migração executadas em seu sistema.
+
+.Passos
+. Clique em *Logs* no menu superior.
+. Clique em *Collect Project Logs* para coletar logs relacionados a todos os projetos.
+. Para coletar logs de um determinado projeto, localize os projetos na lista de projetos e clique em *Download*.
++
+Os logs são baixados como um `.zip` arquivo e o nome da pasta é o carimbo de data/hora.
+
+
+
+*Informações relacionadas*
+
+https://kb.netapp.com/Advice_and_Troubleshooting/Miscellaneous/How_to_upload_a_file_to_NetApp["Como fazer upload de um arquivo para o NetApp"]

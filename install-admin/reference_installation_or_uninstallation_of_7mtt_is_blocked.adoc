@@ -1,0 +1,32 @@
+---
+permalink: install-admin/reference_installation_or_uninstallation_of_7mtt_is_blocked.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, install, uninstall, transition, tool, blocked 
+summary: 'Quando você usa o instalador da ferramenta de transição de 7 modos ou o desinstalador para executar qualquer operação (como instalar, reparar, reinstalar, atualizar, desinstalar), a seguinte mensagem de erro é exibida: Outra instância de Configuração ou desinstalação da ferramenta de transição de 7 modos do NetApp está em execução. Apenas uma instância pode ser executada de cada vez.' 
+---
+= A instalação ou desinstalação da ferramenta de transição de 7 modos está bloqueada
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Quando você usa o instalador da ferramenta de transição de 7 modos ou o desinstalador para executar qualquer operação (como instalar, reparar, reinstalar, atualizar, desinstalar), a seguinte mensagem de erro é exibida: `Another instance of NetApp 7-Mode Transition Tool Setup or Uninstall is running. Only one instance can run at a time`.
+
+
+
+== Solução alternativa
+
+Antes de começar, certifique-se de que não existem instâncias abertas ou caixas de diálogo da ferramenta de transição de 7 modos. Caso contrário, você pode ter que executar as etapas novamente.
+
+. Abra o *Registry* clicando em *Start*.
+. Em *Procurar programas e ficheiros*, introduza `*RegEdit*`.
+. Quando o Editor de Registro estiver aberto, localize a seção de Registro HKEY_local_MACHINE.
+. Expanda a colmeia HKEY_LOCAL_MACHINE clicando no ícone expandir à esquerda do ícone da pasta.
+. Continue a expandir as chaves e subchaves do registo até localizar `HKEY_LOCAL_MACHINE\ SOFTWARE \NetApp \7-Mode Transition Tool`o .
+. Clique em *7-Mode Transition Tool*.
+. Clique com o botão direito do Mouse INSTALLATION_STATUS e selecione *Modificar*.
+. Altere o valor de installer_RUNNING para INSTALLED e clique em *OK*.
+
+
+Agora você deve ser capaz de executar qualquer operação usando o instalador da ferramenta de transição de 7 modos ou o desinstalador.

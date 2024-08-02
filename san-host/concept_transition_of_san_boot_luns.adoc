@@ -1,0 +1,22 @@
+---
+permalink: san-host/concept_transition_of_san_boot_luns.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, san, boot, lun 
+summary: 'Você deve reinicializar os LUNs de inicialização SAN antes de fazer a transição do Data ONTAP operando no modo 7 para o Data ONTAP agrupado usando a ferramenta de transição de 7 modos (7MTT). Você precisa executar etapas específicas para se preparar para a fase de transição e, após a transição, descobrir os LUNs.' 
+---
+= Transição de LUNs de inicialização SAN
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+É necessário reinicializar os LUNs de inicialização SAN antes de fazer a transição do Data ONTAP operando no modo 7 para o Data ONTAP em cluster usando a ferramenta de transição de 7 modos (7MTT). Você precisa executar etapas específicas para se preparar para a fase de transição e, após a transição, descobrir os LUNs.
+
+*Informações relacionadas*
+
+xref:task_preparing_for_transition_of_fc_or_fcoe_san_boot_luns.adoc[Preparação para a transição de LUNs de inicialização FC ou FCoE SAN em hosts RHEL]
+
+xref:task_preparing_for_transition_of_iscsi_san_boot_luns.adoc[Preparação para a transição de LUNs de arranque iSCSI SAN]
+
+xref:task_discovering_san_boot_luns_after_transition.adoc[Descobrindo LUNs de inicialização SAN após a transição]

@@ -1,0 +1,45 @@
+---
+permalink: copy-based/task_performing_on_demand_snapmirror_update_operation.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, perform, demand, snapmirror, updates 
+summary: É possível realizar atualizações incrementais do SnapMirror para todos os volumes antes da operação de redução para reduzir o tempo de transição. 
+---
+= Realização de atualizações do SnapMirror sob demanda
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+É possível realizar atualizações incrementais do SnapMirror para todos os volumes antes da operação de redução para reduzir o tempo de transição.
+
+* Não é possível executar atualizações do SnapMirror sob demanda quando as transferências de dados incrementais são agendadas após a cópia de dados da linha de base e após a operação do precutover.
+* Esta é uma tarefa opcional.
++
+.. Clique em *Atualizar agora* para executar uma atualização manual do SnapMirror.
++
+A caixa de diálogo Atualização de transição é exibida, onde você pode optar por personalizar o número de transferências SnapMirror e o limite de aceleração para essa operação.
+
+.. Marque a caixa de seleção *Personalizar o número de transferências simultâneas do SnapMirror e limite do acelerador para esta operação* para especificar o número de operações de cópia de dados do SnapMirror e o limite do acelerador.
++
+... Insira o número máximo de transferências simultâneas de SnapMirror para serem executadas durante a transição.
+... Insira a porcentagem de fluxos disponíveis que a ferramenta pode usar para transferências SnapMirror.
++
+Por padrão, a ferramenta usa 50% do volume disponível de transferências SnapMirror.
+
+... Introduza o limite do acelerador para utilizar a largura de banda máxima.
++
+Por padrão, a ferramenta usa o acelerador máximo para a transição de configuração.
+
+
+
+.. Clique em *continuar*.
+
+
+
+
+*Informações relacionadas*
+
+xref:task_starting_baseline_data_copy.adoc[Iniciar cópia de dados da linha de base]
+
+xref:task_creating_schedule_for_snapmirror_transfers.adoc[Criação de um agendamento de cópia de dados para transferências SnapMirror]

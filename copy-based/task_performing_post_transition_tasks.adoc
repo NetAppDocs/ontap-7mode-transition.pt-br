@@ -1,0 +1,40 @@
+---
+permalink: copy-based/task_performing_post_transition_tasks.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, perform, manual, post, tasks 
+summary: Depois que a transição de armazenamento for concluída com êxito e a transição for concluída, você deverá executar algumas tarefas pós-transição para configurar recursos que não são transferidos, antes de habilitar o acesso do cliente aos volumes ONTAP. 
+---
+= Realização de tarefas manuais de pós-transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Depois que a transição de armazenamento for concluída com êxito e a transição for concluída, você deverá executar algumas tarefas pós-transição para configurar recursos que não são transferidos, antes de habilitar o acesso do cliente aos volumes ONTAP.
+
+.Passos
+. Manual: Execute as etapas necessárias para configurar recursos que não foram transferidos, conforme listado no relatório de pré-verificação.
++
+Por exemplo, você deve configurar manualmente o IPv6 e o FPolicy após a transição.
+
+. Exclua ou consolide as configurações que são transferidas.
++
+A ferramenta de transição de 7 modos cria uma nova instância para todas as configurações que são transferidas do modo 7D. Portanto, pode haver várias instâncias de algumas configurações, como cronogramas cron, que podem precisar ser consolidadas ou excluídas manualmente.
+
+. Transição DE SAN: Reconfigure manualmente os hosts.
++
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-7mtt-sanspl/home.html["Transição e remediação DE host SAN"]
+
+. Verifique se o SVM está pronto para fornecer dados aos clientes, verificando o seguinte:
++
+** Os volumes do SVM são on-line e leitura/gravação.
+** Os endereços IP no SVM estão ativos e acessíveis a partir dos servidores de nomes.
+
+
+. Redirecione o acesso do cliente para os volumes ONTAP.
+
+
+*Informações relacionadas*
+
+http://docs.netapp.com/ontap-9/index.jsp["Documentação do NetApp: ONTAP 9"]

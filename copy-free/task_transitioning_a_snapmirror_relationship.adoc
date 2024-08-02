@@ -1,0 +1,24 @@
+---
+permalink: copy-free/task_transitioning_a_snapmirror_relationship.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, snapmirror, relationship 
+summary: Você pode fazer a transição do par de HA secundário primeiro, configurar uma relação SnapMirror escalonada entre os volumes primários de 7 modos e os volumes secundários do Data ONTAP em cluster e depois fazer a transição do par de HA primário depois. Em alguns cenários, é necessário fazer a transição dos pares de HA secundário e primário de uma relação de SnapMirror de 7 modos em paralelo. 
+---
+= Fazendo a transição de uma relação SnapMirror
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode fazer a transição do par de HA secundário primeiro, configurar uma relação SnapMirror escalonada entre os volumes primários de 7 modos e os volumes secundários do Data ONTAP em cluster e depois fazer a transição do par de HA primário depois. Em alguns cenários, é necessário fazer a transição dos pares de HA secundário e primário de uma relação de SnapMirror de 7 modos em paralelo.
+
+Se todos os volumes primários pertencerem a um par de HA e todos os volumes secundários pertencerem ao outro par de HA, é possível fazer a transição usando o método escalonado.
+
+Se um dos dois pares de HA tiver uma combinação de volumes primário e secundário, você precisará fazer a transição usando o método paralelo.
+
+Após a transição dos pares de HA primário e secundário, você precisa configurar manualmente a relação de volume SnapMirror no Clustered Data ONTAP após a transição. Para uma ressincronização bem-sucedida, pelo menos uma cópia Snapshot comum, criada no Data ONTAP 8.1 ou posterior, deve existir entre os volumes primário e secundário da relação do SnapMirror.
+
+*Informações relacionadas*
+
+https://docs.netapp.com/us-en/ontap/concept_administration_overview.html["Gerenciamento de clusters com o System Manager"]

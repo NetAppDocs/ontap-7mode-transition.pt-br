@@ -1,0 +1,598 @@
+---
+permalink: copy-free/reference_copy_free_transition_project_planning_worksheet.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, project, planning, worksheet 
+summary: Você pode usar as planilhas de Planejamento de transição sem cópia para gravar informações sobre mapeamento de nós, mapeamento SVM, mapeamento de volume e LIFs para a transição. As planilhas são úteis ao criar um projeto de transição usando a ferramenta de transição de 7 modos. Deve estar ciente das diretrizes para a conclusão das folhas de trabalho. 
+---
+= Folhas de trabalho de planeamento de projetos de transição sem cópia
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode usar as planilhas de Planejamento de transição sem cópia para gravar informações sobre mapeamento de nós, mapeamento SVM, mapeamento de volume e LIFs para a transição. As planilhas são úteis ao criar um projeto de transição usando a ferramenta de transição de 7 modos. Deve estar ciente das diretrizes para a conclusão das folhas de trabalho.
+
+Pode seguir estas diretrizes para concluir as folhas de trabalho:
+
+* Mapear cada unidade do vFiler para um SVM.
++
+Se não houver unidades do vFiler no controlador 7-Mode, mapeie a controladora a uma única SVM.
+
+* Grave o nome do volume do modo 7D e o nome do volume Data ONTAP correspondente.
++
+O nome do volume ONTAP pode ser diferente do nome do volume do modo 7D.
+
+* Identifique os LIFs a serem configurados em cada SVM.
++
+Os endereços IP para os LIFs podem existir no sistema 7-Mode ou podem ser novos LIFs.
+
+
+
+
+
+== Mapeamento de nós
+
+|===
+| Controlador de 7 modos | Nó de cluster mapeado 
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+|===
+
+
+== SVM e mapeamento de volumes
+
+|===
+| Controlador de 7 modos | Unidade ou controlador do vFiler | SVM mapeado | Volume de 7 modos | Volume do SVM 
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+|===
+
+
+== Mapeamento de LIF (endereços IP de 7 modos)
+
+|===
+| Controlador de 7 modos | Unidade ou controlador do vFiler | SVM mapeado | Endereço IP de 7 modos | Máscara de rede | Gateway predefinido | Nó inicial | Porta inicial 
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+|===
+
+
+== Mapeamento de LIF (novos LIFs)
+
+|===
+| SVM | Novo endereço IP | Máscara de rede | Gateway predefinido | Nó inicial | Porta inicial 
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+|===
+
+
+== Exemplo
+
+A tabela a seguir mostra um exemplo de planilhas concluídas para um par de HA de 7 modos com os controladores HostA_7mode e HostB_7mode.
+
+*Mapeamento de nós*
+
+|===
+| Controlador de 7 modos | Nó de cluster mapeado 
+
+
+ a| 
+hostA_7mode
+ a| 
+cluster1_01
+
+
+
+ a| 
+hostB_7mode
+ a| 
+cluster1_02
+
+|===
+*SVM e mapeamento de volumes*
+
+|===
+| Controlador de 7 modos | Nó de cluster mapeado | Unidade ou controlador do vFiler | SVM mapeado | Volume de 7 modos | Volume do SVM 
+
+
+ a| 
+hostA_7mode
+ a| 
+cluster1_01
+ a| 
+VfilerA
+ a| 
+svm1
+ a| 
+Vola
+ a| 
+Vola
+
+
+
+ a| 
+VolB
+ a| 
+VolB
+
+
+
+ a| 
+VfilerB
+ a| 
+svm2
+ a| 
+vol1
+ a| 
+vol_nfs
+
+
+
+ a| 
+vol2
+ a| 
+vol_cifs
+
+
+
+ a| 
+hostB_7mode
+ a| 
+cluster1_02
+ a| 
+Não aplicável
+ a| 
+svm3
+ a| 
+vol3
+ a| 
+vol3
+
+
+
+ a| 
+vol4
+ a| 
+vol4
+
+
+
+ a| 
+vol5
+ a| 
+vol5
+
+
+
+ a| 
+vol6
+ a| 
+vol6
+
+|===
+*Mapeamento de LIF (endereços IP de 7 modos)*
+
+|===
+| Controlador de 7 modos | Unidade ou controlador do vFiler | SVM mapeado | IP de 7 modos existente | Máscara de rede | Gateway predefinido | Nó inicial | Porta inicial 
+
+
+ a| 
+hostA_7mode
+ a| 
+VfilerA
+ a| 
+svm1
+ a| 
+192.0.2.129
+ a| 
+255.255.255.128
+ a| 
+192.40.0.1
+ a| 
+cluster1_01
+ a| 
+e0a
+
+
+
+ a| 
+192.0.2.135
+ a| 
+255.255.255.128
+ a| 
+192.40.0.1
+ a| 
+cluster1_02
+ a| 
+e0b
+
+
+
+ a| 
+VfilerB
+ a| 
+svm2
+ a| 
+-
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+-
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+hostB_7mode
+ a| 
+Não aplicável
+ a| 
+svm3
+ a| 
+192.0.2.110
+ a| 
+255.255.255.128
+ a| 
+192.40.0.1
+ a| 
+cluster1_01
+ a| 
+e0c
+
+
+
+ a| 
+192.0.2.111
+ a| 
+255.255.255.128
+ a| 
+192.40.0.1
+ a| 
+cluster1_02
+ a| 
+e0d
+
+|===
+*Mapeamento de LIF (novos LIFs)*
+
+|===
+| SVM | Novo endereço IP | Máscara de rede | Gateway predefinido | Nó inicial | Porta inicial 
+
+
+ a| 
+svm1
+ a| 
+-
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+-
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+svm2
+ a| 
+192.0.2.130
+ a| 
+255.255.255.128
+ a| 
+192.40.0.1
+ a| 
+cluster1_01
+ a| 
+e1c
+
+
+
+ a| 
+192.0.2.131
+ a| 
+255.255.255.128
+ a| 
+192.40.0.1
+ a| 
+cluster1_02
+ a| 
+e1d
+
+
+
+ a| 
+svm3
+ a| 
+192.0.2.136
+ a| 
+255.255.255.128
+ a| 
+192.40.0.1
+ a| 
+cluster1_01
+ a| 
+e0c
+
+
+
+ a| 
+192.0.2.137
+ a| 
+255.255.255.128
+ a| 
+192.40.0.1
+ a| 
+cluster1_02
+ a| 
+e0d
+
+|===

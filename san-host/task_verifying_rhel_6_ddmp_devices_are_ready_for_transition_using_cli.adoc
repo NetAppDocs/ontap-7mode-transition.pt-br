@@ -1,0 +1,32 @@
+---
+permalink: san-host/task_verifying_rhel_6_ddmp_devices_are_ready_for_transition_using_cli.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, rhel, ddmp, devices, cli 
+summary: 'Antes de fazer a transição do dispositivo DMMP Red Hat Enterprise Linux (RHEL) 6, você deve verificar se ele não faz parte de um Gerenciador de volume lógico (LVM) e se ele não tem um sistema de arquivos.' 
+---
+= Verificando se os dispositivos DDMP RHEL 6 estão prontos para transição usando CLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de fazer a transição do dispositivo DMMP Red Hat Enterprise Linux (RHEL) 6, você deve verificar se ele não faz parte de um LVM (Logical volume Manager) e se ele não tem um sistema de arquivos.
+
+.Passos
+. Reunir informações de pré-transição do _Inventory Assessment Workbook_.
+. Verifique se o dispositivo DMMP existe `/dev/mapper` no diretório:
++
+`*ls /dev/mapper/ _DMMP_device_name_*`
+
++
+Se o dispositivo DMMP não for exibido, o dispositivo pode estar usando um alias ou um nome amigável.
+
+. Determine se o dispositivo DMMP faz parte de um LVM e se o dispositivo DMMP possui um sistema de arquivos:
++
+`*blkid*`
+
++
+Se o dispositivo DMMP não fizer parte de um LVM e não tiver sistema de arquivos, a entrada do dispositivo não deve ser exibida no blkidoutput.
+
+

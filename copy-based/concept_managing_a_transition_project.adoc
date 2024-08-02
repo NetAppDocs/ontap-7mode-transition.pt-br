@@ -1,0 +1,14 @@
+---
+permalink: copy-based/concept_managing_a_transition_project.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, manage, project 
+summary: 'Você pode gerenciar projetos de transição usando a ferramenta de transição de 7 modos (interface web). Você pode editar, pausar, retomar, abortar, excluir e executar verificações prévias em um projeto.' 
+---
+= Gerenciando um projeto de transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode gerenciar projetos de transição usando a ferramenta de transição de 7 modos (interface web). Você pode editar, pausar, retomar, abortar, excluir e executar verificações prévias em um projeto.

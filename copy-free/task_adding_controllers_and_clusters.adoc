@@ -1,0 +1,39 @@
+---
+permalink: copy-free/task_adding_controllers_and_clusters.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, add, controllers, clusters 
+summary: Antes de iniciar a transição, você deve adicionar os controladores de 7 modos, incluindo os nós de um par de HA de 7 modos e os clusters necessários para a transição. Você deve adicionar os clusters usando a interface de gerenciamento de cluster. 
+---
+= Adição de controladores e clusters
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de iniciar a transição, você deve adicionar os controladores de 7 modos, incluindo os nós de um par de HA de 7 modos e os clusters necessários para a transição. Você deve adicionar os clusters usando a interface de gerenciamento de cluster.
+
+* Para uma transição sem cópia, você deve adicionar o cluster e não os nós de cluster que são o destino da transição.
+* As informações de clusters e controladores de 7 modos que você fornece não são persistentes.
++
+Se o serviço 7-Mode Transition Tool for reiniciado, a ferramenta solicitará no painel do projeto informações sobre controladores e cluster que fazem parte de projetos ativos.
+
+
+
+.Passos
+. No painel superior, clique em *sistemas de armazenamento*.
+. No campo *Nome do host*, insira o FQDN ou o endereço IP do controlador de modo 7 ou do sistema ONTAP.
++
+Para um cluster, você pode especificar o endereço IP ou FQDN da interface de gerenciamento de cluster. Para um controlador de 7 modos, você deve especificar o endereço IP da unidade padrão do vFiler, porque os endereços IP de unidades individuais do vFiler não são aceitos.
+
+. Insira as credenciais de administrador para o host especificado e clique em *Adicionar*.
++
+Os controladores 7-Mode são adicionados à tabela "'Controladores 7-Mode'" e os clusters são adicionados à tabela "'Clustered Data ONTAP Systems'".
+
+. Repita as etapas 2 e 3 para adicionar todos os controladores e clusters de que você precisa para a transição.
+. Se a coluna Status indicar que as credenciais do sistema estão ausentes ou que as credenciais foram alteradas do que foi inserido inicialmente na ferramenta, clique no image:../media/delete_me_edit_schedule.gif[""] ícone e insira as credenciais novamente.
+. Clique em *seguinte*.
++
+É apresentado o ecrã Select Source Systems (Selecionar sistemas de origem).
+
+

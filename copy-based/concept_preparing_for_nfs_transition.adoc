@@ -1,0 +1,16 @@
+---
+permalink: copy-based/concept_preparing_for_nfs_transition.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, prepare, nfs 
+summary: Se o serviço NFS for licenciado e o serviço NFS estiver em execução nos sistemas que operam no modo 7, você precisará preparar manualmente o cluster e o SVM de destino para a transição de configurações NFS. Você também deve estar ciente de quais configurações são transferidas. 
+---
+= Preparando-se para a transição NFS
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Se o serviço NFS for licenciado e o serviço NFS estiver em execução nos sistemas que operam no modo 7, você precisará preparar manualmente o cluster e o SVM de destino para a transição de configurações NFS. Você também deve estar ciente de quais configurações são transferidas.
+
+Algumas configurações NFS que operam no modo 7 não são suportadas no ONTAP. Algumas configurações não são transicionadas pela ferramenta de transição de 7 modos e devem ser aplicadas manualmente ao SVM.

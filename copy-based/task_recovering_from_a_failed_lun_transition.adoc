@@ -1,0 +1,56 @@
+---
+permalink: copy-based/task_recovering_from_a_failed_lun_transition.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, recover, failed, lun 
+summary: Se a transição de volumes com LUNs falhar, você pode usar o comando lun transition 7-mode show para verificar quais LUNs não foram transferidos para o ONTAP e, em seguida, determinar uma ação corretiva. 
+---
+= A recuperar de uma transição LUN com falha
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Se a transição de volumes com LUNs falhar, você pode usar o comando lun transition 7-mode show para verificar quais LUNs não foram transferidos para o ONTAP e, em seguida, determinar uma ação corretiva.
+
+.Passos
+. Alterar para nível de privilégio avançado:
++
+`*set -privilege advanced*`
+
+. Verifique quais LUNs falharam:
++
+`*lun transition 7-mode show*`
+
+. Reveja os registos do EMS e determine a ação corretiva que tem de tomar.
+. Execute as etapas necessárias mostradas na mensagem EMS para corrigir a falha.
+. Se algum LUN suportado falhou na transição, então para concluir a transição:
++
+`*lun transition start*`
+
+. Exibir o status de transição dos volumes:
++
+`*lun transition show*`
+
++
+O status da transição pode ser um dos seguintes valores:
+
++
+** `active`: O volume está em uma relação de transição ativa do SnapMirror e ainda não foi transferido.
+** `complete`: Todos os LUNs suportados são transferidos para este volume.
+** `failed`: A transição LUN falhou para o volume.
+** `none`: O volume não continha LUNs para a transição de sistemas 7-Mode.
+
+
++
+[listing]
+----
+cluster1::*> lun transition show
+Vserver              Volume             Transition Status
+-------------------- ------------------ -----------------
+vs1                  vol0               none
+                     vol1               complete
+                     vol2               failed
+                     vol3               active
+----
+

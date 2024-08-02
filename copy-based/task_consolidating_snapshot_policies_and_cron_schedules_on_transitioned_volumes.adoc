@@ -1,0 +1,18 @@
+---
+permalink: copy-based/task_consolidating_snapshot_policies_and_cron_schedules_on_transitioned_volumes.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, consolidate, cron, schedules, transitioned, volumes 
+summary: A ferramenta de transição de 7 modos gera programações exclusivas por volume transicionado. Devido a isso, um grande número de cronogramas cron pode ser criado após a transição, então você precisa saber como consolidá-los após a transição. 
+---
+= Consolidação de cronogramas cron a partir de volumes transferidos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A ferramenta de transição de 7 modos gera programações exclusivas por volume transicionado. Devido a isso, um grande número de cronogramas cron pode ser criado após a transição, então você precisa saber como consolidá-los após a transição.
+
+.Passos
+. Consolide os cronogramas do cron após a transição usando o `job schedule cron` comando.
+

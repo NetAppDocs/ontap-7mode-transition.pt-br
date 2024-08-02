@@ -1,0 +1,53 @@
+---
+permalink: copy-free/concept_severity_levels_for_precheck_messages.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, severity, levels, precheck, messsages 
+summary: Você pode verificar se os volumes do modo 7 podem ser transferidos executando a operação de pré-verificação de transição. A verificação prévia da transição reporta todos os problemas de transição. Os problemas de transição são atribuídos diferentes níveis de gravidade, dependendo do impactos do problema no processo de transição. 
+---
+= Níveis de gravidade para mensagens de pré-verificação
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode verificar se os volumes do modo 7 podem ser transferidos executando a operação de pré-verificação de transição. A verificação prévia da transição reporta todos os problemas de transição. Os problemas de transição são atribuídos diferentes níveis de gravidade, dependendo do impactos do problema no processo de transição.
+
+Os problemas detetados pelos pré-cheques são classificados nas seguintes categorias:
+
+* *Erro*
++
+Configurações que não podem ser transferidas.
+
++
+Você não pode continuar a transição se houver mesmo um erro. A seguir estão alguns exemplos de configurações no sistema 7-Mode que causam um erro:
+
++
+** Volumes tradicionais
+** Volumes SnapLock
+** Volumes offline
+
+
+* *Aviso*
++
+Configurações que podem causar pequenos problemas após a transição.
+
++
+Os recursos que são suportados no ONTAP, mas não são transferidos pela ferramenta de transição de 7 modos, também geram uma mensagem de aviso. Pode continuar a transição com estes avisos. No entanto, após a transição, você pode perder algumas dessas configurações ou pode ter que concluir algumas tarefas manuais para habilitar essas configurações no ONTAP.
+
++
+A seguir estão alguns exemplos de configurações no sistema de 7 modos que geram um aviso:
+
++
+** IPv6
+** NFSv2
+** Configurações NDMP
+** Grupos de interfaces e VLANs
+** Protocolo de informações de roteamento (RIP)
+
+
+* *Informação*
++
+Configurações que foram transferidas com êxito.
+
+

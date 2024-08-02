@@ -1,0 +1,43 @@
+---
+permalink: snapmirror/concept_features_and_volumes_not_supported_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, transition, feature, volumes, supported, snapmirror 
+summary: Não é possível fazer a transição de determinados volumes do modo 7D, como volumes tradicionais, e certos recursos do modo 7D, como relacionamentos SnapMirror síncronos, porque alguns recursos podem não estar disponíveis no Clustered Data ONTAP. 
+---
+= Recursos e volumes não suportados para transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Não é possível fazer a transição de determinados volumes do modo 7D, como volumes tradicionais, e certos recursos do modo 7D, como relacionamentos SnapMirror síncronos, porque alguns recursos podem não estar disponíveis no Clustered Data ONTAP.
+
+Você pode fazer a transição de um volume de 7 modos apenas para um SVM.
+
+Não é possível fazer a transição dos seguintes volumes ou configurações do modo 7:
+
+* Volumes restritos ou offline
+* Volumes tradicionais
+* Volumes com mapeamento de carateres NFS para CIFS (charmap)
+* Volumes com configurações do Storage-Level Access Guard
+* Volumes que contêm qtrees com configurações do Storage-Level Access Guard
++
+Se o cluster de destino estiver executando o Data ONTAP 8.3,1 ou posterior, você poderá fazer a transição de volumes que contenham qtrees com essa configuração.
+
+* Volumes com a `no_i2p` opção ativada.
+* Volumes FlexCache
+* Volumes de 32 bits e volumes de 64 bits com cópias Snapshot de 32 bits se o cluster de destino estiver executando o Data ONTAP 8.3 ou posterior
+* Volumes FlexClone
++
+Os volumes FlexClone podem ser transferidos como volumes FlexVol, mas a hierarquia de clones e a eficiência de storage serão perdidas.
+
+* Volume raiz de uma unidade do vFiler, onde o volume raiz é baseado em uma qtree que pertence à unidade padrão do vFiler
+* Configuração síncrona de SnapMirror
+* Relacionamentos do Qtree SnapMirror
+* IPv6 configurações
+* Relacionamentos com SnapVault
+* Compressão de rede para SnapMirror
+* Restaurar o volume de destino para uma cópia Snapshot específica (comando SnapMirror `break -s`)
+* Operação de movimentação de volume
+

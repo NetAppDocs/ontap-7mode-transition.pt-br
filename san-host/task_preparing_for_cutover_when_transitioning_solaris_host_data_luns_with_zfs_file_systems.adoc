@@ -1,0 +1,63 @@
+---
+permalink: san-host/task_preparing_for_cutover_when_transitioning_solaris_host_data_luns_with_zfs_file_systems.html 
+sidebar: sidebar 
+keywords: cutover, ontap, san, host, transition, host, data, lun, nfs, file, system 
+summary: Se você estiver migrando um LUN de dados de host Solaris com sistema de arquivos ZFS do Data ONTAP operando no modo 7 para o Data ONTAP em cluster, execute determinadas etapas antes de entrar na fase de transição. 
+---
+= Preparação para a fase de transição ao fazer a transição de LUNs de dados de host Solaris com sistemas de arquivos ZFS
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Se você estiver migrando um LUN de dados de host Solaris com sistema de arquivos ZFS do Data ONTAP operando no modo 7 para o Data ONTAP em cluster, execute determinadas etapas antes de entrar na fase de transição.
+
+Se você estiver usando uma configuração FC, a conectividade de malha e o zoneamento para os nós de Data ONTAP em cluster devem ser estabelecidos.
+
+Se estiver a utilizar uma configuração iSCSI, as sessões iSCSI para os nós Data ONTAP em cluster devem ser descobertas e iniciar sessão.
+
+Para transições baseadas em cópia, execute estas etapas antes de iniciar a operação de transferência de armazenamento na ferramenta de transição de 7 modos (7MTT).
+
+Para transições sem cópia, execute estas etapas antes de iniciar a operação Export & Halt 7-Mode no 7MTT.
+
+.Passos
+. Parar e/S em todos os pontos de montagem.
+. Encerre cada aplicativo acessando os LUNs de acordo com as recomendações do fornecedor da aplicação.
+. Exportar o zpool:
++
+`*zpool export _pool-name_*`
+
++
+[listing]
+----
+# zpool export n_pool
+----
+. Verifique se os zpools são exportados:
++
+** Deve listar o zpool que é exportado
+`*zpool import*`
+** Não deve listar o zpool que é exportado
+`*zpool list*`
+
+
++
+[listing]
+----
+# zpool export n_pool
+
+# zpool list
+no pools available
+
+# zpool import
+  pool: n_pool
+    id: 5049703405981005579
+ state: ONLINE
+action: The pool can be imported using its name or numeric identifier.
+config:
+
+        n_pool                                   ONLINE
+          c0t60A98000383035356C2447384D396550d0  ONLINE
+          c0t60A98000383035356C2447384D39654Ed0  ONLINE
+----
+

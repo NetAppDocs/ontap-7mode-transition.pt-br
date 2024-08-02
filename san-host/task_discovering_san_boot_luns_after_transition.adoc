@@ -1,0 +1,36 @@
+---
+permalink: san-host/task_discovering_san_boot_luns_after_transition.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, discover, san, boot, lun 
+summary: 'Após a transição dos LUNs de inicialização SAN do Data ONTAP operando no modo 7 para o Data ONTAP em cluster, você deve descobrir os LUNs de inicialização SAN em seu host. Isso é necessário para transições baseadas em cópia (CBTs) e transições livres de cópia (CFTs). Isso se aplica às configurações FC, FCoE e iSCSI.' 
+---
+= Descobrindo LUNs de inicialização SAN após a transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Após a transição dos LUNs de inicialização SAN do Data ONTAP operando no modo 7 para o Data ONTAP em cluster, você deve descobrir os LUNs de inicialização SAN em seu host. Isso é necessário para transições baseadas em cópia (CBTs) e transições sem cópia (CFTs). Isso se aplica às configurações FC, FCoE e iSCSI.
+
+Se estiver a efetuar um CFT, os procedimentos para `vol rehost` têm de estar concluídos. Consulte link:https://docs.netapp.com/us-en/ontap-7mode-transition/copy-free/index.html["7-Mode Transition Tool Copy-Free Transition Guide (Guia de transição sem cópia)"]para obter detalhes.
+
+. Inicialize o host.
+. Somente para configurações FC e FCoE:
++
+.. Entre no modo de configurações do BIOS HBA.
+.. Escolha *Rescan* para descobrir os LUNs de inicialização Data ONTAP SAN em cluster no host.
+.. Remova a ID de LUN de inicialização do 7-Mode.
+.. Adicione o ID de LUN de inicialização do Data ONTAP em cluster no BIOS HBA.
+.. Saia do modo de configurações do BIOS HBA e reinicie o host.
+
+
+. Depois que a reinicialização estiver concluída, verifique os LUNs do Data ONTAP em cluster:
++
+`*sanlun lun show*`
+
+. Verifique o dispositivo DMMP:
++
+`*multipath -ll*`
+
+

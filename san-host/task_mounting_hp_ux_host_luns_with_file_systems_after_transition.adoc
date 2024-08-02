@@ -1,0 +1,65 @@
+---
+permalink: san-host/task_mounting_hp_ux_host_luns_with_file_systems_after_transition.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, mount, hp, ux, host, lun, file, system 
+summary: Depois de fazer a transição de LUNs host HP-UX com sistemas de arquivos do Data ONTAP operando no modo 7 para Data ONTAP em cluster, você deve montar os LUNs. 
+---
+= Montagem de LUNs host HP-UX com sistemas de arquivos após a transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Depois de fazer a transição de LUNs host HP-UX com sistemas de arquivos do Data ONTAP operando no modo 7 para Data ONTAP em cluster, você deve montar os LUNs.
+
+Para transições baseadas em cópia, execute estas etapas após concluir a operação de transferência de armazenamento na ferramenta de transição de 7 modos (7MTT). Transições sem cópia não são suportadas para hosts HP-UX.
+
+.Passos
+. Descubra novos LUNs Clustered Data ONTAP:
++
+`*ioscan -fnC disk*`
+
+. Verifique se os LUNs do Data ONTAP em cluster foram descobertos:
++
+`*sanlun lun show*`
+
+. Verifique se o `lun-pathname` para os LUNs Data ONTAP em cluster é o mesmo que o `lun-pathname` para os LUNs de 7 modos antes da transição.
+. Verifique se a saída na coluna modo mudou de `7` para `C`.
+. Use o `mapfile` arquivo para importar o grupo de volumes:
++
+`*vgimport -s -v -m /tmp/mapfile.vg01 /dev/vg01"*`
+
+. Ativar os volumes lógicos:
++
+`*vgchange -a y _vg_name_*`
+
+. Converta o nome de arquivo especial do dispositivo (DSF) legado para DSF persistente:
++
+`*vgdsf -c /dev/vg01*`
+
+. Verifique se o Status VG é exibido como disponível:
++
+`*vgdisplay*`
+
+. Monte manualmente cada um dos dispositivos:
++
+`*mount -F vxfs -o largefiles _device_name mount_point_*`
+
+. Execute o comando fsck se você for solicitado a fazê-lo.
+. Verifique os pontos de montagem:
++
+`*bdf*`
+
++
+O exemplo a seguir mostra como os pontos de montagem devem ser exibidos:
+
++
+[listing]
+----
+bash-2.05# bdf
+Filesystem          kbytes     used     avail     used   Mounted on
+/dev/vg01/lvol1   23592960   1050952   22189796    5%   /mnt/qa/vg01
+/dev/vg01/lvol2   23592960    588480   22645044    3%   /mnt/qa/vg02
+----
+

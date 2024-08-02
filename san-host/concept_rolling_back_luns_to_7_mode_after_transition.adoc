@@ -1,0 +1,29 @@
+---
+permalink: san-host/concept_rolling_back_luns_to_7_mode_after_transition.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, rolling, lun, 7, mode 
+summary: 'Se você não estiver satisfeito com o desempenho de seus LUNs de Data ONTAP em cluster, você pode reverter do Data ONTAP em cluster para o Data ONTAP operando no modo 7 para transições sem cópia (CFTs). A reversão não é suportada para transições baseadas em cópia (CBTs). A reversão só é suportada em determinados hosts.' 
+---
+= Reverter LUNs para o modo 7D após a transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Se você não estiver satisfeito com o desempenho dos LUNs do Data ONTAP em cluster, poderá reverter do Data ONTAP em cluster para o Data ONTAP operando no modo 7 para transições sem cópia (CFTs). A reversão não é suportada para transições baseadas em cópia (CBTs). A reversão só é suportada em determinados hosts.
+
+Você pode reverter do Clustered Data ONTAP para o Data ONTAP operando no modo 7D a qualquer momento antes de clicar em *Commit* na ferramenta de transição de 7 modos (7MTT). Depois de clicar em *commit*, não é possível reverter.
+
+Os seguintes hosts suportam rollback:
+
+* Windows
+* Red Hat Enterprise Linux (RHEL)
+* ESXi
+
+
+Os seguintes hosts não suportam rollback:
+
+* HP-UX
+* AIX
+

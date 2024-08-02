@@ -1,0 +1,124 @@
+---
+permalink: command-map/reference_how_7_mode_configuration_files_map_to_clustered_ontap_commands.html 
+sidebar: sidebar 
+keywords: ontap, command, map, transition, configuration, files, clustered, data, ontap 
+summary: No Data ONTAP operando no modo 7, você normalmente usa arquivos planos para configurar o sistema de armazenamento. No Clustered Data ONTAP, você usa comandos de configuração. Você precisa saber como os arquivos de configuração do modo 7 mapeiam os comandos de configuração do Data ONTAP em cluster. 
+---
+= Como os arquivos de configuração do modo 7 são mapeados para os comandos do Data ONTAP em cluster
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+No Data ONTAP operando no modo 7, você normalmente usa arquivos planos para configurar o sistema de armazenamento. No Clustered Data ONTAP, você usa comandos de configuração. Você precisa saber como os arquivos de configuração do modo 7 mapeiam os comandos de configuração do Data ONTAP em cluster.
+
+|===
+| Ficheiro de configuração do 7-Mode | Comando de configuração Clustered Data ONTAP 
+
+
+ a| 
+`/etc/cifs_homedir.cfg`
+ a| 
+`vserver cifs home-directory search-path`
+
+
+
+ a| 
+`/etc/exports`
+ a| 
+`vserver export-policy`
+
+
+
+ a| 
+`/etc/hosts`
+ a| 
+`vserver services dns hosts`
+
+
+
+ a| 
+`/etc/hosts.equiv`
+ a| 
+Não aplicável.
+
+Os `security login` comandos criam perfis de acesso do usuário.
+
+
+
+ a| 
+`/etc/messages`
+ a| 
+`event log show`
+
+
+
+ a| 
+`/etc/motd`
+ a| 
+`security login motd modify`
+
+
+
+ a| 
+`/etc/nsswitch.conf`
+ a| 
+`vserver modify`
+
+
+
+ a| 
+`/etc/rc`
+ a| 
+No Clustered Data ONTAP, a retenção de informações de configuração de nós processadas na inicialização é transferida para outros arquivos internos que retêm as informações de configuração.
+
+No Data ONTAP operando no modo 7, os recursos configurados na memória também são mantidos no `/etc/rc` arquivo para serem reproduzidos na inicialização e reconfigurados.
+
+
+
+ a| 
+`/etc/quotas`
+ a| 
+`volume quota`
+
+
+
+ a| 
+`/etc/resolv.conf`
+ a| 
+`vserver services dns modify`
+
+
+
+ a| 
+`/etc/snapmirror.allow`
+ a| 
+As relações entre clusters existem entre dois clusters.
+
+As relações entre clusters de Intracluster existem entre dois nós no mesmo cluster. A autenticação do cluster remoto ocorre durante a criação da relação de peering de cluster.
+
+Os comandos do Intracluster `snapmirror create` só podem ser executados pelo administrador do cluster para garantir a segurança por máquina virtual de storage (SVM).
+
+
+
+ a| 
+`/etc/snapmirror.conf`
+ a| 
+`snapmirror create`
+
+
+
+ a| 
+`/etc/symlink.translations`
+ a| 
+`vserver cifs symlink`
+
+
+
+ a| 
+`/etc/usermap.cfg`
+ a| 
+`vserver name-mapping create`
+
+|===

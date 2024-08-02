@@ -1,0 +1,83 @@
+---
+permalink: copy-free/concept_requirements_for_copy_free_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, requirements 
+summary: Você deve estar ciente dos requisitos para sistemas de 7 modos, clusters, lançamentos de ONTAP e compartimentos de disco para transição sem cópia. 
+---
+= Requisitos para a transição livre de cópias
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você deve estar ciente dos requisitos para sistemas de 7 modos, clusters, lançamentos de ONTAP e compartimentos de disco para transição sem cópia.
+
+Certifique-se de consultar a atual ferramenta de transição de 7 modos _Notas de Lançamento_ para obter as informações mais recentes sobre as versões de destino suportadas e problemas conhecidos.
+
+link:https://docs.netapp.com/us-en/ontap-7mode-transition/releasenotes.html["7-Mode Transition Tool Release Notes"]
+
+* *Modelos de plataforma*
++
+A transição livre de cópias é suportada apenas em sistemas FAS avançados e de gama média e em sistemas da série N da IBM. O https://mysupport.netapp.com/matrix["Ferramenta de Matriz de interoperabilidade do NetApp"] tem as informações mais recentes sobre as plataformas suportadas para sistemas 7-Mode e os nós de cluster de destino.
+
+* *Data ONTAP em sistemas de origem de 7 modos*
++
+Para obter uma lista das versões de 7 modos suportadas para migração pela ferramenta de transição de 7 modos, consulte https://mysupport.netapp.com/matrix["Ferramenta de Matriz de interoperabilidade do NetApp"]
+
+* *Sistemas alvo ONTAP*
++
+A versão 3.3.1 da ferramenta de transição de 7 modos suporta a transição para as seguintes versões do ONTAP usando o método livre de cópia:
+
++
+** ONTAP 9 .4 e versões anteriores do ONTAP 9
+** Clustered Data ONTAP 8.3,2 e versões posteriores 8.x *Observação:* você não pode usar a ferramenta de transição de modo 7 para fazer a transição para o ONTAP 9.5 ou posterior usando o método livre de cópia. Para fazer isso, você deve primeiro fazer a transição para o ONTAP 9.4 usando a ferramenta de transição de modo 7D 3.3.1 e, em seguida, atualizar seu cluster para o ONTAP 9.5 ou posterior. A ferramenta de transição de 7 modos 3.3.2 não suporta transições sem cópia.
+
+
+* *Configuração HA*
++
+Os controladores 7-Mode e os nós de cluster de destino devem estar em uma configuração de HA. Os pares de HA devem estar íntegros e nenhum dos nós pode estar no modo de aquisição. Os controladores independentes não são suportados para transição livre de cópias.
+
+* *Modelos de prateleira de disco*
++
+Os seguintes modelos de compartimento de disco são compatíveis:
+
++
+** DS4486
+** DS4246
+** DS4243
++
+
+NOTE: O modelo de compartimento de disco DS4243 não é compatível com ONTAP 9.2 e ONTAP 9.4. Este modelo é compatível com todas as versões de patch do ONTAP 9.2 começando com ONTAP 9.2P1 e com ONTAP 9.3. A ferramenta de transição de 7 modos 3.3.1 suporta a transição com o modelo de compartimento de disco DS4243 para transição livre de cópias para ONTAP 9.2P1 até ONTAP 9.3.
+
+** DS2246
+** DS14mk4 FC (não suportado no ONTAP 9.0 e posterior)
+** DS14mk2 AT (não suportado no ONTAP 9.0 e posterior)
+
+
+
+
+
+NOTE: O modelo de compartimento de disco DS14mk2 FC não é suportado.
+
+* *Firmware do disco*
++
+Você deve baixar e instalar o pacote de qualificação de disco mais recente, o firmware de disco e o compartimento de disco e o firmware ACP nos sistemas 7-Mode e nos nós de cluster de destino.
+
++
+https://mysupport.netapp.com/NOW/download/tools/diskqual/["NetApp Downloads: Pacote de Qualificação de disco"]
+
++
+https://mysupport.netapp.com/site/downloads/firmware/disk-drive-firmware["Downloads do NetApp: Firmware da unidade de disco"]
+
++
+https://mysupport.netapp.com/site/downloads/firmware/disk-shelf-firmware["Downloads do NetApp: Firmware da gaveta de disco"]
+
+* *Ferramenta para verificar o cabeamento*
++
+Depois de conectar as gavetas de disco de 7 modos aos nós de cluster de destino durante a transição, você deve usar o Config Advisor para verificar o cabeamento.
+
++
+https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["NetApp Downloads: Config Advisor"]
+
+

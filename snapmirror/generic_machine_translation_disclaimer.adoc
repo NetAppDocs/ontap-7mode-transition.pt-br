@@ -1,0 +1,15 @@
+---
+permalink: snapmirror/generic_machine_translation_disclaimer.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, snapmirror, transition, machine, translation 
+summary: Veja informações importantes sobre o conteúdo localizado em NetApp.com. 
+---
+= Tradução de máquina
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+Veja informações importantes sobre o conteúdo localizado em NetApp.com.
+
+https://www.netapp.com/company/legal/machine-translation/[]

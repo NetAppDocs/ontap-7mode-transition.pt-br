@@ -1,0 +1,22 @@
+---
+permalink: copy-free/task_performing_copy_free_transition_of_7_mode_aggregates.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, aggregates, transition 
+summary: O fluxo de trabalho de transição livre de cópias envolve o Planejamento de um projeto, a aplicação de configurações de 7 modos aos SVMs, a exportação das informações do sistema de 7 modos e a parada do sistema de 7 modos, o cabeamento manual das gavetas de disco para nós de cluster e a importação de dados e configurações do modo 7. 
+---
+= Transição de agregados 7-Mode usando transição livre de cópia
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O fluxo de trabalho de transição livre de cópias envolve o Planejamento de um projeto, a aplicação de configurações de 7 modos aos SVMs, a exportação das informações do sistema de 7 modos e a parada do sistema de 7 modos, o cabeamento manual das gavetas de disco para nós de cluster e a importação de dados e configurações do modo 7.
+
+image::../media/perform_cft_phases_workflow.gif[execute o fluxo de trabalho das fases cft]
+
+Você precisa ter preparado o sistema 7-Mode e o cluster para transição livre de cópias.
+
+O tempo de transferência do storage pode ser de 4-8 horas ou menos. O tempo de redução inclui o tempo gasto pela ferramenta para executar duas operações automatizadas - as operações de exportação, parada e importação -, bem como o tempo gasto para fazer o cabeamento manual dos compartimentos de disco para as novas controladoras.
+
+As operações de exportação e importação levam cerca de 2 horas ou menos. O cabeamento pode levar 2-6 horas ou menos.

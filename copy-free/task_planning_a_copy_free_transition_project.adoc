@@ -1,0 +1,16 @@
+---
+permalink: copy-free/task_planning_a_copy_free_transition_project.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, plan, project 
+summary: 'Planejar um projeto de transição sem cópia envolve selecionar os controladores de 7 modos de origem e nós de cluster de destino, mapear volumes de 7 modos para uma máquina virtual de armazenamento (SVM), selecionar as LIFs a serem transferidas e executar pré-verificações.' 
+---
+= Planejando um projeto de transição livre de cópias
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Planejar um projeto de transição sem cópia envolve selecionar os controladores de 7 modos de origem e nós de cluster de destino, mapear volumes de 7 modos para uma máquina virtual de storage (SVM), selecionar os LIFs a serem transferidos e executar pré-verificações.
+
+Você pode criar vários projetos com os mesmos nós de par de HA de cluster de destino. Depois, é possível executar pré-verificações e aplicar as configurações do SVM em todos esses projetos. No entanto, apenas um projeto pode estar na janela de seção crítica em um determinado momento. Um projeto está na janela de seção crítica se o projeto estiver em qualquer uma das fases de exportação para commit, ou se uma operação de reversão tiver sido iniciada para o projeto. Você pode prosseguir com a operação de exportação e parada para outro projeto somente depois que a operação de confirmação ou reversão for concluída para o projeto na janela da seção crítica.

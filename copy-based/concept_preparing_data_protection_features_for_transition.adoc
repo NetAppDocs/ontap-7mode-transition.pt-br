@@ -1,0 +1,14 @@
+---
+permalink: copy-based/concept_preparing_data_protection_features_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, prepare, data, protection, features 
+summary: Você deve executar algumas etapas manuais para fazer a transição de relacionamentos SnapMirror de 7 modos. Você também precisa estar ciente das relações de proteção de dados com suporte e que não são compatíveis para a transição. 
+---
+= Preparação de recursos de proteção de dados para a transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você deve executar algumas etapas manuais para fazer a transição de relacionamentos SnapMirror de 7 modos. Você também precisa estar ciente das relações de proteção de dados com suporte e que não são compatíveis para a transição.

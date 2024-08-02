@@ -1,0 +1,111 @@
+---
+permalink: copy-based/task_editing_or_deleting_snapmirror_transfer_schedule.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, edit, delete, data, copy, snapmirror, transfer 
+summary: Você pode editar ou excluir programações de cópia de dados usadas para operações de cópia, atualização e ressincronização de linha de base do SnapMirror, se tiver outras programações de recuperação de desastres configuradas ou modificadas que exijam que a programação de cópia de dados de transição seja modificada. 
+---
+= Editar ou excluir um agendamento de cópia de dados para transferências SnapMirror
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode editar ou excluir programações de cópia de dados usadas para operações de cópia, atualização e ressincronização de linha de base do SnapMirror, se tiver outras programações de recuperação de desastres configuradas ou modificadas que exijam que a programação de cópia de dados de transição seja modificada.
+
+O projeto deve estar na fase de preparação, cópia de dados ou configuração de aplicação (precutover).
+
+* Depois que um horário é editado, leva até 5 minutos para que ele se torne efetivo.
+* Se o limite do acelerador for alterado no programa quando houver transferências ativas, o novo limite do acelerador não se aplica às transferências SnapMirror atualmente em execução.
++
+Depois que a transferência atual for concluída para uma relação SnapMirror específica, um novo limite de aceleração é considerado para as operações subsequentes para essa relação SnapMirror.
+
+* Se você quiser que o limite do acelerador seja efetivo imediatamente para as transferências de SnapMirror atuais, você deve pausar e retomar o projeto.
+
+
+.Passos
+. No Dashboard, selecione um projeto e clique em Configurar Agendamento.
++
+Todas as programações existentes para o projeto são exibidas.
+
++
+Você também pode editar ou excluir programações da opção Configurar agendamento.
+
+. Editar ou eliminar uma agenda:
++
+|===
+| Se você quiser... | Então... 
+
+
+ a| 
+Editar uma agenda existente
+ a| 
+.. Clique image:../media/edit_schedule.gif[""]em .
++
+A caixa de diálogo Modificar programação é exibida.
+
++
+
+NOTE: Você pode editar os parâmetros de agendamento e SnapMirror para as operações de cópia de dados.
+
+.. Faça as alterações necessárias e clique em *Salvar*.
+
+
+
+
+ a| 
+Eliminar uma agenda
+ a| 
+.. Clique image:../media/delete_schedule.gif[""]em .
++
+O agendamento é excluído do painel.
+
++
+
+NOTE: Pelo menos um horário é necessário para transferências de dados. Portanto, você não deve excluir todos os horários.
+
+
+
+|===
+
+
+
+
+== Exemplo
+
+O exemplo a seguir ilustra como o limite de aceleração é aplicado quando há transferências SnapMirror ativas no projeto.
+
+|===
+| Programação | Número de volumes e estado de cópia de dados | Número máximo de transferências simultâneas de SnapMirror | Limite do acelerador | Acelerador utilizado por cada transferência 
+
+
+ a| 
+Antes de modificar
+ a| 
+Cinco volumes a aguardar linha de base
+ a| 
+Cinco
+ a| 
+500 Mbps
+ a| 
+100 Mbps
+
+
+
+ a| 
+Depois de modificar
+ a| 
+* Para dois volumes, a linha de base está em andamento usando o acelerador de 100 Mbps
+* Para três volumes, a linha de base está concluída e está aguardando atualizações
+
+ a| 
+Cinco
+ a| 
+250 Mbps
+ a| 
+* Dois volumes que estão na linha de base continuam a usar o acelerador de 100 Mbps
+* Três volumes para os quais a linha de base é concluída usam o acelerador modificado de 50 Mbps para as atualizações
+
+
+|===
+Quando a cópia de linha de base para os dois volumes estiver concluída, o novo limite de aceleração de 50 Mbps é usado para esses relacionamentos de volume SnapMirror ao agendar as próximas operações de cópia de dados.

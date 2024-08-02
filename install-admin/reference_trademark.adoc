@@ -1,0 +1,15 @@
+---
+permalink: install-admin/reference_trademark.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, install, trademark 
+summary: Informações sobre marcas comerciais para o Guia de instalação e configuração da ferramenta de transição de 7 modos. 
+---
+= Marca comercial
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+NetApp, o logotipo DA NetApp e as marcas listadas na página de marcas comerciais da NetApp são marcas comerciais da NetApp, Inc. Outros nomes de produtos e empresas podem ser marcas comerciais de seus respetivos proprietários.
+
+https://www.netapp.com/company/legal/trademarks/[]

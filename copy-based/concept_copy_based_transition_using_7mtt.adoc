@@ -1,0 +1,51 @@
+---
+permalink: copy-based/concept_copy_based_transition_using_7mtt.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, 7, mode, tool 
+summary: A ferramenta de transição de 7 modos permite que você execute uma transição baseada em cópia coletando informações e avaliando controladores, hosts, switches e aplicativos do 7-Mode para transição. Em seguida, você pode migrar seus dados e configurações do modo 7 para o ONTAP. 
+---
+= Transição baseada em cópia usando a ferramenta de transição de 7 modos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A ferramenta de transição de 7 modos permite que você execute uma transição baseada em cópia coletando informações e avaliando controladores, hosts, switches e aplicativos do 7-Mode para transição. Em seguida, você pode migrar seus dados e configurações do modo 7 para o ONTAP.
+
+A ferramenta de transição de 7 modos é executada em um sistema Windows ou Linux. A ferramenta de transição de 7 modos fornece uma interface web e uma interface de linha de comando para gerenciar suas operações de transição.
+
+
+
+== Coleta e avaliação de sistemas, hosts, switches e aplicativos ONTAP
+
+Você pode executar as seguintes tarefas de coleta e avaliação usando a ferramenta de transição de 7 modos:
+
+* Colete informações de inventário de sistemas ONTAP (controladores e nós de 7 modos no cluster), hosts, switches e aplicativos de host.
+* Gere o plano FC Zone para configurar as zonas para agrupar os hosts e destinos do iniciador.
+* Avalie as funcionalidades e funcionalidades dos sistemas 7-Mode e identifique como estas funcionalidades e funcionalidades funcionam na versão ONTAP selecionada para transição.
+
+
+
+
+== Movimentação de dados e configurações do modo 7 para o ONTAP
+
+A transição baseada em cópias usa a tecnologia SnapMirror para copiar volumes e configurações de 7 modos do Data ONTAP 7G e do modo 7 para o ONTAP.
+
+Você pode executar as seguintes tarefas usando a ferramenta de transição de 7 modos para migração baseada em cópia:
+
+* Migre um grupo de volumes autônomos de 7 modos ou um grupo de volumes de 7 modos em relacionamentos de volume SnapMirror de sistemas que executam versões diferentes de 7 modos para qualquer versão do ONTAP 8,2.x e versões compatíveis posteriores.
+* Execute pré-verificações em volumes incluídos em um projeto de transição para verificar sua compatibilidade para transição e visualizar possíveis ações corretivas.
+* Aplique configurações de 7 modos ao ONTAP antes de desconetar o acesso do cliente, reduzindo o tempo de inatividade.
++
+A transição baseada em cópia é compatível com a transição de configurações nas e SAN.
+
++
+
+NOTE: A TRANSIÇÃO SAN é suportada apenas para o ONTAP 8,3 e versões posteriores suportadas.
+
+
+
+*Informações relacionadas*
+
+xref:concept_requirements_for_copy_based_transition.adoc[Requisitos para transição baseada em cópia]

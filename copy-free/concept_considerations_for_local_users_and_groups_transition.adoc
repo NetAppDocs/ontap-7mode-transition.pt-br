@@ -1,0 +1,50 @@
+---
+permalink: copy-free/concept_considerations_for_local_users_and_groups_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, cifs, local, users, group 
+summary: Você deve estar ciente das considerações para executar as operações de transição ao migrar usuários e grupos locais CIFS. 
+---
+= Considerações para a transição de usuários e grupos locais CIFS
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você deve estar ciente das considerações para executar as operações de transição ao migrar usuários e grupos locais CIFS.
+
+* A transição de volumes de fornecimento de dados CIFS de uma controladora de 7 modos ou de uma unidade do vFiler que tenha usuários e grupos locais para uma SVM que tenha usuários e grupos locais CIFS não BUILTIN não é compatível.
++
+O SVM precisa ter apenas usuários locais e grupos BUILTIN CIFS para transição.
+
+* Você deve garantir que o número de usuários e grupos locais no modo 7 não exceda o limite de usuários e grupos locais para o ONTAP.
++
+Você deve entrar em Contato com o suporte técnico se o número de usuários e grupos locais no modo 7 exceder o limite definido no ONTAP.
+
+* Uma conta de utilizador local com uma palavra-passe vazia ou contas de utilizador locais com palavras-passe que contenham mais de 14 carateres no sistema de 7 modos são transferidas para o software ONTAP com a palavra-passe `*cifsUser@1*`.
++
+Após a conclusão da transição, você pode acessar esses usuários a partir do sistema Windows usando a senha `*cifsUser@1*`. Em seguida, você deve alterar manualmente a senha para esses usuários locais CIFS no SVM usando o seguinte comando:
+
++
+`*cifs users-and-groups local-user set-password -vserver _svm_name_ -user-name _user_name_*`.
+
+* Se o endereço IP da ferramenta de transição de 7 modos não for alcançável a partir do software ONTAP de destino, a ferramenta de transição de 7 modos bloqueia a transição de utilizadores e grupos locais CIFS para o software ONTAP durante a fase de pré-verificação. Se este erro for apresentado durante a fase de pré-verificação, utilize o.
++
+`*network ping -node local -destination _ip_address_*`
+
++
+Comando para certificar-se de que o endereço IP da ferramenta de transição de 7 modos está acessível a partir do software ONTAP de destino. Você pode editar o `\etc\conf\transition-tool.conf` arquivo que é instalado com a ferramenta de transição de 7 modos para modificar qualquer opção de configuração usada pela ferramenta, como o endereço IP da ferramenta de transição de 7 modos.
+
+* O SVM para o qual os usuários e grupos locais são transferidos deve ter um LIF de dados.
+* Se um grupo local tiver vários identificadores de sistema de membros (SIDs) mapeados para um único usuário ou grupo de domínio no sistema de 7 modos, a ferramenta de transição de 7 modos bloqueia a transição de usuários locais e grupos para o ONTAP durante a fase de pré-verificação.
++
+Se você vir esse erro durante a fase de pré-verificação, você deve remover manualmente os SIDs adicionais que são mapeados para um único usuário ou grupo de domínio no sistema 7-Mode. Em seguida, você deve executar novamente a operação de pré-verificação com apenas um único SID mapeado para o usuário ou grupo do domínio.
+
++
+https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/Troubleshooting_Workflow%3A_CIFS%3A_Device_attached_to_the_system_is_not_functioning["Fluxo de trabalho de solução de problemas: CIFS: O dispositivo conetado ao sistema não está funcionando"]
+
+
+
+*Informações relacionadas*
+
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.cdot-famg-cifs/home.html["Gerenciamento de SMB/CIFS"]

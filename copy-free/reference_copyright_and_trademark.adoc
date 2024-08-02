@@ -1,0 +1,12 @@
+---
+permalink: copy-free/reference_copyright_and_trademark.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, copyright, trademark 
+summary: Direitos autorais e marca registrada para o Guia de transição livre de cópias. 
+---
+= Direitos autorais e marca registrada
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+

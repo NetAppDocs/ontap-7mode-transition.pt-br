@@ -1,0 +1,26 @@
+---
+permalink: copy-free/concept_collecting_and_assessing_inventory_information.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, collecting, assessing, inventory, information 
+summary: Você pode coletar informações de inventário de controladores, hosts e switches FC. Em seguida, você pode avaliar os recursos e funcionalidades desses sistemas e identificar como esses recursos e funcionalidades funcionam na versão do ONTAP selecionada para transição. 
+---
+= Recolha e avaliação das informações de inventário
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode coletar informações de inventário de controladores, hosts e switches FC. Em seguida, você pode avaliar os recursos e funcionalidades desses sistemas e identificar como esses recursos e funcionalidades funcionam na versão do ONTAP selecionada para transição.
+
+Você pode coletar informações de inventário de duas maneiras:
+
+* Se a segurança do seu ambiente o permitir, você pode instalar a ferramenta de transição de 7 modos e usá-la para coletar as informações de inventário.
+* Você pode importar o relatório XML de inventário gerado pela ferramenta de coleta de inventário e, em seguida, executar a avaliação.
+
+
+Em ambos os casos, você deve usar a versão mais recente da ferramenta de coleta de inventário para coletar o inventário.
+
+Para avaliar as informações de inventário para uma transição sem cópia, você deve selecionar ambos os nós do par de HA de 7 modos de origem. Embora a avaliação seja feita por nó, se um único nó não for qualificado para a transição, todo o par de HA não poderá ser transicionado.
+
+image::../media/delete_me_cbt_assessment_workflow.gif[eliminar fluxo de trabalho de avaliação cbt]

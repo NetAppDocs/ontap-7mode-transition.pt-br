@@ -1,0 +1,92 @@
+---
+permalink: copy-free/concept_log_files_for_7mtt.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, log, files, tool 
+summary: A ferramenta de transição de 7 modos cria arquivos de log que fornecem detalhes de processamento das operações de transição que ocorreram em seu sistema. Os arquivos de log estão localizados no diretório de logs do caminho em que a ferramenta de transição de 7 modos está instalada. 
+---
+= Arquivos de log para a ferramenta de transição de 7 modos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A ferramenta de transição de 7 modos cria arquivos de log que fornecem detalhes de processamento das operações de transição que ocorreram em seu sistema. Os arquivos de log estão localizados no diretório de logs do caminho em que a ferramenta de transição de 7 modos está instalada.
+
+Você também pode usar as mensagens EMS relacionadas aos logs do SnapMirror do sistema de 7 modos e do cluster para solucionar problemas.
+
+A tabela a seguir lista os arquivos de log relacionados a um projeto de transição específico:
+
+|===
+| Caminho do arquivo de log | Contém informações sobre... 
+
+
+ a| 
+`_project_name_/transition.log`
+ a| 
+Depure mensagens específicas a um projeto
+
+
+
+ a| 
+`_project_name_/zapi-outbound.log`
+ a| 
+Saída de todas as APIs Data ONTAP executadas pela ferramenta de transição de 7 modos para um projeto específico
+
+|===
+A tabela a seguir lista os arquivos de log que não estão relacionados a nenhum projeto específico:
+
+|===
+| Caminho do arquivo de log | Contém informações sobre... 
+
+
+ a| 
+`transition-gui.log`
+ a| 
+Entradas de todas as ações realizadas usando a interface web
+
+
+
+ a| 
+`default/audit.log`
+ a| 
+* Todos os parâmetros, como porta HTTP ou HTTPS e caminho do diretório de log, que são usados pela ferramenta sempre que a ferramenta de transição de 7 modos é executada
+* Todos os comandos de transição que são executados com as saídas
+
+
+
+
+ a| 
+`default/default/transition.log`
+ a| 
+Depure mensagens que não são específicas para qualquer projeto
+
+
+
+ a| 
+`default/STREAM_MANAGEMENT/stream_management.log`
+ a| 
+Depure mensagens que são registradas pelo agendador enquanto gerencia as programações e que não pertencem a nenhum projeto
+
+
+
+ a| 
+`default/default/zapi-outbound.log`
+ a| 
+Saída de todas as APIs Data ONTAP executadas pela ferramenta de transição de 7 modos e que não pertencem a nenhum projeto
+
+
+
+ a| 
+`default/STREAM_MANAGEMENT/zapi-outbound.log`
+ a| 
+Saída de todas as APIs do Data ONTAP executadas pelo agendador da ferramenta de transição de 7 modos enquanto gerencia as programações e que não pertencem a nenhum projeto
+
+
+
+ a| 
+`server-console.log`
+ a| 
+Entradas de log de todas as trocas de pacotes feitas com o servidor 7-Mode Transition Tool. Este arquivo ajuda na solução de problemas relacionados a uma falha do servidor.
+
+|===

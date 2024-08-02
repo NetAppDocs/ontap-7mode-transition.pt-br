@@ -1,0 +1,121 @@
+---
+permalink: san-host/task_mounting_solaris_host_luns_with_sun_volume_manager_after_transition.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, mount, solaris, host, lun, volume, manager 
+summary: Depois de fazer a transição dos LUNs de host do Solaris com o Gerenciador de volumes do ONTAP operando no modo 7 para o ONTAP em cluster, você deve montar os LUNs. 
+---
+= Montagem de LUNs de host Solaris com o Solaris volume Manager após a transição
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Depois de fazer a transição dos LUNs de host do Solaris com o Gerenciador de volumes do ONTAP operando no modo 7 para o ONTAP em cluster, você deve montar os LUNs.
+
+Para transições baseadas em cópia, execute estas etapas após concluir a operação de transferência de armazenamento na ferramenta de transição de 7 modos (7MTT).
+
+Para transições sem cópia, execute estas etapas após a conclusão da operação Importar dados e Configuração no 7MTT.
+
+.Passos
+. Descubra os novos LUNs do ONTAP em cluster fazendo a varredura novamente do host.
++
+.. Identificar as portas de host FC (tipo fc-Fabric)
+`*#cfgadm _–l_*`
+.. Desconfigurar a primeira porta da estrutura fc
+`*#cfgadm –c unconfigure _c1_*`
+.. Desconfigurar a segunda porta da estrutura fc
+`*#cfgadm –c unconfigure _c2_*`
+.. Repita as etapas para outras portas da malha fc.
+.. Verifique as portas do host e seus dispositivos conetados
+`*# cfgadm _–al_*`
+.. Carregar o driver
+`*# devfsadm –Cv*`
++
+`*# devfsadm –i iscsi*`
+
+
+
+. Verifique se os LUNs do ONTAP em cluster foram descobertos:
++
+`*sanlun lun show*`
+
++
+**  `lun-pathname`Os valores para os LUNs ONTAP em cluster devem ser os mesmos que `lun-pathname` os valores para os LUNs de 7 modos antes da transição.
+** A `mode` coluna deve indicar "C" em vez de "7".
+
+
++
+[listing]
+----
+# sanlun lun show
+controller(7mode)/                    device                                            host                  lun
+vserver(Cmode)       lun-pathname     filename                                          adapter    protocol   size    mode
+--------------------------------------------------------------------------------------------------------------------------
+vs_sru17_5           /vol/zfs/zfs2    /dev/rdsk/c5t600A0980383030444D2B466542485935d0s2 scsi_vhci0 FCP        6g      C
+vs_sru17_5           /vol/zfs/zfs1    /dev/rdsk/c5t600A0980383030444D2B466542485934d0s2 scsi_vhci0 FCP        6g      C
+vs_sru17_5           /vol/ufs/ufs2    /dev/rdsk/c5t600A0980383030444D2B466542485937d0s2 scsi_vhci0 FCP        5g      C
+vs_sru17_5           /vol/ufs/ufs1    /dev/rdsk/c5t600A0980383030444D2B466542485936d0s2 scsi_vhci0 FCP        5g      C
+----
+. Importe conjuntos de discos para configurações existentes do Solaris volume Manager, usando o mesmo nome do conjunto de discos:
++
+`*metaimport -s _set-name_*`
+
++
+[listing]
+----
+# metaimport -s svm
+Drives in regular diskset including disk c0t60A98000383035356C2447384D39654Ad0:
+  c0t60A98000383035356C2447384D39654Ad0
+  c0t60A98000383035356C2447384D396548d0
+More info:
+  metaimport -r -v c0t60A98000383035356C2447384D39654Ad0
+
+# metastat -s svm
+svm/d2: Concat/Stripe
+    Size: 10452992 blocks (5.0 GB)
+    Stripe 0:
+        Device                                             Start Block  Dbase   Reloc
+        /dev/dsk/c0t60A98000383035356C2447384D396548d0s0          0     No      Yes
+
+svm/d1: Concat/Stripe
+    Size: 10452992 blocks (5.0 GB)
+    Stripe 0:
+        Device                                             Start Block  Dbase   Reloc
+        /dev/dsk/c0t60A98000383035356C2447384D39654Ad0s0          0     No      Yes
+
+Device Relocation Information:
+Device                                           Reloc  Device ID
+/dev/dsk/c0t60A98000383035356C2447384D396548d0   Yes    id1,sd@n60a98000383035356c2447384d396548
+/dev/dsk/c0t60A98000383035356C2447384D39654Ad0   Yes    id1,sd@n60a98000383035356c2447384d39654a
+----
+. Executar verificação do sistema de ficheiros:
++
+`*fsck -F ufs /dev/md/svm/rdsk/d1*`
+
++
+[listing]
+----
+# fsck -F ufs /dev/md/svm/rdsk/d1
+** /dev/md/svm/rdsk/d1
+** Last Mounted on /d1
+** Phase 1 - Check Blocks and Sizes
+** Phase 2 - Check Pathnames
+** Phase 3a - Check Connectivity
+** Phase 3b - Verify Shadows/ACLs
+** Phase 4 - Check Reference Counts
+** Phase 5 - Check Cylinder Groups
+3 files, 1573649 used, 3568109 free (13 frags, 446012 blocks, 0.0% fragmentation)
+----
+. Monte manualmente cada um dos dispositivos usando o `mount` comando.
++
+[listing]
+----
+# /sbin/mount -F ufs -o largefiles /dev/md/svm/dsk/d1  /d1
+  # /sbin/mount -F ufs -o largefiles /dev/md/svm/dsk/d2  /d2
+----
+. Verifique o ponto de montagem:
++
+`*df -ah*`
+
+

@@ -1,0 +1,42 @@
+---
+permalink: copy-based/task_running_prechecks.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, run, prechecks 
+summary: Você pode executar pré-verificações para identificar quaisquer problemas antes de iniciar uma transição. As verificações prévias verificam se as fontes do modo 7, destinos do ONTAP e configurações são válidas para sua transição. Você pode executar pré-verificações em qualquer número de vezes. 
+---
+= Execução de pré-verificações
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode executar pré-verificações para identificar quaisquer problemas antes de iniciar uma transição. As verificações prévias verificam se as fontes do modo 7, destinos do ONTAP e configurações são válidas para sua transição. Você pode executar pré-verificações em qualquer número de vezes.
+
+As pré-verificações executam mais de 200 verificações diferentes. Por exemplo, a ferramenta verifica se há itens como se os volumes estão online e existe acesso à rede entre os sistemas.
+
+.Passos
+. No Dashboard, selecione o projeto para o qual você deseja executar as verificações prévias.
+. Clique em *Executar pré-verificações*.
++
+Após a conclusão das pré-verificações, o resumo dos resultados é apresentado na caixa de diálogo.
+
++
+
+NOTE: As pré-verificações geralmente levam apenas alguns minutos para serem executadas, mas a duração da fase de pré-verificação depende do número e tipo de erros ou avisos que você resolve.
+
+. Escolha uma opção em *Apply Type Filter* para filtrar os resultados:
++
+** Para visualizar todas as mensagens relacionadas com segurança, selecione *erro*, *Aviso*, *Informativo* e *somente Segurança*.
+** Para ver todas as mensagens de erro relacionadas com a segurança, selecione *Error* e *Security Only*.
+** Para ver todas as mensagens de aviso relacionadas com segurança, selecione **Aviso **e *apenas Segurança*.
+** Para visualizar todas as mensagens informativas relacionadas com a segurança, selecione *Informational* e *Security Only*.
+
+
+. Para salvar os resultados brutos no formato CSV (valores separados por vírgula) e exportar os resultados, clique em *Salvar como CSV*.
++
+Você pode exibir as operações de transição que foram executadas durante a transição, juntamente com o tipo de operação, status, hora de início, hora de término e resultados na guia Histórico de operações no painel Painel.
+
+
+
+Você deve resolver todos os erros detetados pelas pré-verificações antes de iniciar a cópia de dados. É também uma prática recomendada resolver todos os avisos antes de prosseguir com o processo de migração. A resolução pode ser resolver o problema de origem da mensagem de aviso, implementar uma solução alternativa ou aceitar o resultado do problema.
