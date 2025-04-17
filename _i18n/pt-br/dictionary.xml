@@ -7093,7 +7093,6 @@
   <block id="e7a805c113133a8394fe889bdcad474d" category="doc">Planejamento para a transição</block>
   <block id="1e7ed7812dd9d6994ec76aa529f47805" category="paragraph">Você deve revisar as _Notas de Lançamento_ para a versão de destino de transição, caso haja algum problema de transição.</block>
   <block id="efe451bd1c5b374a05e7d5178bb06987" category="inline-link">Notas de versão do ONTAP 9</block>
-  <block id="fbd4c65e1bebfbdd4ec4b22c6847a27b" category="paragraph"><block ref="fbd4c65e1bebfbdd4ec4b22c6847a27b" category="inline-link-rx"></block></block>
   <block id="0b5e54d11ce5ce71265d41b79d4a1d52" category="paragraph">As relações do SnapMirror entre os volumes do modo 7 e do ONTAP em cluster são compatíveis nas seguintes versões:</block>
   <block id="9785a2e2fe0d151f69937c16fbe4f5a0" category="list-text">ONTAP 9 F.8 e versões posteriores</block>
   <block id="f3d068c8ceb84eb88b6803b029564d6b" category="list-text">ONTAP 9.7P2 e versões posteriores 9,7</block>
@@ -7391,4 +7390,5 @@
   <block id="c73bbd3786350b0a8d3577d82afdf489" category="sidebar">Red Hat Enterprise Linux</block>
   <block id="9653cf98bd0bafa030e219a7067934ce" category="sidebar">Transição de 7 modos</block>
   <block id="84a6933c212881ac1351cccc03b06c5a" category="sidebar">Mapa de comandos para administradores de 7 modos</block>
+  <block id="63e43529b7f7b24b1839eea99296dba7" category="paragraph"><block ref="63e43529b7f7b24b1839eea99296dba7" category="inline-link-rx"></block></block>
 </blocks>

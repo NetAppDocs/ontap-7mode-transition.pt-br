@@ -15,7 +15,7 @@ Antes de copiar dados de volumes do modo 7 para volumes do ONTAP em cluster, voc
 
 Você deve revisar as _Notas de Lançamento_ para a versão de destino de transição, caso haja algum problema de transição.
 
-https://library.netapp.com/ecmdocs/ECMLP2492508/html/frameset.html["Notas de versão do ONTAP 9"]
+https://library.netapp.com/ecm/ecm_get_file/ECMLP2492508["Notas de versão do ONTAP 9"]
 
 As relações do SnapMirror entre os volumes do modo 7 e do ONTAP em cluster são compatíveis nas seguintes versões:
 
